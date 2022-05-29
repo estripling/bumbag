@@ -14,6 +14,11 @@
 
 A package for Python utility functions.
 
+## Dictionary definition
+
+bumbag `/ˈbʌmbæg/` (*noun countable*) -
+a small bag attached to a long strap that you fasten around your waist to keep money, keys, and other small things in.
+
 ## Installation
 
 ```bash
