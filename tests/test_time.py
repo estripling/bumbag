@@ -35,3 +35,23 @@ from bumbag import time
 def test_get_last_date_of_month(arg, expected):
     actual = time.get_last_date_of_month(arg.year, arg.month)
     assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (2008, True),
+        (2012, True),
+        (2016, True),
+        (2020, True),
+        (2022, False),
+        (2024, True),
+        (2000, True),
+        (2001, False),
+        (1900, False),
+        (2100, False),
+    ],
+)
+def test_is_leap_year(arg, expected):
+    actual = time.is_leap_year(arg)
+    assert actual == expected
