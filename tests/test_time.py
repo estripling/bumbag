@@ -1,0 +1,37 @@
+from datetime import date
+
+import pytest
+
+from bumbag import time
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (date(2022, 1, 1), date(2022, 1, 31)),
+        (date(2022, 2, 1), date(2022, 2, 28)),
+        (date(2022, 3, 1), date(2022, 3, 31)),
+        (date(2022, 4, 1), date(2022, 4, 30)),
+        (date(2022, 5, 1), date(2022, 5, 31)),
+        (date(2022, 6, 1), date(2022, 6, 30)),
+        (date(2022, 7, 1), date(2022, 7, 31)),
+        (date(2022, 8, 1), date(2022, 8, 31)),
+        (date(2022, 9, 1), date(2022, 9, 30)),
+        (date(2022, 10, 1), date(2022, 10, 31)),
+        (date(2022, 11, 1), date(2022, 11, 30)),
+        (date(2022, 12, 1), date(2022, 12, 31)),
+        (date(1970, 1, 1), date(1970, 1, 31)),
+        (date(1970, 1, 15), date(1970, 1, 31)),
+        (date(1970, 1, 31), date(1970, 1, 31)),
+        (date(2020, 2, 2), date(2020, 2, 29)),
+        (date(2022, 2, 3), date(2022, 2, 28)),
+        (date(2000, 2, 4), date(2000, 2, 29)),
+        (date(1900, 2, 5), date(1900, 2, 28)),
+        (date(2012, 2, 27), date(2012, 2, 29)),
+        (date(2012, 2, 28), date(2012, 2, 29)),
+        (date(2012, 2, 29), date(2012, 2, 29)),
+    ],
+)
+def test_get_last_date_of_month(arg, expected):
+    actual = time.get_last_date_of_month(arg.year, arg.month)
+    assert actual == expected
