@@ -4,7 +4,7 @@ from bumbag import core
 
 
 @pytest.mark.parametrize(
-    "text, expected",
+    "arg, expected",
     [
         ("no punctuation", "no punctuation"),
         (" text with whitespaces ", " text with whitespaces "),
@@ -40,6 +40,6 @@ from bumbag import core
         ("[square brackets]", "square brackets"),
     ],
 )
-def test_remove_punctuation(text: str, expected: str):
-    output = core.remove_punctuation(text)
-    assert output == expected
+def test_remove_punctuation(arg, expected):
+    actual = core.remove_punctuation(arg)
+    assert actual == expected
