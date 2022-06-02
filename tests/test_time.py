@@ -1,3 +1,4 @@
+import types
 from datetime import date
 
 import pytest
@@ -55,3 +56,37 @@ def test_get_last_date_of_month(arg, expected):
 def test_is_leap_year(arg, expected):
     actual = time.is_leap_year(arg)
     assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "args, expected",
+    [
+        (
+            (date(2022, 1, 1), date(2022, 1, 5)),
+            (
+                date(2022, 1, 1),
+                date(2022, 1, 2),
+                date(2022, 1, 3),
+                date(2022, 1, 4),
+                date(2022, 1, 5),
+            ),
+        ),
+    ],
+)
+def test_daterange(args, expected):
+    start, end = args
+
+    output = time.daterange(start, end)
+    assert isinstance(output, types.GeneratorType)
+
+    actual = tuple(output)
+    assert actual == expected, "include start and end failed"
+
+    actual = tuple(time.daterange(start, end, exclude_start=True))
+    assert actual == expected[1:], "exclude start failed"
+
+    actual = tuple(time.daterange(start, end, exclude_end=True))
+    assert actual == expected[:-1], "exclude end failed"
+
+    actual = tuple(time.daterange(start, end, True, True))
+    assert actual == expected[1:-1], "exclude start and end failed"
