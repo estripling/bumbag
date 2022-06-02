@@ -1,5 +1,5 @@
 import calendar
-from datetime import date
+from datetime import date, timedelta
 
 
 def get_last_date_of_month(year, month):
@@ -47,3 +47,34 @@ def is_leap_year(year):
     False
     """
     return calendar.isleap(year)
+
+
+def daterange(start, end, exclude_start=False, exclude_end=False):
+    """Get sequence of dates.
+
+    Parameters
+    ----------
+    start : datetime.date
+        Start of the date sequence.
+    end : datetime.date
+        End of the date sequence.
+    exclude_start : bool, default=False
+        Specifies if the start date of the sequence should be excluded.
+    exclude_end : bool, default=False
+        Specifies if the end date of the sequence should be excluded.
+
+    Yields
+    ------
+    datetime.date
+        An anonymous date object of the sequence.
+
+    Examples
+    --------
+    >>> list(daterange(date(2022, 1, 1), date(2022, 1, 3)))
+    [date(2022, 1, 1), date(2022, 1, 2), date(2022, 1, 3)]
+    """
+    n_days = (end - start).days + 1
+    for i in range(n_days):
+        if (i == 0 and exclude_start) or ((i + 1) == n_days and exclude_end):
+            continue
+        yield start + timedelta(i)
