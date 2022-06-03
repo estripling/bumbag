@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2022-06-03)
+### Feature
+* **time.py:** Add daterange ([`b414f73`](https://github.com/estripling/bumbag/commit/b414f73e198bad9207ab87b5afb4eda74525d081))
+* **time.py:** Add is_leap_year ([`9d4ea61`](https://github.com/estripling/bumbag/commit/9d4ea6169e4d68f31ded38136650b1ab4774db12))
+* **time.py:** Add get_last_date_of_month ([`40c7088`](https://github.com/estripling/bumbag/commit/40c7088338144fc4618dab08759d227e1d368af8))
+
 ## v0.1.0 (2022-05-29)
 ### Feature
 * **core.py:** Add remove_punctuation ([`ac0a615`](https://github.com/estripling/bumbag/commit/ac0a615c8cde2ed682baf3b98cad96c88424b919))
