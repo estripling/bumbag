@@ -150,3 +150,54 @@ def fibonacci():
         # update
         nth = n1 + n2
         n1, n2 = n2, nth
+
+
+def collatz(number):
+    """Generate the Collatz sequence for a positive integer.
+
+    The famous 3n + 1 conjecture. Given a positive integer as starting term,
+    the next term in the Collatz sequence is half of the previous term
+    if the previous term is even; otherwise, the next term is 3 times the
+    previous term plus 1 if the previous term is odd. The conjecture is that
+    the Collatz sequence always reaches 1 for any positive integer as
+    starting term.
+
+    Parameters
+    ----------
+    number : int
+        A positive integer seeding the Collatz sequence.
+
+    Yields
+    ------
+    int
+        A generator of Collatz numbers that breaks when 1 is reached.
+
+    Raises
+    ------
+    ValueError
+        If ``number`` is not a positive integer.
+
+    References
+    ----------
+    .. [1] "Collatz conjecture", Wikipedia,
+           https://en.wikipedia.org/wiki/Collatz_conjecture
+
+    Examples
+    --------
+    >>> list(collatz(12))
+    [12, 6, 3, 10, 5, 16, 8, 4, 2, 1]
+    >>> from toolz import count
+    >>> count(collatz(12))
+    10
+    """
+    if not isinstance(number, int) or number < 1:
+        raise ValueError(f"{number} - must be a positive integer")
+
+    while True:
+        yield number
+
+        if number == 1:
+            break
+
+        # update
+        number = number // 2 if iseven(number) else 3 * number + 1

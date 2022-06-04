@@ -45,3 +45,26 @@ def test_fibonacci():
     output = tuple(toolz.take(16, math.fibonacci()))
     expect = (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987)
     assert output == expect
+
+
+@pytest.mark.parametrize(
+    "number, expected",
+    [
+        (-2, None),
+        (-1, None),
+        (0, None),
+        (1, (1,)),
+        (2, (2, 1)),
+        (4, (4, 2, 1)),
+        (7, (7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1)),
+        (11, (11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1)),
+        (12, (12, 6, 3, 10, 5, 16, 8, 4, 2, 1)),
+    ],
+)
+def test_collatz(number, expected):
+    if number < 1:
+        with pytest.raises(ValueError):
+            tuple(math.collatz(number))
+    else:
+        actual = tuple(math.collatz(number))
+        assert actual == expected
