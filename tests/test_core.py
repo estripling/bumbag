@@ -1,3 +1,5 @@
+import operator
+
 import pytest
 
 from bumbag import core
@@ -42,4 +44,11 @@ from bumbag import core
 )
 def test_remove_punctuation(arg, expected):
     actual = core.remove_punctuation(arg)
+    assert actual == expected
+
+
+@pytest.mark.parametrize("arg, expected", [(0, 1), (1, 2), (10, 11), (21, 22)])
+def test_op(arg, expected):
+    add1 = core.op(operator.add, 1)
+    actual = add1(arg)
     assert actual == expected
