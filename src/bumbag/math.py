@@ -52,6 +52,30 @@ def iseq_even(start=0):
     return toolz.filter(iseven, iseq(start))
 
 
+def iseq_odd(start=0):
+    """Generate a sequence of consecutive odd integers.
+
+    Parameters
+    ----------
+    start : int, default=0
+        Start of the sequence.
+
+    Yields
+    ------
+    int
+        A generator of consecutive odd integers.
+
+    Examples
+    --------
+    >>> from toolz import take
+    >>> list(take(11, iseq_odd(-1)))
+    [-1, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+    >>> list(take(5, iseq_odd()))
+    [1, 3, 5, 7, 9]
+    """
+    return toolz.filter(isodd, iseq(start))
+
+
 def iseven(number):
     """Check if number is even.
 
