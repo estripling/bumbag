@@ -28,6 +28,30 @@ def iseq(start=0):
     return toolz.iterate(add1, start)
 
 
+def iseq_even(start=0):
+    """Generate a sequence of consecutive even integers.
+
+    Parameters
+    ----------
+    start : int, default=0
+        Start of the sequence.
+
+    Yields
+    ------
+    int
+        A generator of consecutive even integers.
+
+    Examples
+    --------
+    >>> from toolz import take
+    >>> list(take(11, iseq_even(-1)))
+    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+    >>> list(take(5, iseq_even()))
+    [0, 2, 4, 6, 8]
+    """
+    return toolz.filter(iseven, iseq(start))
+
+
 def iseven(number):
     """Check if number is even.
 

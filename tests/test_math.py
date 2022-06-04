@@ -27,3 +27,9 @@ def test_isodd(number):
     is_even_number = number % 2 == 0
     expected = not is_even_number
     assert actual == expected
+
+
+def test_iseq_even():
+    output = tuple(toolz.take(10, math.iseq_even(1)))
+    expect = (2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+    assert output == expect
