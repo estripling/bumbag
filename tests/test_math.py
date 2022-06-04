@@ -4,27 +4,27 @@ import toolz
 from bumbag import math
 
 
-@pytest.mark.parametrize("n", [1, 2, 3, 10, 100])
-@pytest.mark.parametrize("start", [-2, -1, 0, 1, 2])
-def test_iseq(start, n):
-    actual = tuple(toolz.take(n, math.iseq(start)))
-    k = start + n
-    r = range(start, k + 1) if start or start == n else range(start, k)
-    expected = tuple(r)[:n]
+@pytest.mark.parametrize("len_seq", [1, 2, 3, 10, 100])
+@pytest.mark.parametrize("arg", [-2, -1, 0, 1, 2])
+def test_iseq(arg, len_seq):
+    actual = tuple(toolz.take(len_seq, math.iseq(arg)))
+    k = arg + len_seq
+    r = range(arg, k + 1) if arg or arg == len_seq else range(arg, k)
+    expected = tuple(r)[:len_seq]
     assert actual == expected
 
 
-@pytest.mark.parametrize("number", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-def test_iseven(number):
-    actual = math.iseven(number)
-    expected = number % 2 == 0
+@pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+def test_iseven(arg):
+    actual = math.iseven(arg)
+    expected = arg % 2 == 0
     assert actual == expected
 
 
-@pytest.mark.parametrize("number", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-def test_isodd(number):
-    actual = math.isodd(number)
-    is_even_number = number % 2 == 0
+@pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+def test_isodd(arg):
+    actual = math.isodd(arg)
+    is_even_number = arg % 2 == 0
     expected = not is_even_number
     assert actual == expected
 
@@ -48,7 +48,7 @@ def test_fibonacci():
 
 
 @pytest.mark.parametrize(
-    "number, expected",
+    "arg, expected",
     [
         (-2, None),
         (-1, None),
@@ -61,10 +61,10 @@ def test_fibonacci():
         (12, (12, 6, 3, 10, 5, 16, 8, 4, 2, 1)),
     ],
 )
-def test_collatz(number, expected):
-    if number < 1:
+def test_collatz(arg, expected):
+    if arg < 1:
         with pytest.raises(ValueError):
-            tuple(math.collatz(number))
+            tuple(math.collatz(arg))
     else:
-        actual = tuple(math.collatz(number))
+        actual = tuple(math.collatz(arg))
         assert actual == expected
