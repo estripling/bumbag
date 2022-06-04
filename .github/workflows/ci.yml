@@ -39,6 +39,9 @@ jobs:
     - name: Run Flake8
       run: poetry run flake8 --doctests --max-line-length 79 src/ tests/
 
+    - name: Run pytest doctest
+      run: poetry run pytest --doctest-modules
+
     - name: Run pytest
       run: poetry run pytest tests/ --cov=bumbag --cov-report=xml
 
