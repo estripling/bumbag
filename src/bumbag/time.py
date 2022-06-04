@@ -1,4 +1,5 @@
 import calendar
+import math
 from datetime import date, timedelta
 
 
@@ -79,3 +80,71 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
         if (i == 0 and exclude_start) or ((i + 1) == n_days and exclude_end):
             continue
         yield start + timedelta(i)
+
+
+def humantime(seconds):
+    """Convert seconds to human-readable time.
+
+    Parameters
+    ----------
+    seconds : int, float
+        Seconds to convert.
+
+    Returns
+    -------
+    str
+        Human-readable time.
+
+    Raises
+    ------
+    ValueError
+        If ``seconds`` is not a positive integer.
+
+    Examples
+    --------
+    >>> humantime(1)
+    '1 second'
+    >>> humantime(2)
+    '2 seconds'
+    >>> humantime(60)
+    '1 minute'
+    >>> humantime(120)
+    '2 minutes'
+    >>> humantime(60 * 60 * 24 + 123456)
+    '2 days, 10 hours, 17 minutes'
+    """
+    if seconds < 0:
+        raise ValueError(f"seconds={seconds} - must be a non-negative number")
+
+    if math.isclose(seconds, 0):
+        return "0 seconds"
+
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+
+    def multiplier(time_with_unit: str) -> str:
+        time_without_unit = float(time_with_unit.split(" ")[0])
+        return (
+            time_with_unit
+            if math.isclose(time_without_unit, 1)
+            else f"{time_with_unit}s"
+        )
+
+    result = []
+    if days:
+        result.append(multiplier(f"{int(days)} day"))
+
+    if hours:
+        result.append(multiplier(f"{int(hours)} hour"))
+
+    if minutes:
+        result.append(multiplier(f"{int(minutes)} minute"))
+
+    if seconds and minutes < 2:
+        if math.isclose(seconds, int(seconds)):
+            result.append(multiplier(f"{int(seconds)} second"))
+        else:
+            result.append(f"{seconds:0.6f} seconds")
+
+    return ", ".join(result)

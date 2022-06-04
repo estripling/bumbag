@@ -90,3 +90,30 @@ def test_daterange(args, expected):
 
     actual = tuple(time.daterange(start, end, True, True))
     assert actual == expected[1:-1], "exclude start and end failed"
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (-2.0, None),
+        (-1, None),
+        (0, "0 seconds"),
+        (1, "1 second"),
+        (59, "59 seconds"),
+        (60, "1 minute"),
+        (61, "1 minute, 1 second"),
+        (120, "2 minutes"),
+        (60 * 60, "1 hour"),
+        (60 * 60 * 24, "1 day"),
+        (110.0, "1 minute, 50 seconds"),
+        (1.4142135623730951, "1.414214 seconds"),
+        (60 * 60 * 24 + 123456, "2 days, 10 hours, 17 minutes"),
+    ],
+)
+def test_humantime(arg, expected):
+    if arg < 0:
+        with pytest.raises(ValueError):
+            time.humantime(arg)
+    else:
+        actual = time.humantime(arg)
+        assert actual == expected
