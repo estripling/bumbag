@@ -19,3 +19,11 @@ def test_iseven(number):
     actual = math.iseven(number)
     expected = number % 2 == 0
     assert actual == expected
+
+
+@pytest.mark.parametrize("number", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+def test_isodd(number):
+    actual = math.isodd(number)
+    is_even_number = number % 2 == 0
+    expected = not is_even_number
+    assert actual == expected

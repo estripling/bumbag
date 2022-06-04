@@ -49,3 +49,26 @@ def iseven(number):
     False
     """
     return number % 2 == 0
+
+
+def isodd(number):
+    """Check if number is odd.
+
+    Parameters
+    ----------
+    number : int
+        Number to check.
+
+    Returns
+    -------
+    bool
+        Is number odd.
+
+    Examples
+    --------
+    >>> isodd(2)
+    False
+    >>> isodd(3)
+    True
+    """
+    return toolz.complement(iseven)(number)
