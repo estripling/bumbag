@@ -26,3 +26,26 @@ def iseq(start=0):
     """
     add1 = core.op(operator.add, 1)
     return toolz.iterate(add1, start)
+
+
+def iseven(number):
+    """Check if number is even.
+
+    Parameters
+    ----------
+    number : int
+        Number to check.
+
+    Returns
+    -------
+    bool
+        Is number even.
+
+    Examples
+    --------
+    >>> iseven(2)
+    True
+    >>> iseven(3)
+    False
+    """
+    return number % 2 == 0
