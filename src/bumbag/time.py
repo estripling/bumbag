@@ -66,7 +66,7 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
     Yields
     ------
     datetime.date
-        An anonymous date object of the sequence.
+        A generator of consecutive dates from ``start`` to ``end``.
 
     Examples
     --------
