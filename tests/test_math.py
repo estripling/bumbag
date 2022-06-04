@@ -39,3 +39,9 @@ def test_iseq_odd():
     output = tuple(toolz.take(10, math.iseq_odd(1)))
     expect = (1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
     assert output == expect
+
+
+def test_fibonacci():
+    output = tuple(toolz.take(16, math.fibonacci()))
+    expect = (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987)
+    assert output == expect

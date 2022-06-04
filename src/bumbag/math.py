@@ -122,3 +122,31 @@ def isodd(number):
     True
     """
     return toolz.complement(iseven)(number)
+
+
+def fibonacci():
+    """Generate the Fibonacci sequence.
+
+    Yields
+    ------
+    int
+        A generator of consecutive Fibonacci numbers.
+
+    References
+    ----------
+    .. [1] "Fibonacci number", Wikipedia,
+           https://en.wikipedia.org/wiki/Fibonacci_number
+
+    Examples
+    --------
+    >>> from toolz import take
+    >>> list(take(10, fibonacci()))
+    [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    """
+    n1, n2 = 0, 1
+    nth = n1 + n2
+    while True:
+        yield nth
+        # update
+        nth = n1 + n2
+        n1, n2 = n2, nth
