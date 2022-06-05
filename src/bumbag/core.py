@@ -1,5 +1,7 @@
+import functools
 import inspect
 import math
+import re
 from string import punctuation
 
 from toolz import curry
@@ -150,3 +152,44 @@ def get_function_name():
     'my_test_function'
     """
     return inspect.stack()[1].function
+
+
+@curry
+def mapregex(pattern, collection, flags=re.IGNORECASE):
+    """Map regex pattern to each string element of a collection.
+
+    Parameters
+    ----------
+    pattern : str
+        Regex pattern.
+    collection : list of str
+        A collection of strings to match ``pattern`` against.
+    flags : RegexFlag, default=re.IGNORECASE
+        Regex flag passed to ``re.findall`` function.
+        See official Python documentation for more information.
+
+    Yields
+    ------
+    str
+        A generator of matches where each match corresponds to a list of all
+        non-overlapping matches in the string.
+
+    References
+    ----------
+    .. [1] "Regular expression operations", Official Python documentation,
+           https://docs.python.org/3/library/re.html
+
+    Examples
+    --------
+    >>> list_of_strings = [
+    ...     "Guiding principles for Python's design: The Zen of Python",
+    ...     "Beautiful is better than ugly.",
+    ...     "Explicit is better than implicit",
+    ...     "Simple is better than complex.",
+    ... ]
+    >>> mapregex_python = mapregex("python")  # function is curried
+    >>> list(mapregex_python(list_of_strings))
+    [['Python', 'Python'], [], [], []]
+    """
+    func = functools.partial(re.findall, pattern, flags=flags)
+    return map(func, collection)
