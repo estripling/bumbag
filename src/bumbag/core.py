@@ -1,3 +1,4 @@
+import math
 from string import punctuation
 
 from toolz import curry
@@ -53,3 +54,43 @@ def op(func, x, y):
     11
     """
     return func(x, y)
+
+
+@curry
+def sig(number, digits=3):
+    """Round number to its significant digits.
+
+    Parameters
+    ----------
+    number : int, float
+        Number to round.
+    digits : int, default=3
+        Number of significant digits.
+
+    Returns
+    -------
+    int, float
+        Number rouned to its significant digits.
+
+    Raises
+    ------
+    ValueError
+        If ``digits`` is not a positive integer.
+
+    Examples
+    --------
+    >>> sig(987654321)
+    988000000
+    >>> sig(14393237.76, 2)
+    14000000.0
+    >>> sig(14393237.76, 3)
+    14400000.0
+    """
+    if not isinstance(digits, int) or digits < 1:
+        raise ValueError(f"digits={digits} - must be a positive integer")
+
+    if not math.isfinite(number) or math.isclose(number, 0.0):
+        return number
+
+    digits -= math.ceil(math.log10(abs(number)))
+    return round(number, digits)
