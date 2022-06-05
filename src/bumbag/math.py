@@ -18,6 +18,10 @@ def iseq(start=1):
     int
         A generator of consecutive integers.
 
+    See Also
+    --------
+    bumbag.time.dseq : A generator of consecutive ISO dates.
+
     Examples
     --------
     >>> from toolz import take
