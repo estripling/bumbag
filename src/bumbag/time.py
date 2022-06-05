@@ -2,6 +2,10 @@ import calendar
 import math
 from datetime import date, datetime, timedelta
 
+from toolz import curry
+
+from bumbag.math import iseq
+
 
 def str_to_date(string):
     """Cast an ISO date string to a date object.
@@ -123,6 +127,45 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
         if (i == 0 and exclude_start) or ((i + 1) == n_days and exclude_end):
             continue
         yield start + timedelta(i)
+
+
+@curry
+def dseq(start, forward):
+    """Generate a sequence of consecutive ISO dates.
+
+    Parameters
+    ----------
+    start : datetime.date
+        Start of the sequence (inclusive).
+    forward : bool
+        Specifies if dates should be generated in a forward or backward manner.
+
+    Yields
+    ------
+    datetime.date
+        A generator of consecutive ISO dates.
+
+    See Also
+    --------
+    bumbag.math.iseq : A generator of consecutive integers.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> from toolz.curried import pipe, take, map
+    >>> from bumbag.time import date_to_str
+    >>> seed = dseq(date(2022, 1, 1))
+    >>> pipe(seed(forward=True), map(date_to_str), take(3), list)
+    ['2022-01-01', '2022-01-02', '2022-01-03']
+    >>> pipe(seed(forward=False), map(date_to_str), take(3), list)
+    ['2022-01-01', '2021-12-31', '2021-12-30']
+    """
+    for i in iseq(0):
+        yield start + timedelta(i) if forward else start - timedelta(i)
 
 
 def humantime(seconds):
