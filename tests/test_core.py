@@ -107,3 +107,28 @@ def test_sig(args, expected):
     else:
         actual = f(number)
         assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "args, expected",
+    [
+        ((0, 1, -0.1, 0.1), None),
+        ((0, 1, 0.1, -0.1), None),
+        ((0, 1, -0.1, -0.1), None),
+        ((0, 1, 0.0, 0.0), (0, 1)),
+        ((0, 1, 0.05, 0.05), (-0.05, 1.05)),
+        ((0, 1, 0.1, 0.1), (-0.1, 1.1)),
+        ((0, 1, 0.05, 0.1), (-0.05, 1.1)),
+        ((0, 1, 0.1, 0.05), (-0.1, 1.05)),
+        ((-1, 10, 0.1, 0.1), (-2.1, 11.1)),
+    ],
+)
+def test_extend_range(args, expected):
+    vmin, vmax, pmin, pmax = args
+    f = core.extend_range(pmin=pmin, pmax=pmax)
+    if pmin < 0 or pmax < 0:
+        with pytest.raises(ValueError):
+            f(vmin, vmax)
+    else:
+        actual = f(vmin, vmax)
+        assert actual == expected

@@ -94,3 +94,40 @@ def sig(number, digits=3):
 
     digits -= math.ceil(math.log10(abs(number)))
     return round(number, digits)
+
+
+@curry
+def extend_range(vmin, vmax, pmin=0.05, pmax=0.05):
+    """Extend range by small percentage.
+
+    Parameters
+    ----------
+    vmin : int, float
+        Lower endpoint of range.
+    vmax : int, float
+        Upper endpoint of range.
+    pmin : float, default=0.05
+        Percentage to extend the lower endpoint.
+    pmax : float, default=0.05
+        Percentage to extend the lower endpoint.
+
+    Returns
+    -------
+    tuple of float
+        Endpoints of extended range.
+
+    Examples
+    --------
+    >>> extend_range(0, 1)
+    (-0.05, 1.05)
+    """
+    if not isinstance(pmin, float) or pmin < 0:
+        raise ValueError(f"pmin={pmin} - must be a non-negative number")
+
+    if not isinstance(pmax, float) or pmax < 0:
+        raise ValueError(f"pmax={pmax} - must be a non-negative number")
+
+    delta = vmax - vmin
+    new_vmin = vmin - (pmin * delta)
+    new_vmax = vmax + (pmax * delta)
+    return new_vmin, new_vmax
