@@ -141,3 +141,22 @@ def test_get_function_name():
     actual = my_test_function()
     expected = "my_test_function"
     assert actual == expected
+
+
+def test_mapregex(zen_of_python):
+    mapregex_python = core.mapregex("python")
+    mapregex_better = core.mapregex("better")
+
+    actual = list(mapregex_python(zen_of_python))
+    expected = [["Python"]] + [[] for _ in range(19)]
+    assert actual == expected, "mapregex_python failed"
+
+    actual = list(mapregex_better(zen_of_python))
+    expected = (
+        [[]]
+        + [["better"] for _ in range(6)]
+        + [[] for _ in range(8)]
+        + [["better"] for _ in range(2)]
+        + [[] for _ in range(3)]
+    )
+    assert actual == expected, "mapregex_better failed"
