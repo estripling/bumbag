@@ -21,6 +21,18 @@ def test_str_to_date(arg, expected):
 @pytest.mark.parametrize(
     "arg, expected",
     [
+        (date(2022, 1, 1), "2022-01-01"),
+        (date(2022, 1, 31), "2022-01-31"),
+    ],
+)
+def test_date_to_str(arg, expected):
+    actual = time.date_to_str(arg)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
         (date(2022, 1, 1), date(2022, 1, 31)),
         (date(2022, 2, 1), date(2022, 2, 28)),
         (date(2022, 3, 1), date(2022, 3, 31)),
