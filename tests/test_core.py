@@ -132,3 +132,12 @@ def test_extend_range(args, expected):
     else:
         actual = f(vmin, vmax)
         assert actual == expected
+
+
+def test_get_function_name():
+    def my_test_function():
+        return core.get_function_name()
+
+    actual = my_test_function()
+    expected = "my_test_function"
+    assert actual == expected

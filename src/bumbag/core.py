@@ -1,3 +1,4 @@
+import inspect
 import math
 from string import punctuation
 
@@ -131,3 +132,21 @@ def extend_range(vmin, vmax, pmin=0.05, pmax=0.05):
     new_vmin = vmin - (pmin * delta)
     new_vmax = vmax + (pmax * delta)
     return new_vmin, new_vmax
+
+
+def get_function_name():
+    """Get name of the function when in its body.
+
+    Returns
+    -------
+    str
+        Name of the function.
+
+    Examples
+    --------
+    >>> def my_test_function():
+    ...     return get_function_name()
+    >>> my_test_function()
+    'my_test_function'
+    """
+    return inspect.stack()[1].function
