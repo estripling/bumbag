@@ -24,6 +24,28 @@ def str_to_date(string):
     return datetime.strptime(string, "%Y-%m-%d").date()
 
 
+def date_to_str(input_date):
+    """Cast an ISO date object to string.
+
+    Parameters
+    ----------
+    input_date : datetime.date
+        ISO date object to cast.
+
+    Returns
+    -------
+    str
+        ISO date.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> date_to_str(date(2022, 1, 1))
+    '2022-01-01'
+    """
+    return datetime.strftime(input_date, "%Y-%m-%d")
+
+
 def get_last_date_of_month(year, month):
     """Get last date of month.
 
