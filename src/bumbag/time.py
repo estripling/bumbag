@@ -118,9 +118,13 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
 
     Examples
     --------
-    >>> # noqa E501
-    >>> list(daterange(date(2022, 1, 1), date(2022, 1, 3)))
-    [datetime.date(2022, 1, 1), datetime.date(2022, 1, 2), datetime.date(2022, 1, 3)]
+    >>> from datetime import date
+    >>> from toolz.curried import pipe, map
+    >>> from bumbag.time import date_to_str
+    >>> d1 = date(2022, 1, 1)
+    >>> d2 = date(2022, 1, 3)
+    >>> pipe(daterange(d1, d2), map(date_to_str), list)
+    ['2022-01-01', '2022-01-02', '2022-01-03']
     """
     n_days = (end - start).days + 1
     for i in range(n_days):
