@@ -21,8 +21,10 @@ a small bag attached to a long strap that you fasten around your waist to keep m
 
 ## Installation
 
+`bumbag` is available on [PyPI](https://pypi.org/project/bumbag/):
+
 ```bash
-$ pip install bumbag
+pip install bumbag
 ```
 
 ## Usage
