@@ -1,6 +1,27 @@
 import calendar
 import math
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+
+
+def str_to_date(string):
+    """Cast an ISO date string to a date object.
+
+    Parameters
+    ----------
+    string : str
+        ISO date string to cast.
+
+    Returns
+    -------
+    datetime.date
+        ISO date.
+
+    Examples
+    --------
+    >>> str_to_date("2022-01-01")
+    datetime.date(2022, 1, 1)
+    """
+    return datetime.strptime(string, "%Y-%m-%d").date()
 
 
 def get_last_date_of_month(year, month):

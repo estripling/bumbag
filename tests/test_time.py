@@ -9,6 +9,18 @@ from bumbag import time
 @pytest.mark.parametrize(
     "arg, expected",
     [
+        ("2022-01-01", date(2022, 1, 1)),
+        ("2022-01-31", date(2022, 1, 31)),
+    ],
+)
+def test_str_to_date(arg, expected):
+    actual = time.str_to_date(arg)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
         (date(2022, 1, 1), date(2022, 1, 31)),
         (date(2022, 2, 1), date(2022, 2, 28)),
         (date(2022, 3, 1), date(2022, 3, 31)),
