@@ -174,6 +174,10 @@ def mapregex(pattern, collection, flags=re.IGNORECASE):
         A generator of matches where each match corresponds to a list of all
         non-overlapping matches in the string.
 
+    Notes
+    -----
+    Function is curried.
+
     References
     ----------
     .. [1] "Regular expression operations", Official Python documentation,
@@ -187,7 +191,7 @@ def mapregex(pattern, collection, flags=re.IGNORECASE):
     ...     "Explicit is better than implicit",
     ...     "Simple is better than complex.",
     ... ]
-    >>> mapregex_python = mapregex("python")  # function is curried
+    >>> mapregex_python = mapregex("python")
     >>> list(mapregex_python(list_of_strings))
     [['Python', 'Python'], [], [], []]
     """
@@ -215,6 +219,10 @@ def filterregex(pattern, collection, flags=re.IGNORECASE):
         A generator of the original strings in the collection
         for which there is a match with the regex pattern.
 
+    Notes
+    -----
+    Function is curried.
+
     References
     ----------
     .. [1] "Regular expression operations", Official Python documentation,
@@ -228,7 +236,7 @@ def filterregex(pattern, collection, flags=re.IGNORECASE):
     ...     "Explicit is better than implicit",
     ...     "Simple is better than complex.",
     ... ]
-    >>> filterregex_python = filterregex("python")  # function is curried
+    >>> filterregex_python = filterregex("python")
     >>> list(filterregex_python(list_of_strings))
     ["Guiding principles for Python's design: The Zen of Python"]
     """
