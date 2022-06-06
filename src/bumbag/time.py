@@ -13,12 +13,12 @@ def str_to_date(string):
     Parameters
     ----------
     string : str
-        ISO date string to cast.
+        Date string in ISO 8601 format, YYYY-MM-DD.
 
     Returns
     -------
     datetime.date
-        ISO date.
+        Date object.
 
     Examples
     --------
@@ -29,17 +29,17 @@ def str_to_date(string):
 
 
 def date_to_str(input_date):
-    """Cast an ISO date object to string.
+    """Cast a date object to an ISO date string.
 
     Parameters
     ----------
     input_date : datetime.date
-        ISO date object to cast.
+        Date object to cast.
 
     Returns
     -------
     str
-        ISO date.
+        Date string in ISO 8601 format, YYYY-MM-DD.
 
     Examples
     --------
@@ -47,7 +47,7 @@ def date_to_str(input_date):
     >>> date_to_str(date(2022, 1, 1))
     '2022-01-01'
     """
-    return datetime.strftime(input_date, "%Y-%m-%d")
+    return input_date.isoformat()
 
 
 def get_last_date_of_month(year, month):
@@ -135,7 +135,7 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
 
 @curry
 def dseq(start, forward):
-    """Generate a sequence of consecutive ISO dates.
+    """Generate a sequence of consecutive dates.
 
     Parameters
     ----------
@@ -147,7 +147,7 @@ def dseq(start, forward):
     Yields
     ------
     datetime.date
-        A generator of consecutive ISO dates.
+        A generator of consecutive date objects.
 
     See Also
     --------
