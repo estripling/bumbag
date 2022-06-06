@@ -180,6 +180,52 @@ def dseq(start, forward):
         yield start + timedelta(i) if forward else start - timedelta(i)
 
 
+def datedelta(reference, days):
+    """Compute date relative to reference date in terms of number of days.
+
+    The reference and relative dates are the (inclusive) endpoints of
+    a sequence of consecutive dates, where the ``days`` argument corresponds
+    to the actual number of days between the dates. As a result, the reference
+    date and relative date can directly be used in a BETWEEN statement of
+    a SQL query.
+
+    Parameters
+    ----------
+    reference : datetime.date
+        The reference date.
+    days : int
+        Size of the delta expressed in number of days:
+         - If ``days == 0``, returns the reference date.
+         - If ``days > 0``, returns date ahead w.r.t. the reference date.
+         - If ``days < 0``, returns date ago w.r.t. the reference date.
+        The value of ``days`` equals the length of the corrsponding sequence of
+        consecutive dates with inclusive endpoints.
+
+    Returns
+    -------
+    datetime.date
+        Relative date.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> datedelta(date(2022, 1, 1), 0)
+    datetime.date(2022, 1, 1)
+    >>> datedelta(date(2022, 1, 1), 3)
+    datetime.date(2022, 1, 3)
+    >>> datedelta(date(2022, 1, 1), -3)
+    datetime.date(2021, 12, 30)
+    """
+    relative_date = reference + timedelta(days=days)
+    return (
+        relative_date
+        if days == 0
+        else relative_date - timedelta(days=1)
+        if days > 0
+        else relative_date + timedelta(days=1)
+    )
+
+
 def humantime(seconds):
     """Convert seconds to human-readable time.
 
