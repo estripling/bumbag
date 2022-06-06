@@ -116,6 +116,11 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
     datetime.date
         A generator of consecutive dates from ``start`` to ``end``.
 
+    Notes
+    -----
+    - If ``start == end``, only one element is generated.
+    - If ``start > end``, start and end are swapped.
+
     Examples
     --------
     >>> from datetime import date
@@ -126,6 +131,9 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
     >>> pipe(daterange(d1, d2), map(date_to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
     """
+    if start > end:
+        start, end = end, start
+
     n_days = (end - start).days + 1
     for i in range(n_days):
         if (i == 0 and exclude_start) or ((i + 1) == n_days and exclude_end):

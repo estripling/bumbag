@@ -96,6 +96,17 @@ def test_is_leap_year(arg, expected):
                 date(2022, 1, 5),
             ),
         ),
+        (
+            (date(2022, 1, 5), date(2022, 1, 1)),
+            (
+                date(2022, 1, 1),
+                date(2022, 1, 2),
+                date(2022, 1, 3),
+                date(2022, 1, 4),
+                date(2022, 1, 5),
+            ),
+        ),
+        ((date(2022, 1, 1), date(2022, 1, 1)), (date(2022, 1, 1),)),
     ],
 )
 def test_daterange(args, expected):
