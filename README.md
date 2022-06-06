@@ -14,6 +14,12 @@
 
 A package for Python utility functions.
 
+What is this package about?
+Is its aim to offer functionality like a multi-tool pocketknife?
+Or like the utility belt of a caped crusader?
+Well, the purpose of a bumbag is to put in all the things you need often!
+As such, the BumBag package is a collection of frequently used Python functions.
+
 ## Dictionary definition
 
 bumbag `/ˈbʌmbæg/` (*noun countable*) -
