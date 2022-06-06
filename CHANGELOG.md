@@ -2,6 +2,46 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2022-06-06)
+### Feature
+* **time.py:** Add datedelta ([`a687702`](https://github.com/estripling/bumbag/commit/a6877029fcdaf9c066e4e8c1e670b83c5abd8428))
+* **math.py:** Add two_set_summary ([`670f126`](https://github.com/estripling/bumbag/commit/670f12628814fcbf9c4e1375f4f9867a028d201a))
+* **time.py:** Add dseq ([`b59b721`](https://github.com/estripling/bumbag/commit/b59b7218fa730881382cb6fdb6f3cec9fbfaa864))
+* **core.py:** Add date_to_str ([`d67865b`](https://github.com/estripling/bumbag/commit/d67865bca096d4c5e35861b269726a734fa258a1))
+* **core.py:** Add str_to_date ([`0acd637`](https://github.com/estripling/bumbag/commit/0acd637f04abc08fb404fd9283cb201cb3e9d43a))
+* **core.py:** Add filterregex ([`1624e05`](https://github.com/estripling/bumbag/commit/1624e0515eeb4d1a5c76531bbb20827cf92706b2))
+* **core.py:** Add mapregex ([`a192547`](https://github.com/estripling/bumbag/commit/a192547d2016dec042910d10579d6eb082132651))
+* **core.py:** Add get_function_name ([`d6e9945`](https://github.com/estripling/bumbag/commit/d6e9945d0d5e2fa1c0d288a9bc5175a012928e64))
+* **core.py:** Add extend_range ([`ba52ff5`](https://github.com/estripling/bumbag/commit/ba52ff52f0e16a65f97fef956ce9ee03a1486b50))
+* **core.py:** Add sig ([`434436a`](https://github.com/estripling/bumbag/commit/434436acdf3be855eb759a60c26a8a4039fa8422))
+* **time.py:** Add humantime ([`6c73d8d`](https://github.com/estripling/bumbag/commit/6c73d8daf4444364b7a951f7d7938cb8aa1ad9ab))
+* **math.py:** Add collatz ([`0e75739`](https://github.com/estripling/bumbag/commit/0e75739d3dde4b782ea2b1d12aab79eb25c62d3b))
+* **math.py:** Add fibonacci ([`a5a73c6`](https://github.com/estripling/bumbag/commit/a5a73c670a06eb8099c7d3b2e9d1e3dbe18aaac3))
+* **math.py:** Add iseq_odd ([`efbe601`](https://github.com/estripling/bumbag/commit/efbe601f152fa322565dd8b6939973601ee135ca))
+* **math.py:** Add iseq_even ([`43da052`](https://github.com/estripling/bumbag/commit/43da052ac72c987c9fe5c48166170e163daedc82))
+* **math.py:** Add isodd ([`d01180e`](https://github.com/estripling/bumbag/commit/d01180e85deff573b68e3a5dc844da26a4ef79d2))
+* **math.py:** Add iseven ([`76dbb21`](https://github.com/estripling/bumbag/commit/76dbb210e7d29a8d57e53a434d9859574df4929c))
+* **math.py:** Add iseq ([`203e63b`](https://github.com/estripling/bumbag/commit/203e63b297c656c77693323e76b18f8ccef2ceb7))
+* **core.py:** Add op ([`8ea5301`](https://github.com/estripling/bumbag/commit/8ea530107c28f8a3eacfcdc6537caf5d91387187))
+
+### Fix
+* **time.py:** Add start-end swap in daterange ([`a1c5837`](https://github.com/estripling/bumbag/commit/a1c58377f591ff90f6281561203de3637f5f7e8e))
+* **collatz:** Error message ([`89ee100`](https://github.com/estripling/bumbag/commit/89ee100d73ee7bb8a46e53e2b0abeb9753bddc57))
+
+### Documentation
+* **core.py:** Add missing function is curried note ([`38556ed`](https://github.com/estripling/bumbag/commit/38556ed2627059cd7fcbfa68962ad68ba4e28cd4))
+* ***:** Fix ISO date statements ([`8d25912`](https://github.com/estripling/bumbag/commit/8d259127a731b7805100647eb9bc75cac5d901d8))
+* **README.md:** Change contributing statement ([`fac5fc3`](https://github.com/estripling/bumbag/commit/fac5fc30fc92209e9027c8607d591bd44dab7732))
+* **README.md:** Change about statement ([`ddbedaf`](https://github.com/estripling/bumbag/commit/ddbedaf2830cb79c77e29660d84ca61c4497c383))
+* **README.md:** Add two_set_summary as usage example ([`f24b8f9`](https://github.com/estripling/bumbag/commit/f24b8f9e9b95227ea25e536afdc20a589dc13000))
+* **example.ipynb:** Add two_set_summary as usage example ([`001143d`](https://github.com/estripling/bumbag/commit/001143da21cebadeb2653164bdb1939a36f7caba))
+* **example.ipynb:** Add humantime decorator as usage example ([`33151e6`](https://github.com/estripling/bumbag/commit/33151e660e7624eef7989d0d71f01a8e8de3993a))
+* **README.md:** Adapt installation instruction ([`dce37d4`](https://github.com/estripling/bumbag/commit/dce37d4a0005666f53e0de6712d31f67dd2f9cdb))
+* **time.py:** Change docstring example of daterange ([`6a4f58c`](https://github.com/estripling/bumbag/commit/6a4f58c44bf0e40b3d227cc31c90d1deba3d5fdd))
+* **math.py:** Add see also reference to dseq for iseq ([`9eb4798`](https://github.com/estripling/bumbag/commit/9eb4798b72e8fb81f6ae35805edc6793a9915dda))
+* **core.py:** Add note that function is curried ([`146385e`](https://github.com/estripling/bumbag/commit/146385e683bd317c922c5debd969e4429937279f))
+* **time.py:** Change yields description of daterange ([`9feab63`](https://github.com/estripling/bumbag/commit/9feab632a38ac71cad685e8d511ee6da3084e41c))
+
 ## v0.2.0 (2022-06-03)
 ### Feature
 * **time.py:** Add daterange ([`b414f73`](https://github.com/estripling/bumbag/commit/b414f73e198bad9207ab87b5afb4eda74525d081))
