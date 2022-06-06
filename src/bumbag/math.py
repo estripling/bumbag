@@ -20,7 +20,7 @@ def iseq(start=1):
 
     See Also
     --------
-    bumbag.time.dseq : A generator of consecutive ISO dates.
+    bumbag.time.dseq : A generator of consecutive dates.
 
     Examples
     --------
