@@ -29,7 +29,37 @@ pip install bumbag
 
 ## Usage
 
-- TODO
+Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/math/index.html#bumbag.math.two_set_summary):
+
+```python
+from bumbag.math import two_set_summary
+
+x = {"a", "c", "b", "g", "h"}
+y = {"c", "d", "e", "f", "g"}
+summary = two_set_summary(x, y)
+print(summary["report"])
+```
+
+```text
+    x (n=5): {'a', 'b', 'c', ...}
+    y (n=5): {'c', 'd', 'e', ...}
+x | y (n=8): {'a', 'b', 'c', ...}
+x & y (n=2): {'c', 'g'}
+x - y (n=3): {'a', 'b', 'h'}
+y - x (n=3): {'d', 'e', 'f'}
+x ^ y (n=6): {'a', 'b', 'd', ...}
+jaccard = 0.25
+overlap = 0.4
+disjoint?: False
+x == y: False
+x <= y: False
+x <  y: False
+y <= x: False
+y <  x: False
+```
+
+Don't forget to check out [more examples](https://bumbag.readthedocs.io/en/stable/example.html#) and the [API Reference](https://bumbag.readthedocs.io/en/stable/autoapi/index.html).
+
 
 ## Contributing
 
