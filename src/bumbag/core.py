@@ -47,6 +47,10 @@ def op(func, x, y):
         Output value of ``func`` if both ``x`` and ``y`` are given
         or a curried version of ``func`` if either ``x`` or ``y`` is given.
 
+    Notes
+    -----
+    Function is curried.
+
     Examples
     --------
     >>> from operator import add
@@ -79,6 +83,10 @@ def sig(number, digits=3):
     ------
     ValueError
         If ``digits`` is not a positive integer.
+
+    Notes
+    -----
+    Function is curried.
 
     Examples
     --------
@@ -118,6 +126,10 @@ def extend_range(vmin, vmax, pmin=0.05, pmax=0.05):
     -------
     tuple of float
         Endpoints of extended range.
+
+    Notes
+    -----
+    Function is curried.
 
     Examples
     --------
