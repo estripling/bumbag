@@ -141,6 +141,34 @@ def test_dseq():
 
 
 @pytest.mark.parametrize(
+    "args, expected",
+    [
+        ((date(2022, 1, 1), 0), date(2022, 1, 1)),
+        ((date(2022, 1, 1), 3), date(2022, 1, 3)),
+        ((date(2022, 1, 1), -3), date(2021, 12, 30)),
+        ((date(2022, 8, 1), 7), date(2022, 8, 7)),
+        ((date(2022, 8, 7), -7), date(2022, 8, 1)),
+        ((date(2022, 8, 8), -7), date(2022, 8, 2)),
+        ((date(2022, 8, 1), 31), date(2022, 8, 31)),
+        ((date(2022, 2, 1), 28), date(2022, 2, 28)),
+        ((date(2022, 2, 1), 29), date(2022, 3, 1)),
+        ((date(2020, 2, 1), 28), date(2020, 2, 28)),
+        ((date(2020, 2, 1), 29), date(2020, 2, 29)),
+        ((date(2020, 2, 1), 30), date(2020, 3, 1)),
+    ],
+)
+def test_datedelta(args, expected):
+    reference_date, days = args
+
+    relative_date = time.datedelta(reference_date, days)
+    assert relative_date == expected, "relative date does not match expected"
+
+    n_days = len(tuple(time.daterange(reference_date, relative_date)))
+    n_days_expected = 1 if days == 0 else abs(days)
+    assert n_days == n_days_expected, "number of days does not match expected"
+
+
+@pytest.mark.parametrize(
     "arg, expected",
     [
         (-2.0, None),
