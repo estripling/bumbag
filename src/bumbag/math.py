@@ -205,3 +205,108 @@ def collatz(number):
 
         # update
         number = number // 2 if iseven(number) else 3 * number + 1
+
+
+def two_set_summary(x, y, show=3):
+    """Summary of two sets.
+
+    Parameters
+    ----------
+    x : set
+        Left set.
+    y : set
+        Right set.
+    show : int, default=3
+        Specific how many elements per set to show in report.
+
+    Returns
+    -------
+    dict of sets
+
+    References
+    ----------
+    .. [1] "Basic set operations", Wikipedia,
+           https://en.wikipedia.org/wiki/Set_(mathematics)#Basic_operations
+    .. [2] "Jaccard index", Wikipedia,
+           https://en.wikipedia.org/wiki/Jaccard_index
+    .. [3] "Overlap coefficient", Wikipedia,
+           https://en.wikipedia.org/wiki/Overlap_coefficient
+
+    Examples
+    --------
+    >>> x = {"a", "c", "b", "g", "h"}
+    >>> y = {"c", "d", "e", "f", "g"}
+    >>> summary = two_set_summary(x, y)
+    >>> isinstance(summary, dict)
+    True
+    >>> summary["x"] == x
+    True
+    >>> summary["y"] == y
+    True
+    >>> summary["x | y"] == x.union(y)
+    True
+    >>> summary["x & y"] == x.intersection(y)
+    True
+    >>> summary["x - y"] == x.difference(y)
+    True
+    >>> summary["y - x"] == y.difference(x)
+    True
+    >>> summary["x ^ y"] == x.symmetric_difference(y)
+    True
+    """
+    x, y = set(x), set(y)
+    union = x.union(y)
+    intersection = x.intersection(y)
+    in_x_but_not_y = x.difference(y)
+    in_y_but_not_x = y.difference(x)
+    symmetric_diff = x ^ y
+    jaccard = len(intersection) / len(union)
+    overlap = len(intersection) / min(len(x), len(y))
+
+    output = {
+        "x": x,
+        "y": y,
+        "x | y": union,
+        "x & y": intersection,
+        "x - y": in_x_but_not_y,
+        "y - x": in_y_but_not_x,
+        "x ^ y": symmetric_diff,
+        "jaccard": jaccard,
+        "overlap": overlap,
+    }
+
+    lines = []
+    for k, v in output.items():
+        if isinstance(v, set):
+            elements = f"{sorted(v)[:show]}".replace("[", "{")
+            elements = (
+                elements.replace("]", ", ...}")
+                if len(v) > show
+                else elements.replace("]", "}")
+            )
+            elements = elements.replace(",", "") if len(v) == 1 else elements
+            desc = f"{k} (n={len(v)})"
+            if k in ["x", "y"]:
+                desc = f"    {desc}"
+            msg = f"{desc}: {elements}"
+            lines.append(msg)
+
+        else:
+            lines.append(f"{k} = {v:g}")
+
+    tmp = {
+        "disjoint?": x.isdisjoint(y),
+        "x == y": x == y,
+        "x <= y": x <= y,
+        "x <  y": x < y,
+        "y <= x": y <= x,
+        "y <  x": y < x,
+    }
+
+    for k, v in tmp.items():
+        lines.append(f"{k}: {v}")
+
+    output.update(tmp)
+    output["report"] = "\n".join(lines)
+
+    return output
