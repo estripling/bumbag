@@ -170,7 +170,7 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
     if start > end:
         start, end = end, start
 
-    n_days = (end - start).days + 1
+    n_days = days_between_dates(start, end, include_last_date=True)
     for i in range(n_days):
         if (i == 0 and exclude_start) or ((i + 1) == n_days and exclude_end):
             continue
