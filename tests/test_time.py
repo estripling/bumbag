@@ -86,6 +86,24 @@ def test_is_leap_year(arg, expected):
 @pytest.mark.parametrize(
     "args, expected",
     [
+        ((date(2022, 8, 1), date(2022, 8, 1), False), 0),
+        ((date(2022, 8, 1), date(2022, 8, 1), True), 1),
+        ((date(2022, 8, 1), date(2022, 8, 7), False), 6),
+        ((date(2022, 8, 7), date(2022, 8, 1), False), 6),
+        ((date(2022, 8, 1), date(2022, 8, 7), True), 7),
+        ((date(2022, 8, 7), date(2022, 8, 1), True), 7),
+        ((date(2014, 1, 1), date(2016, 5, 6), False), 856),
+    ],
+)
+def test_days_between_dates(args, expected):
+    date1, date2, include_last_date = args
+    actual = time.days_between_dates(date1, date2, include_last_date)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "args, expected",
+    [
         (
             (date(2022, 1, 1), date(2022, 1, 5)),
             (
