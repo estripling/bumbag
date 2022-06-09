@@ -97,6 +97,42 @@ def is_leap_year(year):
     return calendar.isleap(year)
 
 
+def days_between_dates(date1, date2, include_last_date=False):
+    """Compute the number of days between two dates.
+
+    Parameters
+    ----------
+    date1 : datetime.date
+        First date to compute the difference from.
+    date2 : datetime.date
+        Second date to compute the difference from.
+    include_last_date : bool, default=False
+        Specifies if the larger of the two dates should be excluded.
+
+    Notes
+    -----
+    - ``date1 < date2`` or ``date2 < date1``: both return the same value.
+
+    Returns
+    -------
+    int
+        Number of days between two days.
+
+    Examples
+    --------
+    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1))
+    0
+    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1), True)
+    1
+    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7))
+    6
+    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7), True)
+    7
+    """
+    start, end = (date1, date2) if date1 <= date2 else (date2, date1)
+    return (end - start).days + 1 if include_last_date else (end - start).days
+
+
 def daterange(start, end, exclude_start=False, exclude_end=False):
     """Get sequence of dates.
 
