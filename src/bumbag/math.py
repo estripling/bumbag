@@ -21,6 +21,7 @@ def iseq(start=1):
     See Also
     --------
     bumbag.time.dseq : A generator of consecutive dates.
+    bumbag.time.mseq : A generator of consecutive months.
 
     Examples
     --------
