@@ -301,6 +301,54 @@ def months_between_dates(date1, date2, include_last_date=False):
     return n_months + 1 if include_last_date else n_months
 
 
+def monthrange(start, end, exclude_start=False, exclude_end=False):
+    """Get sequence of months.
+
+    Parameters
+    ----------
+    start : datetime.date
+        Start of the month sequence.
+    end : datetime.date
+        End of the month sequence.
+    exclude_start : bool, default=False
+        Specifies if the start month of the sequence should be excluded.
+    exclude_end : bool, default=False
+        Specifies if the end month of the sequence should be excluded.
+
+    Yields
+    ------
+    datetime.date
+        A generator of consecutive months from ``start`` to ``end``.
+
+    Notes
+    -----
+    - If ``start == end``, only one element is generated.
+    - If ``start > end``, start and end are swapped.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> from toolz.curried import pipe, map
+    >>> from bumbag.time import date_to_str
+    >>> d1 = date(2022, 1, 1)
+    >>> d2 = date(2022, 4, 30)
+    >>> pipe(monthrange(d1, d2), map(date_to_str), list)
+    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
+    >>> d1 = date(2022, 1, 31)
+    >>> d2 = date(2022, 4, 30)
+    >>> pipe(monthrange(d1, d2), map(date_to_str), list)
+    ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
+    """
+    if start > end:
+        start, end = end, start
+
+    n_months = months_between_dates(start, end, include_last_date=True)
+    for i in range(n_months):
+        if (i == 0 and exclude_start) or ((i + 1) == n_months and exclude_end):
+            continue
+        yield start + relativedelta.relativedelta(months=i)
+
+
 def humantime(seconds):
     """Convert seconds to human-readable time.
 
