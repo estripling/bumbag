@@ -187,6 +187,60 @@ def test_datedelta(args, expected):
 
 
 @pytest.mark.parametrize(
+    "args, expected",
+    [
+        ((date(2022, 8, 1), date(2022, 8, 1), False), 0),
+        ((date(2022, 8, 1), date(2022, 8, 1), True), 1),
+        ((date(2022, 8, 1), date(2022, 8, 7), False), 0),
+        ((date(2022, 8, 7), date(2022, 8, 1), False), 0),
+        ((date(2022, 8, 1), date(2022, 8, 7), True), 1),
+        ((date(2022, 8, 7), date(2022, 8, 1), True), 1),
+        ((date(2022, 1, 1), date(2022, 8, 1), False), 7),
+        ((date(2022, 1, 1), date(2022, 8, 1), True), 8),
+        ((date(2022, 1, 1), date(2022, 8, 31), False), 7),
+        ((date(2022, 1, 1), date(2022, 8, 31), True), 8),
+        ((date(2022, 1, 31), date(2022, 8, 31), False), 7),
+        ((date(2022, 1, 31), date(2022, 8, 31), True), 8),
+        ((date(2022, 8, 31), date(2022, 1, 31), False), 7),
+        ((date(2022, 8, 31), date(2022, 1, 31), True), 8),
+        ((date(2022, 1, 15), date(2022, 8, 15), False), 7),
+        ((date(2022, 1, 15), date(2022, 8, 15), True), 8),
+        ((date(2022, 8, 15), date(2022, 1, 15), False), 7),
+        ((date(2022, 8, 15), date(2022, 1, 15), True), 8),
+        ((date(2022, 1, 1), date(2022, 1, 31), False), 0),
+        ((date(2022, 1, 1), date(2022, 2, 1), False), 1),
+        ((date(2020, 2, 1), date(2020, 2, 28), False), 0),
+        ((date(2020, 2, 1), date(2020, 2, 29), False), 0),
+        ((date(2020, 2, 1), date(2020, 3, 1), False), 1),
+        ((date(2020, 2, 29), date(2020, 3, 1), False), 0),
+        ((date(2020, 2, 28), date(2020, 3, 1), False), 0),
+        ((date(2020, 2, 15), date(2020, 3, 1), False), 0),
+        ((date(2020, 2, 2), date(2020, 3, 1), False), 0),
+        ((date(2020, 2, 2), date(2020, 3, 2), False), 1),
+        ((date(2019, 12, 1), date(2020, 2, 1), False), 2),
+        ((date(2019, 12, 2), date(2020, 2, 1), False), 1),
+        ((date(2019, 12, 31), date(2020, 2, 1), False), 1),
+        ((date(2020, 1, 1), date(2020, 2, 1), False), 1),
+        ((date(2020, 1, 2), date(2020, 2, 1), False), 0),
+        ((date(2020, 3, 1), date(2020, 4, 1), False), 1),
+        ((date(2020, 3, 2), date(2020, 4, 1), False), 0),
+        ((date(2020, 4, 1), date(2020, 5, 1), False), 1),
+        ((date(2020, 4, 2), date(2020, 5, 1), False), 0),
+        ((date(2020, 4, 15), date(2020, 5, 1), False), 0),
+        ((date(2020, 4, 15), date(2020, 5, 14), False), 0),
+        ((date(2020, 4, 15), date(2020, 5, 15), False), 1),
+        ((date(2020, 4, 15), date(2020, 5, 16), False), 1),
+        ((date(2020, 1, 1), date(2022, 1, 1), False), 24),
+        ((date(2020, 1, 1), date(2022, 2, 1), False), 25),
+    ],
+)
+def test_months_between_dates(args, expected):
+    date1, date2, include_last_date = args
+    actual = time.months_between_dates(date1, date2, include_last_date)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
     "arg, expected",
     [
         (-2.0, None),

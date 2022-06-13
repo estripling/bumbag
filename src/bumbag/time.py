@@ -2,6 +2,7 @@ import calendar
 import math
 from datetime import date, datetime, timedelta
 
+from dateutil import relativedelta
 from toolz import curry
 
 from bumbag.math import iseq
@@ -260,6 +261,44 @@ def datedelta(reference, days):
         if days > 0
         else relative_date + timedelta(days=1)
     )
+
+
+def months_between_dates(date1, date2, include_last_date=False):
+    """Compute the number of months between two dates.
+
+    Parameters
+    ----------
+    date1 : datetime.date
+        First date to compute the difference from.
+    date2 : datetime.date
+        Second date to compute the difference from.
+    include_last_date : bool, default=False
+        Specifies if the larger of the two dates should be excluded.
+
+    Notes
+    -----
+    - ``date1 < date2`` or ``date2 < date1``: both return the same value.
+
+    Returns
+    -------
+    int
+        Number of months between two days.
+
+    Examples
+    --------
+    >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1))
+    0
+    >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1), True)
+    1
+    >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 31))
+    7
+    >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 1), True)
+    8
+    """
+    start, end = (date1, date2) if date1 <= date2 else (date2, date1)
+    difference = relativedelta.relativedelta(end, start)
+    n_months = difference.months + 12 * difference.years
+    return n_months + 1 if include_last_date else n_months
 
 
 def humantime(seconds):
