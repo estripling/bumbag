@@ -241,6 +241,98 @@ def test_months_between_dates(args, expected):
 
 
 @pytest.mark.parametrize(
+    "args, expected",
+    [
+        (
+            (date(2022, 1, 1), date(2022, 4, 30)),
+            (
+                date(2022, 1, 1),
+                date(2022, 2, 1),
+                date(2022, 3, 1),
+                date(2022, 4, 1),
+            ),
+        ),
+        (
+            (date(2022, 1, 1), date(2022, 4, 1)),
+            (
+                date(2022, 1, 1),
+                date(2022, 2, 1),
+                date(2022, 3, 1),
+                date(2022, 4, 1),
+            ),
+        ),
+        (
+            (date(2022, 4, 30), date(2022, 1, 31)),
+            (
+                date(2022, 1, 31),
+                date(2022, 2, 28),
+                date(2022, 3, 31),
+                date(2022, 4, 30),
+            ),
+        ),
+        (
+            (date(2022, 1, 1), date(2022, 3, 31)),
+            (
+                date(2022, 1, 1),
+                date(2022, 2, 1),
+                date(2022, 3, 1),
+            ),
+        ),
+        (
+            (date(2022, 1, 31), date(2022, 4, 1)),
+            (
+                date(2022, 1, 31),
+                date(2022, 2, 28),
+                date(2022, 3, 31),
+            ),
+        ),
+        (
+            (date(2022, 4, 1), date(2022, 1, 31)),
+            (
+                date(2022, 1, 31),
+                date(2022, 2, 28),
+                date(2022, 3, 31),
+            ),
+        ),
+        (
+            (date(2022, 1, 1), date(2022, 3, 31)),
+            (
+                date(2022, 1, 1),
+                date(2022, 2, 1),
+                date(2022, 3, 1),
+            ),
+        ),
+        (
+            (date(2022, 1, 31), date(2022, 3, 31)),
+            (
+                date(2022, 1, 31),
+                date(2022, 2, 28),
+                date(2022, 3, 31),
+            ),
+        ),
+        ((date(2022, 1, 1), date(2022, 1, 1)), (date(2022, 1, 1),)),
+    ],
+)
+def test_monthrange(args, expected):
+    start, end = args
+
+    output = time.monthrange(start, end)
+    assert isinstance(output, types.GeneratorType)
+
+    actual = tuple(output)
+    assert actual == expected, "include start and end failed"
+
+    actual = tuple(time.monthrange(start, end, exclude_start=True))
+    assert actual == expected[1:], "exclude start failed"
+
+    actual = tuple(time.monthrange(start, end, exclude_end=True))
+    assert actual == expected[:-1], "exclude end failed"
+
+    actual = tuple(time.monthrange(start, end, True, True))
+    assert actual == expected[1:-1], "exclude start and end failed"
+
+
+@pytest.mark.parametrize(
     "arg, expected",
     [
         (-2.0, None),
