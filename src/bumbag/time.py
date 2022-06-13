@@ -349,6 +349,50 @@ def monthrange(start, end, exclude_start=False, exclude_end=False):
         yield start + relativedelta.relativedelta(months=i)
 
 
+@curry
+def mseq(start, forward):
+    """Generate a sequence of consecutive months.
+
+    Parameters
+    ----------
+    start : datetime.date
+        Start of the sequence (inclusive).
+    forward : bool
+        Specifies if months should be generated in a forward or backward
+        manner.
+
+    Yields
+    ------
+    datetime.date
+        A generator of consecutive months.
+
+    See Also
+    --------
+    bumbag.math.iseq : A generator of consecutive integers.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> from toolz.curried import pipe, take, map
+    >>> from bumbag.time import date_to_str
+    >>> seed = mseq(date(2022, 1, 1))
+    >>> pipe(seed(forward=True), map(date_to_str), take(4), list)
+    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
+    >>> pipe(seed(forward=False), map(date_to_str), take(4), list)
+    ['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01']
+    """
+    for i in iseq(0):
+        yield (
+            start + relativedelta.relativedelta(months=i)
+            if forward
+            else start - relativedelta.relativedelta(months=i)
+        )
+
+
 def humantime(seconds):
     """Convert seconds to human-readable time.
 

@@ -332,6 +332,34 @@ def test_monthrange(args, expected):
     assert actual == expected[1:-1], "exclude start and end failed"
 
 
+def test_mseq():
+    seed = time.mseq(date(2022, 1, 1))
+
+    actual = toolz.pipe(seed(forward=True), toolz.curried.take(3), list)
+    expected = [date(2022, 1, 1), date(2022, 2, 1), date(2022, 3, 1)]
+    assert actual == expected, "forward generation failed"
+
+    actual = toolz.pipe(seed(forward=False), toolz.curried.take(3), list)
+    expected = [date(2022, 1, 1), date(2021, 12, 1), date(2021, 11, 1)]
+    assert actual == expected, "backward generation failed"
+
+    seed = time.mseq(date(2022, 1, 31))
+
+    actual = toolz.pipe(seed(forward=True), toolz.curried.take(3), list)
+    expected = [date(2022, 1, 31), date(2022, 2, 28), date(2022, 3, 31)]
+    assert actual == expected, "forward generation failed"
+
+    actual = toolz.pipe(seed(forward=False), toolz.curried.take(3), list)
+    expected = [date(2022, 1, 31), date(2021, 12, 31), date(2021, 11, 30)]
+    assert actual == expected, "backward generation failed"
+
+    seed = time.mseq(date(2020, 1, 31))
+
+    actual = toolz.pipe(seed(forward=True), toolz.curried.take(3), list)
+    expected = [date(2020, 1, 31), date(2020, 2, 29), date(2020, 3, 31)]
+    assert actual == expected, "forward generation failed"
+
+
 @pytest.mark.parametrize(
     "arg, expected",
     [
