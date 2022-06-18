@@ -255,3 +255,29 @@ def filterregex(pattern, collection, flags=re.IGNORECASE):
     """
     func = functools.partial(re.findall, pattern, flags=flags)
     return filter(func, collection)
+
+
+def get_source_code(obj):
+    """Get source code of an object.
+
+    Parameters
+    ----------
+    obj : module, class, method, function, traceback, frame, or code object
+        Object to get source code from.
+
+    Returns
+    -------
+    str
+        Source code of the object.
+
+    Examples
+    --------
+    >>> def my_test_function():
+    ...     return "Hello, World!"
+    ...
+    >>> print(get_source_code(my_test_function))
+    def my_test_function():
+        return "Hello, World!"
+    <BLANKLINE>
+    """
+    return inspect.getsource(obj)
