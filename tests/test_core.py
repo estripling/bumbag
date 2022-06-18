@@ -1,5 +1,6 @@
 import math
 import operator
+import os
 
 import pytest
 
@@ -182,3 +183,15 @@ def test_filterregex(zen_of_python):
         "Although never is often better than *right* now.",
     ]
     assert actual == expected, "filterregex_better failed"
+
+
+def test_get_source_code():
+    def my_test_function():
+        return "Hello, World!"
+
+    actual = core.get_source_code(my_test_function)
+    expected = (
+        f"    def my_test_function():{os.linesep}"
+        f'        return "Hello, World!"{os.linesep}'
+    )
+    assert actual == expected
