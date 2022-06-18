@@ -160,6 +160,7 @@ def get_function_name():
     --------
     >>> def my_test_function():
     ...     return get_function_name()
+    ...
     >>> my_test_function()
     'my_test_function'
     """
