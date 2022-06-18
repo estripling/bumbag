@@ -142,9 +142,9 @@ def extend_range(vmin, vmax, pmin=0.05, pmax=0.05):
     if not isinstance(pmax, float) or pmax < 0:
         raise ValueError(f"pmax={pmax} - must be a non-negative number")
 
-    delta = vmax - vmin
-    new_vmin = vmin - (pmin * delta)
-    new_vmax = vmax + (pmax * delta)
+    value_range = vmax - vmin
+    new_vmin = vmin - (pmin * value_range)
+    new_vmax = vmax + (pmax * value_range)
     return new_vmin, new_vmax
 
 
