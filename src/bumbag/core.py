@@ -7,7 +7,7 @@ from string import punctuation
 from toolz import curry
 
 
-def remove_punctuation(text: str) -> str:
+def remove_punctuation(text):
     """Remove punctuation from a string.
 
     Parameters
