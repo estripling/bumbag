@@ -2,6 +2,20 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2022-06-19)
+### Feature
+* **core.py:** Add get_source_code ([`4bd7d86`](https://github.com/estripling/bumbag/commit/4bd7d865da6ac3ce878fb280883e3c074a50fe61))
+* **time.py:** Add mseq ([`420e583`](https://github.com/estripling/bumbag/commit/420e583a64187513c0e0dfcca0d21d939d2dc228))
+* **time.py:** Add monthrange ([`042d019`](https://github.com/estripling/bumbag/commit/042d019045f7c871c0f638ef46f54965431700e2))
+* **time.py:** Add months_between_dates ([`7702c34`](https://github.com/estripling/bumbag/commit/7702c348833e0bf8832f196d9685c7b87baad3fa))
+* **time.py:** Add days_between_dates ([`c8be798`](https://github.com/estripling/bumbag/commit/c8be79817ee408afd968acfce55eb60bd048b18b))
+
+### Documentation
+* **README.md:** Center title and metadata badges ([`053774e`](https://github.com/estripling/bumbag/commit/053774eb4c1c01a79c62d3e9fd9bae947d4db04d))
+* **get_function_name:** Add missing line to doc example ([`929b150`](https://github.com/estripling/bumbag/commit/929b150ae2ba9cdc1422e1db6e7668120e6c806d))
+* **remove_punctuation:** Remove type annotation ([`e11b276`](https://github.com/estripling/bumbag/commit/e11b276b859ade18a36fff1c1d38ddc3e0644d50))
+* **two_set_summary:** Fix description of show argument ([`51fcb70`](https://github.com/estripling/bumbag/commit/51fcb70e2ddbac12c604081be3a0fd74a79a3633))
+
 ## v0.3.0 (2022-06-06)
 ### Feature
 * **time.py:** Add datedelta ([`a687702`](https://github.com/estripling/bumbag/commit/a6877029fcdaf9c066e4e8c1e670b83c5abd8428))
