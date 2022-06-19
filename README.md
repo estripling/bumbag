@@ -2,13 +2,14 @@
 
 <p align="center">
 <a href="https://pypi.org/project/bumbag"><img alt="pypi" src="https://img.shields.io/pypi/v/bumbag"></a>
-<a href="https://pypi.org/project/bumbag/"><img alt="python" src="https://img.shields.io/pypi/pyversions/bumbag.svg"></a>
-<a href="https://pypi.org/project/bumbag"><img alt="os" src="https://img.shields.io/badge/OS-Ubuntu%2C%20Mac%2C%20Windows-purple"></a>
+<a href="https://github.com/estripling/bumbag/actions/workflows/release.yml"><img alt="python" src="https://img.shields.io/pypi/pyversions/bumbag.svg"></a>
+<a href="https://github.com/estripling/bumbag/actions/workflows/release.yml"><img alt="os" src="https://img.shields.io/badge/OS-Ubuntu%2C%20Mac%2C%20Windows-purple"></a>
 <a href="https://github.com/estripling/bumbag/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/pypi/l/bumbag"></a>
 </p>
 
 <p align="center">
 <a href="https://github.com/estripling/bumbag/actions/workflows/ci.yml"><img alt="ci status" src="https://github.com/estripling/bumbag/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+<a href="https://github.com/estripling/bumbag/actions/workflows/release.yml"><img alt="release" src="https://github.com/estripling/bumbag/actions/workflows/release.yml/badge.svg"></a>
 <a href="https://readthedocs.org/projects/bumbag/?badge=latest"><img alt="docs" src="https://readthedocs.org/projects/bumbag/badge/?version=latest"></a>
 <a href="https://codecov.io/gh/estripling/bumbag"><img alt="coverage" src="https://codecov.io/github/estripling/bumbag/coverage.svg?branch=main"></a>
 <a href="https://pepy.tech/project/bumbag"><img alt="downloads" src="https://pepy.tech/badge/bumbag"></a>
