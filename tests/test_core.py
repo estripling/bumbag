@@ -192,3 +192,40 @@ def test_get_source_code():
     actual = core.get_source_code(my_test_function)
     expected = '    def my_test_function():\n        return "Hello, World!"\n'
     assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "x, expected_order",
+    [
+        (["a", "c", "b", "g", "h", "a", "g", "a"], ["a", "g", "c", "b", "h"]),
+        (
+            ["a", "c", None, "g", "h", "a", "g", "a"],
+            ["a", "g", "c", None, "h"],
+        ),
+        (["a", 1, None, "g", "h", "a", "g", "a"], ["a", "g", 1, None, "h"]),
+        (["a", 1, None, "g", 2.0, "a", "g", "a"], ["a", "g", 1, None, 2.0]),
+        ([5, 2, True, "g", False, 5, "g", 5], [5, "g", 2, True, False]),
+        ([1, 3, 2, 4, 8, 1, 4, 1], [1, 4, 3, 2, 8]),
+    ],
+)
+def test_freq(x, expected_order):
+    actual = core.freq(x)
+    assert isinstance(actual, dict)
+
+    v1, v2, v3, v4, v5 = expected_order
+    expected_frequency = {v1: 3, v2: 2, v3: 1, v4: 1, v5: 1}
+    expected_cumulative_frequency = {v1: 3, v2: 5, v3: 6, v4: 7, v5: 8}
+    expected_relative = {v1: 0.375, v2: 0.25, v3: 0.125, v4: 0.125, v5: 0.125}
+    expected_cumulative_relative = {
+        v1: 0.375,
+        v2: 0.625,
+        v3: 0.75,
+        v4: 0.875,
+        v5: 1.0,
+    }
+
+    assert list(actual["n"]) == expected_order
+    assert actual["n"] == expected_frequency
+    assert actual["N"] == expected_cumulative_frequency
+    assert actual["r"] == expected_relative
+    assert actual["R"] == expected_cumulative_relative

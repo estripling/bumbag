@@ -1,10 +1,12 @@
+import collections
 import functools
 import inspect
 import math
+import operator
 import re
 from string import punctuation
 
-from toolz import curry
+from toolz import curried, curry
 
 
 def remove_punctuation(text):
@@ -281,3 +283,66 @@ def get_source_code(obj):
     <BLANKLINE>
     """
     return inspect.getsource(obj)
+
+
+def freq(values):
+    """Compute value frequencies.
+
+    Given a collection of values, calculate for each value:
+     - the frequency (``n``),
+     - the cumulative frequency (``N``),
+     - the relative frequency (``r``), and
+     - the cumulative relative frequency (``R``).
+
+    Parameters
+    ----------
+    values : iterable
+        Collection of values, where each value must be of a type that
+        can be used as a dictionary key.
+
+    Returns
+    -------
+    dict of dict
+        Frequencies of each distinct value.
+
+    Examples
+    --------
+    >>> x = ["a", "c", "b", "g", "h", "a", "g", "a"]
+    >>> frequency = freq(x)
+    >>> isinstance(frequency, dict)
+    True
+    >>> frequency["n"]
+    {'a': 3, 'g': 2, 'c': 1, 'b': 1, 'h': 1}
+    >>> frequency["N"]
+    {'a': 3, 'g': 5, 'c': 6, 'b': 7, 'h': 8}
+    >>> frequency["r"]
+    {'a': 0.375, 'g': 0.25, 'c': 0.125, 'b': 0.125, 'h': 0.125}
+    >>> frequency["R"]
+    {'a': 0.375, 'g': 0.625, 'c': 0.75, 'b': 0.875, 'h': 1.0}
+
+    >>> x = [1, "c", False, 2.0, None, 1, 2.0, 1]
+    >>> frequency = freq(x)
+    >>> frequency["n"]
+    {1: 3, 2.0: 2, 'c': 1, False: 1, None: 1}
+
+    """
+    output = dict()
+    counter = collections.Counter(values)
+    value_counts = tuple(counter.most_common(len(counter)))
+
+    def distinct_values():
+        return map(operator.itemgetter(0), value_counts)
+
+    def frequencies():
+        return map(operator.itemgetter(1), value_counts)
+
+    cumsum = curried.accumulate(operator.add)
+    div_by_total = op(operator.truediv, y=sum(frequencies()))
+    relative = curried.map(div_by_total)
+
+    output["n"] = dict(zip(distinct_values(), frequencies()))
+    output["N"] = dict(zip(distinct_values(), cumsum(frequencies())))
+    output["r"] = dict(zip(distinct_values(), relative(frequencies())))
+    output["R"] = dict(zip(distinct_values(), cumsum(relative(frequencies()))))
+
+    return output
