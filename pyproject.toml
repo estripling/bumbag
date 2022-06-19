@@ -6,6 +6,7 @@ authors = ["BumBag Developers"]
 license = "BSD-3-Clause"
 readme = "README.md"
 homepage = "https://github.com/estripling/bumbag"
+documentation = "https://bumbag.readthedocs.io/en/stable/"
 include = ["LICENSES/"]
 classifiers = [
     "Topic :: Utilities",
