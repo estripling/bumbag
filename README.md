@@ -1,14 +1,20 @@
-# BumBag
+<h1 align="center">BumBag</h1>
 
-[![pypi](https://img.shields.io/pypi/v/bumbag)](https://pypi.org/project/bumbag)
-[![python](https://img.shields.io/badge/python-%5E3.8-blue)](https://pypi.org/project/bumbag)
-[![license](https://img.shields.io/pypi/l/bumbag)](https://github.com/estripling/bumbag/blob/main/LICENSE)
-[![ci status](https://github.com/estripling/bumbag/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/estripling/bumbag/actions/workflows/ci.yml)
-[![docs](https://readthedocs.org/projects/bumbag/badge/?version=latest)](https://readthedocs.org/projects/bumbag/?badge=latest)
-[![coverage](https://codecov.io/github/estripling/bumbag/coverage.svg?branch=main)](https://codecov.io/gh/estripling/bumbag)
-[![downloads](https://pepy.tech/badge/bumbag)](https://pepy.tech/project/bumbag)
-[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![isort](https://img.shields.io/badge/%20imports-isort-%231674b1&labelColor=ef8336)](https://pycqa.github.io/isort/)
+<p align="center">
+<a href="https://pypi.org/project/bumbag"><img alt="pypi" src="https://img.shields.io/pypi/v/bumbag"></a>
+<a href="https://pypi.org/project/bumbag/"><img alt="python" src="https://img.shields.io/pypi/pyversions/bumbag.svg"></a>
+<a href="https://pypi.org/project/bumbag"><img alt="os" src="https://img.shields.io/badge/OS-Ubuntu%2C%20Mac%2C%20Windows-purple"></a>
+<a href="https://github.com/estripling/bumbag/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/pypi/l/bumbag"></a>
+</p>
+
+<p align="center">
+<a href="https://github.com/estripling/bumbag/actions/workflows/ci.yml"><img alt="ci status" src="https://github.com/estripling/bumbag/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+<a href="https://readthedocs.org/projects/bumbag/?badge=latest"><img alt="docs" src="https://readthedocs.org/projects/bumbag/badge/?version=latest"></a>
+<a href="https://codecov.io/gh/estripling/bumbag"><img alt="coverage" src="https://codecov.io/github/estripling/bumbag/coverage.svg?branch=main"></a>
+<a href="https://pepy.tech/project/bumbag"><img alt="downloads" src="https://pepy.tech/badge/bumbag"></a>
+<a href="https://github.com/psf/black"><img alt="black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://pycqa.github.io/isort/"><img alt="isort" src="https://img.shields.io/badge/%20imports-isort-%231674b1&labelColor=ef8336"></a>
+</p>
 
 ## About
 
