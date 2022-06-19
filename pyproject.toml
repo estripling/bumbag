@@ -7,6 +7,13 @@ license = "BSD 3-Clause"
 readme = "README.md"
 homepage = "https://github.com/estripling/bumbag"
 include = ["LICENSES/"]
+classifiers = [
+    "Topic :: Utilities",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
