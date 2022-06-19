@@ -209,7 +209,10 @@ def collatz(number):
 
 
 def two_set_summary(x, y, show=3):
-    """Summary of two sets.
+    """Compute two set summary.
+
+    Given two sets, calculate multiple key set operations like union,
+    intersection, difference, and more.
 
     Parameters
     ----------
@@ -223,6 +226,7 @@ def two_set_summary(x, y, show=3):
     Returns
     -------
     dict of sets
+        Summary of two sets.
 
     References
     ----------
@@ -235,24 +239,24 @@ def two_set_summary(x, y, show=3):
 
     Examples
     --------
-    >>> x = {"a", "c", "b", "g", "h"}
-    >>> y = {"c", "d", "e", "f", "g"}
-    >>> summary = two_set_summary(x, y)
+    >>> a = {"a", "c", "b", "g", "h"}
+    >>> b = {"c", "d", "e", "f", "g"}
+    >>> summary = two_set_summary(a, b)
     >>> isinstance(summary, dict)
     True
-    >>> summary["x"] == x
+    >>> summary["x"] == a
     True
-    >>> summary["y"] == y
+    >>> summary["y"] == b
     True
-    >>> summary["x | y"] == x.union(y)
+    >>> summary["x | y"] == a.union(b)
     True
-    >>> summary["x & y"] == x.intersection(y)
+    >>> summary["x & y"] == a.intersection(b)
     True
-    >>> summary["x - y"] == x.difference(y)
+    >>> summary["x - y"] == a.difference(b)
     True
-    >>> summary["y - x"] == y.difference(x)
+    >>> summary["y - x"] == b.difference(a)
     True
-    >>> summary["x ^ y"] == x.symmetric_difference(y)
+    >>> summary["x ^ y"] == a.symmetric_difference(b)
     True
     """
     x, y = set(x), set(y)
