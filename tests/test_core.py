@@ -1,6 +1,5 @@
 import math
 import operator
-import os
 
 import pytest
 
@@ -191,8 +190,5 @@ def test_get_source_code():
         return "Hello, World!"
 
     actual = core.get_source_code(my_test_function)
-    expected = (
-        f"    def my_test_function():{os.linesep}"
-        f'        return "Hello, World!"{os.linesep}'
-    )
+    expected = '    def my_test_function():\n        return "Hello, World!"\n'
     assert actual == expected
