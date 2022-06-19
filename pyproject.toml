@@ -8,6 +8,7 @@ readme = "README.md"
 homepage = "https://github.com/estripling/bumbag"
 documentation = "https://bumbag.readthedocs.io/en/stable/"
 include = ["LICENSES/"]
+keywords = ["utility functions", "bumbag"]
 classifiers = [
     "Topic :: Utilities",
     "Programming Language :: Python :: 3",
