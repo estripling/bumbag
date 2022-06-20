@@ -33,6 +33,7 @@ myst-nb = "^0.15.0"
 sphinx-autoapi = "^1.8.4"
 sphinx-rtd-theme = "^1.0.0"
 pandas = "^1.4.2"
+matplotlib = "^3.5.2"
 
 [tool.semantic_release]
 version_variable = "pyproject.toml:version"
