@@ -6,7 +6,7 @@
 :hidden:
 
 example.ipynb
-benchmark.ipynb
+benchmark.md
 changelog.md
 contributing.md
 developers.md
