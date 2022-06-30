@@ -229,3 +229,46 @@ def test_freq(x, expected_order):
     assert actual["N"] == expected_cumulative_frequency
     assert actual["r"] == expected_relative
     assert actual["R"] == expected_cumulative_relative
+
+
+def test_two_set_summary():
+    x = {"a", "c", "b", "g", "h"}
+    y = {"c", "d", "e", "f", "g"}
+    summary = core.two_set_summary(x, y)
+
+    assert isinstance(summary, dict)
+    assert summary["x"] == x
+    assert summary["y"] == y
+    assert summary["x | y"] == x.union(y)
+    assert summary["x & y"] == x.intersection(y)
+    assert summary["x - y"] == x.difference(y)
+    assert summary["y - x"] == y.difference(x)
+    assert summary["x ^ y"] == x.symmetric_difference(y)
+    assert summary["jaccard"] == 0.25
+    assert summary["overlap"] == 0.4
+    assert summary["disjoint?"] is False
+    assert summary["x == y"] is False
+    assert summary["x <= y"] is False
+    assert summary["x <  y"] is False
+    assert summary["y <= x"] is False
+    assert summary["y <  x"] is False
+
+    lines = [
+        "    x (n=5): {'a', 'b', 'c', ...}",
+        "    y (n=5): {'c', 'd', 'e', ...}",
+        "x | y (n=8): {'a', 'b', 'c', ...}",
+        "x & y (n=2): {'c', 'g'}",
+        "x - y (n=3): {'a', 'b', 'h'}",
+        "y - x (n=3): {'d', 'e', 'f'}",
+        "x ^ y (n=6): {'a', 'b', 'd', ...}",
+        "jaccard = 0.25",
+        "overlap = 0.4",
+        "disjoint?: False",
+        "x == y: False",
+        "x <= y: False",
+        "x <  y: False",
+        "y <= x: False",
+        "y <  x: False",
+    ]
+    report = "\n".join(lines)
+    assert summary["report"] == report

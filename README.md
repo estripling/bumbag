@@ -45,7 +45,7 @@ pip install bumbag
 Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/math/index.html#bumbag.math.two_set_summary):
 
 ```python
-from bumbag.math import two_set_summary
+from bumbag.core import two_set_summary
 
 x = {"a", "c", "b", "g", "h"}
 y = {"c", "d", "e", "f", "g"}
