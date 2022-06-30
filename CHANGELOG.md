@@ -2,6 +2,21 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2022-06-30)
+### Feature
+* **core.py:** Add freq ([`addccf7`](https://github.com/estripling/bumbag/commit/addccf755f5eebe041eb012cdf68fa9f294dc6b3))
+
+### Breaking
+* api change due to refactor  ([`beaf08f`](https://github.com/estripling/bumbag/commit/beaf08f95b7e3534175e4bd21434bcf1e5f141e1))
+
+### Documentation
+* **benchmark.md:** Add markdown instead of notebook ([`4112013`](https://github.com/estripling/bumbag/commit/4112013af9db0d7c1449e38632e6daf8de5c2b4d))
+* **benchmark.ipynb:** Fix pandas import ([`0f1602a`](https://github.com/estripling/bumbag/commit/0f1602a37e839de6ec1f02db36d0fe87cae02e98))
+* **benchmark.ipynb:** Add freq versus value_counts benchmark ([`9ca8ba9`](https://github.com/estripling/bumbag/commit/9ca8ba902fbcbef313735f6f5409dda7cbc6d590))
+* **example.ipynb:** Update stopwatch example ([`38edd5a`](https://github.com/estripling/bumbag/commit/38edd5a01a57eca6533b5f2604f2f426f5803c1a))
+* **two_set_summary:** Update docstring ([`c8d75f4`](https://github.com/estripling/bumbag/commit/c8d75f43e86f3412b51e9e6f81bbbbabc7f6ad9b))
+* **README.md:** Add metadata badge for release ([`31f1939`](https://github.com/estripling/bumbag/commit/31f1939207ec3b7d01a6c9ea617d9b194707509d))
+
 ## v0.4.0 (2022-06-19)
 ### Feature
 * **core.py:** Add get_source_code ([`4bd7d86`](https://github.com/estripling/bumbag/commit/4bd7d865da6ac3ce878fb280883e3c074a50fe61))
