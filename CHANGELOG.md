@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2022-06-30)
+### Fix
+* **docs/benchmark_freq_versus_value_counts.py:** Flake8 F401 error ([`737bdd1`](https://github.com/estripling/bumbag/commit/737bdd1623632721bd90ef4deb3b461fc5eb9b64))
+
+### Documentation
+* **two_set_summary:** Fix basic set operations link in references ([`7530ae0`](https://github.com/estripling/bumbag/commit/7530ae0ccc4a60f7abb452220d1e4cda5624d5ff))
+
 ## v1.0.0 (2022-06-30)
 ### Feature
 * **core.py:** Add freq ([`addccf7`](https://github.com/estripling/bumbag/commit/addccf755f5eebe041eb012cdf68fa9f294dc6b3))
