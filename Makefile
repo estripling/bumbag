@@ -72,7 +72,7 @@ install:
 ## test :: Run tests with coverage report
 .PHONY: test
 test: clean
-	$(PYTHON) -m pytest --doctest-modules
+	$(PYTHON) -m pytest --doctest-modules src/
 	$(PYTHON) -m pytest --cov=$(PGK) tests/
 
 
