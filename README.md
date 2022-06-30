@@ -42,7 +42,7 @@ pip install bumbag
 
 ## Usage
 
-Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/math/index.html#bumbag.math.two_set_summary):
+Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.two_set_summary):
 
 ```python
 from bumbag.core import two_set_summary
