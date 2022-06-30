@@ -371,7 +371,7 @@ def two_set_summary(x, y, show=3):
     References
     ----------
     .. [1] "Basic set operations", Wikipedia,
-           https://en.wikipedia.org/wiki/Set_(mathematics)#Basic_operations
+           `<https://en.wikipedia.org/wiki/Set_(mathematics)#Basic_operations>`_
     .. [2] "Jaccard index", Wikipedia,
            https://en.wikipedia.org/wiki/Jaccard_index
     .. [3] "Overlap coefficient", Wikipedia,
