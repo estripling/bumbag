@@ -5,7 +5,6 @@ import collections
 import functools
 import operator
 import pathlib
-import random
 import statistics
 import string
 import timeit

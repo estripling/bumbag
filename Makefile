@@ -81,7 +81,7 @@ test: clean
 check_style: clean
 	$(PYTHON) -m isort --line-length $(MAXLINELENGTH) --profile black ./
 	$(PYTHON) -m black --line-length $(MAXLINELENGTH) ./
-	$(PYTHON) -m flake8 --doctests --max-line-length $(MAXLINELENGTH) src/ tests/
+	$(PYTHON) -m flake8 --doctests --max-line-length $(MAXLINELENGTH) ./
 
 
 ## create_docs :: Create documentation source files with sphinx
