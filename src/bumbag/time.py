@@ -121,6 +121,7 @@ def days_between_dates(date1, date2, include_last_date=False):
 
     Examples
     --------
+    >>> from datetime import date
     >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1))
     0
     >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1), True)
@@ -286,6 +287,7 @@ def months_between_dates(date1, date2, include_last_date=False):
 
     Examples
     --------
+    >>> from datetime import date
     >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1))
     0
     >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1), True)
