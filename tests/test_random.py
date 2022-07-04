@@ -14,3 +14,15 @@ def test_get_random_instance(arg):
         with pytest.raises(ValueError):
             # noinspection PyTypeChecker
             random.get_random_instance(seed)
+
+
+@pytest.mark.parametrize("arg", [0.25, 0.5, 0.75, -0.1, 1.1, 11])
+def test_coinflip(arg):
+    bias = arg
+    if 0 <= bias <= 1:
+        actual = {random.coinflip() for _ in range(30)}
+        expected = {True, False}
+        assert actual == expected
+    else:
+        with pytest.raises(ValueError):
+            random.coinflip(bias)
