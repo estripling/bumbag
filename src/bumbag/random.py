@@ -82,3 +82,37 @@ def coinflip(bias=0.5, seed=None):
         raise ValueError(f"{bias=} must be a float in [0, 1]")
     rng = get_random_instance(seed)
     return rng.random() < bias
+
+
+def get_random_integer(a=0, b=2147483647, seed=None):
+    """Get a random integer from interval [a, b].
+
+    Setting default values for the arguments of ``random.randint``.
+
+    Parameters
+    ----------
+    a : int, default=0
+        Lower endpoint of interval.
+    b : int, default=2147483647
+        Upper endpoint of interval.
+    seed : None, int, random.Random, default=None
+        Value used to seed a Random instance:
+         - If ``seed`` is None, return the Random singleton used by random.
+         - If ``seed`` is an integer, return a new instance seeded with it.
+         - If ``seed`` is already a Random instance, return the instance.
+
+    Returns
+    -------
+    int
+        A random integer.
+
+    Examples
+    --------
+    >>> rnd_int = get_random_integer()
+    >>> isinstance(rnd_int, int)
+    True
+    >>> 0 <= rnd_int <= 2147483647
+    True
+    """
+    rng = get_random_instance(seed)
+    return rng.randint(a, b)

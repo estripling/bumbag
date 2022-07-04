@@ -26,3 +26,10 @@ def test_coinflip(arg):
     else:
         with pytest.raises(ValueError):
             random.coinflip(bias)
+
+
+def test_get_random_integer():
+    for _ in range(10):
+        rnd_int = random.get_random_integer()
+        assert isinstance(rnd_int, int)
+        assert 0 <= rnd_int <= 2147483647
