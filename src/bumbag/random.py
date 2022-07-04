@@ -1,4 +1,5 @@
 import random
+import string
 
 
 def get_random_instance(seed=None):
@@ -116,3 +117,35 @@ def get_random_integer(a=0, b=2147483647, seed=None):
     """
     rng = get_random_instance(seed)
     return rng.randint(a, b)
+
+
+def get_random_character(alphabet=None, seed=None):
+    """Get a random character from a given alphabet.
+
+    Parameters
+    ----------
+    alphabet : str, default=None
+        Set of characters to sample from.
+        If None, the default alphabet is made of [a-zA-Z0-9] characters.
+    seed : None, int, random.Random, default=None
+        Value used to seed a Random instance:
+         - If ``seed`` is None, return the Random singleton used by random.
+         - If ``seed`` is an integer, return a new instance seeded with it.
+         - If ``seed`` is already a Random instance, return the instance.
+
+    Returns
+    -------
+    str
+        A random character.
+
+    Examples
+    --------
+    >>> rnd_char = get_random_character("bumbag")
+    >>> isinstance(rnd_char, str)
+    True
+    >>> rnd_char in "bumbag"
+    True
+    """
+    rng = get_random_instance(seed)
+    alphabet = alphabet or string.ascii_letters + string.digits
+    return rng.sample(population=alphabet, k=len(alphabet))[0]

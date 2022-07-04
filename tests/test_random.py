@@ -1,3 +1,4 @@
+import string
 from random import Random
 
 import pytest
@@ -33,3 +34,10 @@ def test_get_random_integer():
         rnd_int = random.get_random_integer()
         assert isinstance(rnd_int, int)
         assert 0 <= rnd_int <= 2147483647
+
+
+def test_get_random_character():
+    alphabet = string.ascii_letters + string.digits
+    rnd_char = random.get_random_character()
+    assert isinstance(rnd_char, str)
+    assert rnd_char in alphabet
