@@ -80,7 +80,7 @@ def coinflip(bias=0.5, seed=None):
     True
     """
     if not (0 <= bias <= 1):
-        raise ValueError(f"{bias=} must be a float in [0, 1]")
+        raise ValueError(f"{bias=} - must be a float in [0, 1]")
     rng = get_random_instance(seed)
     return rng.random() < bias
 
