@@ -1,4 +1,8 @@
+import os
+import shutil
 from distutils.util import strtobool
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 
 def query_yes_no(question, default=None):
@@ -68,3 +72,53 @@ def query_yes_no(question, default=None):
                 "N" if default == "no" else "n",
             )
             answer = input(msg).lower()
+
+
+def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
+    """Archive files in target directory.
+
+    Parameters
+    ----------
+    wildcards : None, list of str, default=None
+        Specify a wildcard to archive files. If ``wildcards`` is None,
+        all files in target directory are archived.
+    target_dir : None, str, pathlib.Path, default=None
+        Specify the target directory to archive. If ``target_dir`` is None,
+        ``target_dir`` is the current working directory.
+    name : None, str, default=None
+        Name of the archive. If ``name`` is None, archive name is the name of
+        the target directory.
+    kind : str, default="zip"
+        Specify the archive type. Value is passed to the ``format`` argument of
+        ``shutil.make_archive``, i.e., possible values are "zip", "tar",
+        "gztar", "bztar", "xztar", or any other registered format.
+
+    Returns
+    -------
+    NoneType
+        Function has no return value. However, the archive of files of
+        the target directory is stored in the current working directory.
+
+    Examples
+    --------
+    >>> # Archive all Python files and Notebooks in current working directory
+    >>> archive_files(["*.py", "*.ipynb"])  # doctest: +SKIP
+    """
+    wildcards = wildcards or ["**/*"]
+    target_dir = target_dir or "."
+    target_dir = Path(target_dir).resolve()
+    name = name or target_dir.stem
+
+    with TemporaryDirectory() as tmpdir:
+        for wildcard in wildcards:
+            for src_file in target_dir.rglob(wildcard):
+                if os.path.isdir(src_file):
+                    os.makedirs(src_file, exist_ok=True)
+                    continue
+
+                dst_file = str(src_file).replace(str(target_dir), tmpdir)
+                dst_dir = str(src_file.parent).replace(str(target_dir), tmpdir)
+                os.makedirs(dst_dir, exist_ok=True)
+                shutil.copy(str(src_file), dst_file)
+
+        shutil.make_archive(name, kind, tmpdir)
