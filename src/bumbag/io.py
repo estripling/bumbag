@@ -1,5 +1,6 @@
 import os
 import shutil
+from datetime import datetime
 from distutils.util import strtobool
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -107,7 +108,8 @@ def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
     wildcards = wildcards or ["**/*"]
     target_dir = target_dir or "."
     target_dir = Path(target_dir).resolve()
-    name = name or target_dir.stem
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    name = name or f"{timestamp}_{target_dir.stem}"
 
     with TemporaryDirectory() as tmpdir:
         for wildcard in wildcards:
