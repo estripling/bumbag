@@ -2,6 +2,23 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.0 (2022-07-07)
+### Feature
+* **timestamp:** Prefix archive with timestamp ([`898ddff`](https://github.com/estripling/bumbag/commit/898ddff4e22ea165d02f00f2e35853c0908316d9))
+* **io.py:** Add archive_files ([`2a4389f`](https://github.com/estripling/bumbag/commit/2a4389f566d02b8576736704ae32b5fa43f34b47))
+* **io.py:** Add query_yes_no ([`270d3ff`](https://github.com/estripling/bumbag/commit/270d3ff7d3858136d64bb8d161de2e182658dc17))
+* **random.py:** Add get_random_character ([`2726cbd`](https://github.com/estripling/bumbag/commit/2726cbd97f900585998259f223410f3f877bb4c0))
+* **random.py:** Add get_random_integer ([`5726b75`](https://github.com/estripling/bumbag/commit/5726b75d3d9c650eda6ba89fac6e566ad401cfea))
+* **random.py:** Add coinflip ([`7769e1f`](https://github.com/estripling/bumbag/commit/7769e1fe8337f10337bc2fe13c202d2340d292ee))
+* **random.py:** Add get_random_instance ([`bfa9eeb`](https://github.com/estripling/bumbag/commit/bfa9eebc270ce1a989b05055213ee6f165b431b2))
+
+### Documentation
+* **time.py:** Add missing date import in docstring examples ([`a50d5f3`](https://github.com/estripling/bumbag/commit/a50d5f37c3eefa2eb6855a914dd2725548210ddc))
+* **example.ipynb:** Add humantime context manager usage example ([`82f0378`](https://github.com/estripling/bumbag/commit/82f03788f4a8b8a4c8b09b812ef283af94ba57f9))
+* **example.ipynb:** Improve structure ([`96e32eb`](https://github.com/estripling/bumbag/commit/96e32eb6b08f27ecb92fe51500e7a9e885392988))
+* **example.ipynb:** Add dseq usage example - palindrome and ambigram dates ([`1cda8da`](https://github.com/estripling/bumbag/commit/1cda8da5d40eff9c883d2959f59b4998fa65b30c))
+* **example.ipynb:** Add complex iseq leap year usage example ([`ca58a68`](https://github.com/estripling/bumbag/commit/ca58a68604d9192edb8dee620dd519b1405015ed))
+
 ## v1.0.1 (2022-06-30)
 ### Fix
 * **docs/benchmark_freq_versus_value_counts.py:** Flake8 F401 error ([`737bdd1`](https://github.com/estripling/bumbag/commit/737bdd1623632721bd90ef4deb3b461fc5eb9b64))
