@@ -55,7 +55,8 @@ add_dev_docs:
 		jupyter \
 		myst-nb \
 		sphinx-autoapi \
-		sphinx-rtd-theme
+		sphinx-rtd-theme \
+		sphinx-copybutton
 
 
 ## add_dev_all :: Add all dev dependencies
