@@ -1,4 +1,6 @@
-<h1 align="center">BumBag</h1>
+<h1 align="center">
+<img src="docs/source/_static/logo.png" width="240" alt="The BumBag logo.">
+</h1>
 
 <p align="center">
 <a href="https://pypi.org/project/bumbag"><img alt="pypi" src="https://img.shields.io/pypi/v/bumbag"></a>
@@ -73,7 +75,6 @@ y <  x: False
 
 Don't forget to check out [more examples](https://bumbag.readthedocs.io/en/stable/example.html#) and the [API Reference](https://bumbag.readthedocs.io/en/stable/autoapi/index.html).
 
-
 ## Contributing
 
 Have you ever caught yourself thinking: "Ahh ... I need *that function* again. I have to copy it from another project."?
@@ -87,7 +88,3 @@ By contributing to this project, you agree to abide by its terms.
 
 `bumbag` was created by BumBag Developers.
 It is licensed under the terms of the BSD 3-Clause license.
-
-## Credits
-
-`bumbag` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the [`pypkgcookiecutter` template](https://github.com/estripling/pypkgcookiecutter).

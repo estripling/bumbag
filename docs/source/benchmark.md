@@ -182,4 +182,4 @@ enhanced_value_counts(values)
 %run -i "benchmark_freq_versus_value_counts.py"
 ```
 
-![Image](./benchmark_freq_versus_value_counts.png)
+![Image](benchmark_freq_versus_value_counts.png)

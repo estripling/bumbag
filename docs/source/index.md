@@ -1,4 +1,10 @@
-```{include} ../README.md
+```{image} _static/logo.png
+:width: 250px
+:align: center
+```
+
+```{include} ../../README.md
+:start-line: 4
 ```
 
 ```{toctree}
