@@ -38,7 +38,7 @@ a small bag attached to a long strap that you fasten around your waist to keep m
 
 `bumbag` is available on [PyPI](https://pypi.org/project/bumbag/):
 
-```bash
+```console
 pip install bumbag
 ```
 
