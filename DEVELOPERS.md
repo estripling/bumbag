@@ -10,20 +10,27 @@ It is assumed the following software packages are installed on your system:
 
 In root directory, run the following commands if your system supports [GNU Make](https://www.gnu.org/software/make/):
 
-```bash
+```console
 make create_env
 conda activate <pkg-env>
 make install
-make test
 ```
 
 If your system does not support GNU Make, run the corresponding commands manually.
+
+## Test
+
+In root directory, execute the following command to run all tests:
+
+```console
+make test
+```
 
 ## Code Style
 
 In root directory, run the following command to check code style:
 
-```bash
+```console
 make check_style
 ```
 
