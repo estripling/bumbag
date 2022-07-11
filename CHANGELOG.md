@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.1 (2022-07-11)
+### Documentation
+* **DEVELOPERS.md:** Write explicit test section ([`f02a022`](https://github.com/estripling/bumbag/commit/f02a022ceda0c8f236f71d373043210c7f6c9aaf))
+* **CONTRIBUTING.md:** Edit get started ([`0605601`](https://github.com/estripling/bumbag/commit/0605601677504335397723a833239d3fbe96ed06))
+* ***:** Restructure to add bumbag logo ([`c20088c`](https://github.com/estripling/bumbag/commit/c20088c6c0b2f99adeee7209fbd086cb82b36e06))
+* ***:** Move from sphinx-rtd-theme to furo theme ([`aef880f`](https://github.com/estripling/bumbag/commit/aef880f8502e02d386509e1908ef565d1ced08e0))
+
 ## v1.1.0 (2022-07-07)
 ### Feature
 * **timestamp:** Prefix archive with timestamp ([`898ddff`](https://github.com/estripling/bumbag/commit/898ddff4e22ea165d02f00f2e35853c0908316d9))
