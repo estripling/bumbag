@@ -1,5 +1,5 @@
 ```{image} _static/logo.png
-:width: 250px
+:width: 240px
 :align: center
 ```
 
