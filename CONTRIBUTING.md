@@ -45,9 +45,13 @@ Then,
 
 1. Use `git` (or similar) to create a branch for local development and make your changes:
 
-    ```console
-    $ git checkout -b name-of-your-bugfix-or-feature
-    ```
+   ```console
+   git checkout -b feature/name-of-your-enhancement
+   ```
+   or
+   ```console
+   git checkout -b bugfix/name-of-your-fix
+   ```
 
 2. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
 
