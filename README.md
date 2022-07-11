@@ -1,6 +1,6 @@
-<h1 align="center">
+<p align="center">
 <img src="docs/source/_static/logo.png" width="240" alt="The BumBag logo.">
-</h1>
+</p>
 
 <p align="center">
 <a href="https://pypi.org/project/bumbag"><img alt="pypi" src="https://img.shields.io/pypi/v/bumbag"></a>
