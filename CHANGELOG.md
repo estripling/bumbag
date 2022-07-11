@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.2 (2022-07-11)
+### Documentation
+* **README.md:** Change homepage to repository ([`cee904b`](https://github.com/estripling/bumbag/commit/cee904b82e68ffc696bc9dde826df71bdb3aba53))
+
 ## v1.1.1 (2022-07-11)
 ### Documentation
 * **DEVELOPERS.md:** Write explicit test section ([`f02a022`](https://github.com/estripling/bumbag/commit/f02a022ceda0c8f236f71d373043210c7f6c9aaf))
