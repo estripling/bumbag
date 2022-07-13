@@ -246,6 +246,7 @@ def test_two_set_summary():
     assert summary["x ^ y"] == x.symmetric_difference(y)
     assert summary["jaccard"] == 0.25
     assert summary["overlap"] == 0.4
+    assert summary["dice"] == 0.4
     assert summary["disjoint?"] is False
     assert summary["x == y"] is False
     assert summary["x <= y"] is False
@@ -263,6 +264,7 @@ def test_two_set_summary():
         "x ^ y (n=6): {'a', 'b', 'd', ...}",
         "jaccard = 0.25",
         "overlap = 0.4",
+        "dice = 0.4",
         "disjoint?: False",
         "x == y: False",
         "x <= y: False",

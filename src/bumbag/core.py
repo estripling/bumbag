@@ -376,6 +376,8 @@ def two_set_summary(x, y, show=3):
            https://en.wikipedia.org/wiki/Jaccard_index
     .. [3] "Overlap coefficient", Wikipedia,
            https://en.wikipedia.org/wiki/Overlap_coefficient
+    .. [4] "Dice similarity coefficient", Wikipedia,
+           `<https://en.wikipedia.org/wiki/Sørensen–Dice_coefficient>`_
 
     Examples
     --------
@@ -407,6 +409,7 @@ def two_set_summary(x, y, show=3):
     symmetric_diff = x ^ y
     jaccard = len(intersection) / len(union)
     overlap = len(intersection) / min(len(x), len(y))
+    dice = 2 * len(intersection) / (len(x) + len(y))
 
     output = {
         "x": x,
@@ -418,6 +421,7 @@ def two_set_summary(x, y, show=3):
         "x ^ y": symmetric_diff,
         "jaccard": jaccard,
         "overlap": overlap,
+        "dice": dice,
     }
 
     lines = []

@@ -65,6 +65,7 @@ y - x (n=3): {'d', 'e', 'f'}
 x ^ y (n=6): {'a', 'b', 'd', ...}
 jaccard = 0.25
 overlap = 0.4
+dice = 0.4
 disjoint?: False
 x == y: False
 x <= y: False
