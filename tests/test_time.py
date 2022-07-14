@@ -181,7 +181,7 @@ def test_datedelta(args, expected):
     relative_date = time.datedelta(reference_date, days)
     assert relative_date == expected, "relative date does not match expected"
 
-    n_days = len(tuple(time.daterange(reference_date, relative_date)))
+    n_days = toolz.count(time.daterange(reference_date, relative_date))
     n_days_expected = 1 if days == 0 else abs(days)
     assert n_days == n_days_expected, "number of days does not match expected"
 
