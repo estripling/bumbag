@@ -6,7 +6,7 @@ import operator
 import re
 from string import punctuation
 
-from toolz import curried, curry
+from toolz import curried, curry, isiterable
 
 
 def remove_punctuation(text):
@@ -459,3 +459,54 @@ def two_set_summary(x, y, show=3):
     output["report"] = "\n".join(lines)
 
     return output
+
+
+def flatten(*seqs):
+    """Flatten an irregular, arbitrarily nested collection.
+
+    Parameters
+    ----------
+    seqs : collection
+        An irregular collection of sequences and items to flatten.
+
+    Yields
+    ------
+    Any
+        A generator of flattened collection items.
+
+    Notes
+    -----
+    A string is not treated as a sequence.
+
+    Examples
+    --------
+    >>> list(flatten([1, 2, 3]))
+    [1, 2, 3]
+
+    >>> list(flatten(*[1, 2, 3]))
+    [1, 2, 3]
+
+    >>> list(flatten(1, 2, 3))
+    [1, 2, 3]
+
+    >>> list(flatten([1, 2], 3))
+    [1, 2, 3]
+
+    >>> list(flatten([1, (2, 3)], 4, [], [[[5]], 6]))
+    [1, 2, 3, 4, 5, 6]
+
+    >>> list(flatten([[1, (2, 3)], 4, [], [[[5]], 6]]))
+    [1, 2, 3, 4, 5, 6]
+
+    >>> list(flatten(["one", 2], 3, [(4, "five")], [[["six"]]], "seven", []))
+    ['one', 2, 3, 4, 'five', 'six', 'seven']
+    """
+
+    def flattenit(sequences):
+        for seq in sequences:
+            if isiterable(seq) and not isinstance(seq, str):
+                yield from flattenit(seq)
+            else:
+                yield seq
+
+    return flattenit(seqs)
