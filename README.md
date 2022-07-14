@@ -80,7 +80,7 @@ Don't forget to check out [more examples](https://bumbag.readthedocs.io/en/stabl
 Have you ever caught yourself thinking: "Ahh ... I need *that function* again. I have to copy it from another project."?
 If you have, why not sharing your awesome utility function with the rest of the world?
 
-To do so, check out the [contributing guidelines](https://bumbag.readthedocs.io/en/latest/contributing.html) and the [guide for developer](https://bumbag.readthedocs.io/en/latest/developers.html).
+To do so, check out the [contributing guidelines](https://bumbag.readthedocs.io/en/latest/contributing.html) and the [guide for developers](https://bumbag.readthedocs.io/en/latest/developers.html).
 Please note that this project is released with a [Code of Conduct](https://bumbag.readthedocs.io/en/latest/conduct.html).
 By contributing to this project, you agree to abide by its terms.
 
