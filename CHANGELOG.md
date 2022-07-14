@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.2.0 (2022-07-14)
+### Feature
+* **two_set_summary:** Add Dice similarity coefficient ([`5f8e124`](https://github.com/estripling/bumbag/commit/5f8e124350ccdbc7127a548d0975a61656928eb5))
+
 ## v1.1.2 (2022-07-11)
 ### Documentation
 * **README.md:** Change homepage to repository ([`cee904b`](https://github.com/estripling/bumbag/commit/cee904b82e68ffc696bc9dde826df71bdb3aba53))
