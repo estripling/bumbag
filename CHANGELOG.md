@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v1.3.0 (2022-07-15)
+### Feature
+* **core.py:** Add flatten ([`5e15beb`](https://github.com/estripling/bumbag/commit/5e15beb27a98ab155e2dcce958b585bed06c5185))
+
+### Documentation
+* **README.md:** Add flatten as usage example ([`a54d3f2`](https://github.com/estripling/bumbag/commit/a54d3f27d0858160bfd09aee8154fc5854fa8be5))
+* **example.ipynb:** Add flatten as usage example ([`ffdc1d0`](https://github.com/estripling/bumbag/commit/ffdc1d03ae25c231ffb9c3054860dc7942a9b86c))
+
 ## v1.2.0 (2022-07-14)
 ### Feature
 * **two_set_summary:** Add Dice similarity coefficient ([`5f8e124`](https://github.com/estripling/bumbag/commit/5f8e124350ccdbc7127a548d0975a61656928eb5))
