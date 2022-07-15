@@ -74,6 +74,27 @@ y <= x: False
 y <  x: False
 ```
 
+Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.flatten) an irregular list:
+
+```python
+from bumbag.core import flatten
+
+irregular_list = [
+    ["one", 2],
+    3,
+    [(4, "five")],
+    [[["six"]]],
+    "seven",
+    [],
+]
+
+list(flatten(irregular_list, 8))
+```
+
+```text
+['one', 2, 3, 4, 'five', 'six', 'seven', 8]
+```
+
 Don't forget to check out [more examples](https://bumbag.readthedocs.io/en/stable/example.html#) and the [API Reference](https://bumbag.readthedocs.io/en/stable/autoapi/index.html).
 
 ## Contributing
