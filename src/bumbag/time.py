@@ -427,7 +427,7 @@ def humantime(seconds):
     '2 days, 10 hours, 17 minutes'
     """
     if seconds < 0:
-        raise ValueError(f"seconds={seconds} - must be a non-negative number")
+        raise ValueError(f"{seconds=} - must be a non-negative number")
 
     if math.isclose(seconds, 0):
         return "0 seconds"

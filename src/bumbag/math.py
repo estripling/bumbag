@@ -196,7 +196,7 @@ def collatz(number):
     10
     """
     if not isinstance(number, int) or number < 1:
-        raise ValueError(f"number={number} - must be a non-negative number")
+        raise ValueError(f"{number=} - must be a non-negative number")
 
     while True:
         yield number

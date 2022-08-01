@@ -78,7 +78,7 @@ def sig(number, digits=3):
     14400000.0
     """
     if not isinstance(digits, int) or digits < 1:
-        raise ValueError(f"digits={digits} - must be a positive integer")
+        raise ValueError(f"{digits=} - must be a positive integer")
 
     if not math.isfinite(number) or math.isclose(number, 0.0):
         return number
