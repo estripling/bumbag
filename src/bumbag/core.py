@@ -10,12 +10,12 @@ from toolz import curried, curry, isiterable
 
 @curry
 def op(func, x, y):
-    """Curry a binary function to perform an operation.
+    """Apply an operator function that takes two inputs.
 
     Parameters
     ----------
     func : function
-        A binary function.
+        Operator function to use.
     x : Any
         First argument of the function.
     y : Any
