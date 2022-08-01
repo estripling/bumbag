@@ -4,30 +4,8 @@ import inspect
 import math
 import operator
 import re
-from string import punctuation
 
 from toolz import curried, curry, isiterable
-
-
-def remove_punctuation(text):
-    """Remove punctuation from a string.
-
-    Parameters
-    ----------
-    text : str
-        Text to be processed.
-
-    Returns
-    -------
-    str
-        Text with punctuation removed.
-
-    Examples
-    --------
-    >>> remove_punctuation("I think, therefore I am. --Descartes")
-    'I think therefore I am Descartes'
-    """
-    return text.translate(str.maketrans("", "", punctuation))
 
 
 @curry
