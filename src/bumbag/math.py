@@ -31,8 +31,8 @@ def iseq(start=1):
     >>> list(take(5, iseq()))
     [1, 2, 3, 4, 5]
     """
-    add1 = core.op(operator.add, 1)
-    return toolz.iterate(add1, start)
+    inc = core.op(operator.add, 1)
+    return toolz.iterate(inc, start)
 
 
 def iseq_even(start=1):

@@ -8,8 +8,8 @@ from bumbag import core
 
 @pytest.mark.parametrize("arg, expected", [(0, 1), (1, 2), (10, 11), (21, 22)])
 def test_op(arg, expected):
-    add1 = core.op(operator.add, 1)
-    actual = add1(arg)
+    inc = core.op(operator.add, 1)
+    actual = inc(arg)
     assert actual == expected
 
 

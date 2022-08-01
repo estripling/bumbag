@@ -34,10 +34,10 @@ def op(func, x, y):
     Examples
     --------
     >>> from operator import add
-    >>> add1 = op(add, 1)
-    >>> add1(0)
+    >>> inc = op(add, 1)
+    >>> inc(0)
     1
-    >>> add1(10)
+    >>> inc(10)
     11
     """
     return func(x, y)
