@@ -62,3 +62,25 @@ def test_map_regex(zen_of_python):
         + [[] for _ in range(3)]
     )
     assert actual == expected, "map_better_regex failed"
+
+
+def test_filter_regex(zen_of_python):
+    filter_python_regex = string.filter_regex("python")
+    filter_better_regex = string.filter_regex("better")
+
+    actual = list(filter_python_regex(zen_of_python))
+    expected = ["The Zen of Python, by Tim Peters"]
+    assert actual == expected, "filter_python_regex failed"
+
+    actual = list(filter_better_regex(zen_of_python))
+    expected = [
+        "Beautiful is better than ugly.",
+        "Explicit is better than implicit.",
+        "Simple is better than complex.",
+        "Complex is better than complicated.",
+        "Flat is better than nested.",
+        "Sparse is better than dense.",
+        "Now is better than never.",
+        "Although never is often better than *right* now.",
+    ]
+    assert actual == expected, "filter_better_regex failed"

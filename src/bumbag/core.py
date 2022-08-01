@@ -1,9 +1,7 @@
 import collections
-import functools
 import inspect
 import math
 import operator
-import re
 
 from toolz import curried, curry, isiterable
 
@@ -156,51 +154,6 @@ def get_function_name():
     'my_test_function'
     """
     return inspect.stack()[1].function
-
-
-@curry
-def filterregex(pattern, collection, flags=re.IGNORECASE):
-    """Filter collection of strings based on regex pattern.
-
-    Parameters
-    ----------
-    pattern : str
-        Regex pattern.
-    collection : list of str
-        A collection of strings to match ``pattern`` against.
-    flags : RegexFlag, default=re.IGNORECASE
-        Regex flag passed to ``re.findall`` function.
-        See official Python documentation for more information.
-
-    Yields
-    ------
-    str
-        A generator of the original strings in the collection
-        for which there is a match with the regex pattern.
-
-    Notes
-    -----
-    Function is curried.
-
-    References
-    ----------
-    .. [1] "Regular expression operations", Official Python documentation,
-           https://docs.python.org/3/library/re.html
-
-    Examples
-    --------
-    >>> list_of_strings = [
-    ...     "Guiding principles for Python's design: The Zen of Python",
-    ...     "Beautiful is better than ugly.",
-    ...     "Explicit is better than implicit",
-    ...     "Simple is better than complex.",
-    ... ]
-    >>> filterregex_python = filterregex("python")
-    >>> list(filterregex_python(list_of_strings))
-    ["Guiding principles for Python's design: The Zen of Python"]
-    """
-    func = functools.partial(re.findall, pattern, flags=flags)
-    return filter(func, collection)
 
 
 def get_source_code(obj):
