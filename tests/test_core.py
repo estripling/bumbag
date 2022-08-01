@@ -104,28 +104,6 @@ def test_get_function_name():
     assert actual == expected
 
 
-def test_filterregex(zen_of_python):
-    filterregex_python = core.filterregex("python")
-    filterregex_better = core.filterregex("better")
-
-    actual = list(filterregex_python(zen_of_python))
-    expected = ["The Zen of Python, by Tim Peters"]
-    assert actual == expected, "filterregex_python failed"
-
-    actual = list(filterregex_better(zen_of_python))
-    expected = [
-        "Beautiful is better than ugly.",
-        "Explicit is better than implicit.",
-        "Simple is better than complex.",
-        "Complex is better than complicated.",
-        "Flat is better than nested.",
-        "Sparse is better than dense.",
-        "Now is better than never.",
-        "Although never is often better than *right* now.",
-    ]
-    assert actual == expected, "filterregex_better failed"
-
-
 def test_get_source_code():
     def my_test_function():
         return "Hello, World!"
