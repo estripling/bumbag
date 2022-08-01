@@ -43,3 +43,22 @@ from bumbag import string
 def test_remove_punctuation(arg, expected):
     actual = string.remove_punctuation(arg)
     assert actual == expected
+
+
+def test_map_regex(zen_of_python):
+    map_python_regex = string.map_regex("python")
+    map_better_regex = string.map_regex("better")
+
+    actual = list(map_python_regex(zen_of_python))
+    expected = [["Python"]] + [[] for _ in range(19)]
+    assert actual == expected, "map_python_regex failed"
+
+    actual = list(map_better_regex(zen_of_python))
+    expected = (
+        [[]]
+        + [["better"] for _ in range(6)]
+        + [[] for _ in range(8)]
+        + [["better"] for _ in range(2)]
+        + [[] for _ in range(3)]
+    )
+    assert actual == expected, "map_better_regex failed"
