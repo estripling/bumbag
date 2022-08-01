@@ -52,7 +52,7 @@ def is_even(n: int):
     return n % 2 == 0
 
 
-def add_one(n):
+def add1(n):
     return n + 1
 
 
@@ -60,7 +60,7 @@ def integer_sequence(start):
     n = start
     while True:
         yield n
-        n = add_one(n)
+        n = add1(n)
 
 
 def test_concat():
@@ -137,7 +137,7 @@ def test_do():
     assert actual == expected
 
     log = []
-    f = compose(add_one, do(log.append))
+    f = compose(add1, do(log.append))
 
     actual = f(1)
     expected = 2
@@ -208,7 +208,7 @@ def test_interpose():
 
 def test_iterate():
     """Repeatedly apply a function onto an original input."""
-    counter = iterate(add_one, 0)
+    counter = iterate(add1, 0)
     assert next(counter) == 0
     assert next(counter) == 1
     assert next(counter) == 2
@@ -508,7 +508,7 @@ class TestDictToolz:
 
     def test_update_in(self):
         """Update value in a (potentially) nested dictionary."""
-        actual = update_in({"a": 0}, ["a"], add_one)
+        actual = update_in({"a": 0}, ["a"], add1)
         expected = {"a": 1}
         assert actual == expected
 
