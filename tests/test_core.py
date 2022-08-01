@@ -80,16 +80,18 @@ def test_sig(args, expected):
         ((0, 1, 0.1, 0.05), (-0.1, 1.05)),
         ((-1, 10, 0.1, 0.1), (-2.1, 11.1)),
         ((0, 10, 0.1, 0.1), (-1.0, 11.0)),
+        ((1, 0, -0.1, 0.1), None),
+        ((1, 0, 0.05, 0.05), (-0.05, 1.05)),
     ],
 )
 def test_extend_range(args, expected):
-    vmin, vmax, pmin, pmax = args
-    f = core.extend_range(pmin=pmin, pmax=pmax)
-    if pmin < 0 or pmax < 0:
+    min_value, max_value, min_factor, max_factor = args
+    f = core.extend_range(min_factor=min_factor, max_factor=max_factor)
+    if min_factor < 0 or max_factor < 0:
         with pytest.raises(ValueError):
-            f(vmin, vmax)
+            f(min_value, max_value)
     else:
-        actual = f(vmin, vmax)
+        actual = f(min_value, max_value)
         assert actual == expected
 
 

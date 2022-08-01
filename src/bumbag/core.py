@@ -88,44 +88,55 @@ def sig(number, digits=3):
 
 
 @curry
-def extend_range(vmin, vmax, pmin=0.05, pmax=0.05):
-    """Extend range by small percentage.
+def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
+    """Extend value range by a factor.
+
+    The value range is defined as ``max_value - min_value``.
 
     Parameters
     ----------
-    vmin : int, float
-        Lower endpoint of range.
-    vmax : int, float
-        Upper endpoint of range.
-    pmin : float, default=0.05
-        Percentage to extend the lower endpoint.
-    pmax : float, default=0.05
-        Percentage to extend the lower endpoint.
+    min_value : int, float
+        Lower endpoint of value range.
+    max_value : int, float
+        Upper endpoint of value range.
+    min_factor : float, default=0.05
+        Factor w.r.t. value range to extend the lower endpoint.
+    max_factor : float, default=0.05
+        Factor w.r.t. value range to extend the upper endpoint.
 
     Returns
     -------
     tuple of float
-        Endpoints of extended range.
+        Endpoints of extended value range.
 
     Notes
     -----
-    Function is curried.
+    - Function is curried.
+    - ``min_value < max_value`` or ``max_value < min_value``:
+      both return the same value.
 
     Examples
     --------
     >>> extend_range(0, 1)
     (-0.05, 1.05)
+
+    >>> extend_range(0, 1, 0.1, 0.2)
+    (-0.1, 1.2)
     """
-    if not isinstance(pmin, float) or pmin < 0:
-        raise ValueError(f"pmin={pmin} - must be a non-negative number")
+    if not isinstance(min_factor, float) or min_factor < 0:
+        raise ValueError(f"{min_factor=} - must be a non-negative number")
 
-    if not isinstance(pmax, float) or pmax < 0:
-        raise ValueError(f"pmax={pmax} - must be a non-negative number")
+    if not isinstance(max_factor, float) or max_factor < 0:
+        raise ValueError(f"{max_factor=} - must be a non-negative number")
 
-    value_range = vmax - vmin
-    new_vmin = vmin - (pmin * value_range)
-    new_vmax = vmax + (pmax * value_range)
-    return new_vmin, new_vmax
+    if min_value > max_value:
+        min_value, max_value = max_value, min_value
+
+    value_range = max_value - min_value
+    new_min_value = min_value - (min_factor * value_range)
+    new_max_value = max_value + (max_factor * value_range)
+
+    return new_min_value, new_max_value
 
 
 def get_function_name():
