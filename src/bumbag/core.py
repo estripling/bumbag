@@ -57,7 +57,7 @@ def sig(number, digits=3):
     Returns
     -------
     int, float
-        Number rouned to its significant digits.
+        Number rounded to its significant digits.
 
     Raises
     ------
