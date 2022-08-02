@@ -5,12 +5,12 @@ import toolz
 from bumbag import core
 
 
-def iseq(start=1):
+def iseq(start):
     """Generate a sequence of consecutive integers.
 
     Parameters
     ----------
-    start : int, default=1
+    start : int
         Start of the sequence.
 
     Yields
@@ -28,19 +28,19 @@ def iseq(start=1):
     >>> from toolz import take
     >>> list(take(11, iseq(-1)))
     [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    >>> list(take(5, iseq()))
+    >>> list(take(5, iseq(1)))
     [1, 2, 3, 4, 5]
     """
     inc = core.op(operator.add, 1)
     return toolz.iterate(inc, start)
 
 
-def iseq_even(start=1):
+def iseq_even(start):
     """Generate a sequence of consecutive even integers.
 
     Parameters
     ----------
-    start : int, default=1
+    start : int
         Start of the sequence.
 
     Yields
@@ -53,18 +53,18 @@ def iseq_even(start=1):
     >>> from toolz import take
     >>> list(take(11, iseq_even(-1)))
     [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-    >>> list(take(5, iseq_even()))
+    >>> list(take(5, iseq_even(1)))
     [2, 4, 6, 8, 10]
     """
     return toolz.filter(iseven, iseq(start))
 
 
-def iseq_odd(start=1):
+def iseq_odd(start):
     """Generate a sequence of consecutive odd integers.
 
     Parameters
     ----------
-    start : int, default=1
+    start : int
         Start of the sequence.
 
     Yields
@@ -77,7 +77,7 @@ def iseq_odd(start=1):
     >>> from toolz import take
     >>> list(take(11, iseq_odd(-1)))
     [-1, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-    >>> list(take(5, iseq_odd()))
+    >>> list(take(5, iseq_odd(1)))
     [1, 3, 5, 7, 9]
     """
     return toolz.filter(isodd, iseq(start))
