@@ -194,8 +194,8 @@ def freq(values):
     Parameters
     ----------
     values : iterable
-        Collection of values, where each value must be of a type that
-        can be used as a dictionary key.
+        Collection of values, where each value must be of an immutable type
+        that can be used as a dictionary key.
 
     Returns
     -------
@@ -216,12 +216,13 @@ def freq(values):
     {'a': 0.375, 'g': 0.25, 'c': 0.125, 'b': 0.125, 'h': 0.125}
     >>> frequency["R"]
     {'a': 0.375, 'g': 0.625, 'c': 0.75, 'b': 0.875, 'h': 1.0}
+    >>> freq("acbghaga") == frequency
+    True
 
     >>> x = [1, "c", False, 2.0, None, 1, 2.0, 1]
     >>> frequency = freq(x)
     >>> frequency["n"]
     {1: 3, 2.0: 2, 'c': 1, False: 1, None: 1}
-
     """
     output = dict()
     counter = collections.Counter(values)
