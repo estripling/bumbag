@@ -22,13 +22,12 @@ def query_yes_no(question, default=None):
     Returns
     -------
     bool
-        True if user's answer is yes.
-        False if user's answer is no.
+        ``True`` if user's answer is "yes" else ``False``.
 
     Raises
     ------
     ValueError
-        If ``default`` is none of the following values: {None, 'yes', 'no'}.
+        If ``default`` is none of the following values: {None, "yes", "no"}.
 
     Examples
     --------
