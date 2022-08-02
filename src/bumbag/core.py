@@ -353,12 +353,12 @@ def two_set_summary(x, y, show=3):
     return output
 
 
-def flatten(*seqs):
+def flatten(*sequences):
     """Flatten an arbitrarily nested and possibly irregular collection.
 
     Parameters
     ----------
-    seqs : collection
+    sequences : collection
         Collection of sequences and/or items to flatten.
 
     Yields
@@ -394,11 +394,11 @@ def flatten(*seqs):
     ['one', 2, 3, 4, 'five', 'six', 'seven']
     """
 
-    def flattenit(sequences):
-        for seq in sequences:
+    def flattenit(seqs):
+        for seq in seqs:
             if isiterable(seq) and not isinstance(seq, str):
                 yield from flattenit(seq)
             else:
                 yield seq
 
-    return flattenit(seqs)
+    return flattenit(sequences)
