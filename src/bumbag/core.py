@@ -226,22 +226,16 @@ def freq(values):
     """
     output = dict()
     counter = collections.Counter(values)
-    value_counts = tuple(counter.most_common(len(counter)))
-
-    def distinct_values():
-        return map(operator.itemgetter(0), value_counts)
-
-    def frequencies():
-        return map(operator.itemgetter(1), value_counts)
+    distinct_values, frequencies = zip(*counter.most_common(len(counter)))
 
     cumsum = curried.accumulate(operator.add)
-    div_by_total = op(operator.truediv, y=sum(frequencies()))
+    div_by_total = op(operator.truediv, y=sum(frequencies))
     relative = curried.map(div_by_total)
 
-    output["n"] = dict(zip(distinct_values(), frequencies()))
-    output["N"] = dict(zip(distinct_values(), cumsum(frequencies())))
-    output["r"] = dict(zip(distinct_values(), relative(frequencies())))
-    output["R"] = dict(zip(distinct_values(), cumsum(relative(frequencies()))))
+    output["n"] = dict(zip(distinct_values, frequencies))
+    output["N"] = dict(zip(distinct_values, cumsum(frequencies)))
+    output["r"] = dict(zip(distinct_values, relative(frequencies)))
+    output["R"] = dict(zip(distinct_values, cumsum(relative(frequencies))))
 
     return output
 
