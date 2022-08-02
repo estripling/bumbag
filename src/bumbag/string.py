@@ -11,7 +11,7 @@ def remove_punctuation(string):
     Parameters
     ----------
     string : str
-        String to be processed.
+        String to process.
 
     Returns
     -------
