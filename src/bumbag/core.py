@@ -354,12 +354,12 @@ def two_set_summary(x, y, show=3):
 
 
 def flatten(*seqs):
-    """Flatten an irregular, arbitrarily nested collection.
+    """Flatten an arbitrarily nested and possibly irregular collection.
 
     Parameters
     ----------
     seqs : collection
-        An irregular collection of sequences and items to flatten.
+        Collection of sequences and/or items to flatten.
 
     Yields
     ------
