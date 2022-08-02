@@ -84,7 +84,7 @@ def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
         all files in target directory are archived.
     target_dir : None, str, pathlib.Path, default=None
         Specify the target directory to archive. If ``target_dir`` is None,
-        ``target_dir`` is the current working directory.
+        ``target_dir`` is set to be the current working directory.
     name : None, str, default=None
         Name of the archive. If ``name`` is None, archive name is the name of
         the target directory.
