@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 from math import isclose
 
 import toolz
-from dateutil import relativedelta
+from dateutil.relativedelta import relativedelta
 
 from bumbag.core import op
 from bumbag.math import irange
@@ -297,7 +297,7 @@ def months_between_dates(date1, date2, include_last_date=False):
     8
     """
     start, end = sorted([date1, date2])
-    difference = relativedelta.relativedelta(end, start)
+    difference = relativedelta(end, start)
     n_months = difference.months + 12 * difference.years
     return n_months + 1 if include_last_date else n_months
 
@@ -362,9 +362,7 @@ def monthrange(start, end, include_start=True, include_end=True):
     """
     start, end = sorted([start, end])
     n_months = months_between_dates(start, end, include_last_date=True)
-    month_sequence = (
-        start + relativedelta.relativedelta(months=i) for i in range(n_months)
-    )
+    month_sequence = (start + relativedelta(months=i) for i in range(n_months))
 
     if not include_end:
         month_sequence = toolz.take(n_months - 1, month_sequence)
@@ -413,9 +411,9 @@ def mseq(start, forward):
     """
     for i in irange(0):
         yield (
-            start + relativedelta.relativedelta(months=i)
+            start + relativedelta(months=i)
             if forward
-            else start - relativedelta.relativedelta(months=i)
+            else start - relativedelta(months=i)
         )
 
 
