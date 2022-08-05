@@ -263,7 +263,8 @@ def months_between_dates(date1, date2, include_last_date=False):
 
     Notes
     -----
-    - ``date1 < date2`` or ``date2 < date1``: both return the same value.
+    - Swapping dates if necessary, i.e., ``date1 < date2`` and
+      ``date2 < date1`` return the same value.
 
     Returns
     -------
