@@ -8,13 +8,13 @@ from toolz import curry
 from bumbag.math import irange
 
 
-def str_to_date(string):
+def to_date(string_to_cast):
     """Cast an ISO date string to a date object.
 
     Parameters
     ----------
-    string : str
-        Date string in ISO 8601 format, YYYY-MM-DD.
+    string_to_cast : str
+        Date string in ISO format (YYYY-MM-DD) to cast.
 
     Returns
     -------
@@ -23,10 +23,10 @@ def str_to_date(string):
 
     Examples
     --------
-    >>> str_to_date("2022-01-01")
+    >>> to_date("2022-01-01")
     datetime.date(2022, 1, 1)
     """
-    return datetime.strptime(string, "%Y-%m-%d").date()
+    return datetime.strptime(string_to_cast, "%Y-%m-%d").date()
 
 
 def date_to_str(input_date):
