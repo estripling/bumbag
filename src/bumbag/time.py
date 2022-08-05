@@ -92,6 +92,7 @@ def is_leap_year(year):
     --------
     >>> is_leap_year(2000)
     True
+
     >>> is_leap_year(2001)
     False
     """
@@ -126,6 +127,7 @@ def days_between_dates(date1, date2, include_last_date=False):
     0
     >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1), True)
     1
+
     >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7))
     6
     >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7), True)
@@ -209,8 +211,10 @@ def dseq(start, forward):
     >>> from toolz.curried import pipe, take, map
     >>> from bumbag.time import date_to_str
     >>> seed = dseq(date(2022, 1, 1))
+
     >>> pipe(seed(forward=True), map(date_to_str), take(3), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
+
     >>> pipe(seed(forward=False), map(date_to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
     """
@@ -249,8 +253,10 @@ def datedelta(reference, days):
     >>> from datetime import date
     >>> datedelta(date(2022, 1, 1), 0)
     datetime.date(2022, 1, 1)
+
     >>> datedelta(date(2022, 1, 1), 3)
     datetime.date(2022, 1, 3)
+
     >>> datedelta(date(2022, 1, 1), -3)
     datetime.date(2021, 12, 30)
     """
@@ -292,6 +298,7 @@ def months_between_dates(date1, date2, include_last_date=False):
     0
     >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1), True)
     1
+
     >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 31))
     7
     >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 1), True)
@@ -336,6 +343,7 @@ def monthrange(start, end, exclude_start=False, exclude_end=False):
     >>> d2 = date(2022, 4, 30)
     >>> pipe(monthrange(d1, d2), map(date_to_str), list)
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
+
     >>> d1 = date(2022, 1, 31)
     >>> d2 = date(2022, 4, 30)
     >>> pipe(monthrange(d1, d2), map(date_to_str), list)
@@ -384,6 +392,7 @@ def mseq(start, forward):
     >>> seed = mseq(date(2022, 1, 1))
     >>> pipe(seed(forward=True), map(date_to_str), take(4), list)
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
+
     >>> pipe(seed(forward=False), map(date_to_str), take(4), list)
     ['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01']
     """
@@ -417,12 +426,16 @@ def humantime(seconds):
     --------
     >>> humantime(1)
     '1 second'
+
     >>> humantime(2)
     '2 seconds'
+
     >>> humantime(60)
     '1 minute'
+
     >>> humantime(120)
     '2 minutes'
+
     >>> humantime(60 * 60 * 24 + 123456)
     '2 days, 10 hours, 17 minutes'
     """
