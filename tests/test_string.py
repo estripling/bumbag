@@ -51,7 +51,7 @@ def test_map_regex(zen_of_python):
 
     actual = list(map_python_regex(zen_of_python))
     expected = [["Python"]] + [[] for _ in range(19)]
-    assert actual == expected, "map_python_regex failed"
+    assert actual == expected, "map_python_regex fails"
 
     actual = list(map_better_regex(zen_of_python))
     expected = (
@@ -61,7 +61,7 @@ def test_map_regex(zen_of_python):
         + [["better"] for _ in range(2)]
         + [[] for _ in range(3)]
     )
-    assert actual == expected, "map_better_regex failed"
+    assert actual == expected, "map_better_regex fails"
 
 
 def test_filter_regex(zen_of_python):
@@ -70,7 +70,7 @@ def test_filter_regex(zen_of_python):
 
     actual = list(filter_python_regex(zen_of_python))
     expected = ["The Zen of Python, by Tim Peters"]
-    assert actual == expected, "filter_python_regex failed"
+    assert actual == expected, "filter_python_regex fails"
 
     actual = list(filter_better_regex(zen_of_python))
     expected = [
@@ -83,4 +83,4 @@ def test_filter_regex(zen_of_python):
         "Now is better than never.",
         "Although never is often better than *right* now.",
     ]
-    assert actual == expected, "filter_better_regex failed"
+    assert actual == expected, "filter_better_regex fails"
