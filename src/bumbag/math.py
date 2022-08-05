@@ -81,30 +81,6 @@ def irange(start, step=1):
     return toolz.iterate(successor, start)
 
 
-def iseq_even(start):
-    """Generate a sequence of consecutive even integers.
-
-    Parameters
-    ----------
-    start : int
-        Start of the sequence.
-
-    Yields
-    ------
-    int
-        A generator of consecutive even integers.
-
-    Examples
-    --------
-    >>> from toolz import take
-    >>> list(take(11, iseq_even(-1)))
-    [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-    >>> list(take(5, iseq_even(1)))
-    [2, 4, 6, 8, 10]
-    """
-    return toolz.filter(iseven, irange(start))
-
-
 def iseq_odd(start):
     """Generate a sequence of consecutive odd integers.
 
