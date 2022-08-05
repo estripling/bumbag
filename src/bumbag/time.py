@@ -214,13 +214,12 @@ def drange(start, forward=True):
 
 
 def datedelta(reference, days):
-    """Compute date relative to reference date in terms of number of days.
+    """Compute date relative to reference date.
 
-    The reference and relative dates are the (inclusive) endpoints of
-    a sequence of consecutive dates, where the ``days`` argument corresponds
-    to the actual number of days between the dates. As a result, the reference
-    date and relative date can directly be used in a BETWEEN statement of
-    a SQL query.
+    The reference date and relative date are the inclusive endpoints of the
+    corresponding, consecutive date sequence. As a result, the reference date
+    and relative date can, for example, directly be used in a BETWEEN statement
+    of a SQL query.
 
     Parameters
     ----------
@@ -229,8 +228,8 @@ def datedelta(reference, days):
     days : int
         Size of the delta expressed in number of days:
          - If ``days == 0``, returns the reference date.
-         - If ``days > 0``, returns date ahead w.r.t. the reference date.
-         - If ``days < 0``, returns date ago w.r.t. the reference date.
+         - If ``days > 0``, returns the date ahead w.r.t. the reference date.
+         - If ``days < 0``, returns the date ago w.r.t. the reference date.
         The value of ``days`` equals the length of the corrsponding sequence of
         consecutive dates with inclusive endpoints.
 
