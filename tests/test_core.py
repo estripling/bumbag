@@ -6,6 +6,126 @@ import pytest
 from bumbag import core
 
 
+@pytest.mark.parametrize(
+    "args, expected",
+    [
+        ((0, 1, -0.1, 0.1), None),
+        ((0, 1, 0.1, -0.1), None),
+        ((0, 1, -0.1, -0.1), None),
+        ((0, 1, 0.0, 0.0), (0, 1)),
+        ((0, 1, 0.05, 0.05), (-0.05, 1.05)),
+        ((0, 1, 0.1, 0.1), (-0.1, 1.1)),
+        ((0, 1, 0.05, 0.1), (-0.05, 1.1)),
+        ((0, 1, 0.1, 0.05), (-0.1, 1.05)),
+        ((-1, 10, 0.1, 0.1), (-2.1, 11.1)),
+        ((0, 10, 0.1, 0.1), (-1.0, 11.0)),
+        ((1, 0, -0.1, 0.1), None),
+        ((1, 0, 0.05, 0.05), (-0.05, 1.05)),
+    ],
+)
+def test_extend_range(args, expected):
+    min_value, max_value, min_factor, max_factor = args
+    f = core.extend_range(min_factor=min_factor, max_factor=max_factor)
+    if min_factor < 0 or max_factor < 0:
+        with pytest.raises(ValueError):
+            f(min_value, max_value)
+    else:
+        actual = f(min_value, max_value)
+        assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "args, expected",
+    [
+        ((1, 2, 3, 4, 5, 6), [1, 2, 3, 4, 5, 6]),
+        (range(1, 7), [1, 2, 3, 4, 5, 6]),
+        ([[1, 2], [3, 4], [5, 6]], [1, 2, 3, 4, 5, 6]),
+        ([[], [1, 2], [3, 4, 5], [6]], [1, 2, 3, 4, 5, 6]),
+        ([[1, 2], 3, (4, 5), (6,)], [1, 2, 3, 4, 5, 6]),
+        ([[[1, 2]], [3], 4, [[[5]]], [[[[6]]]]], [1, 2, 3, 4, 5, 6]),
+        ([1, [2, 3, 4], [[5, 6]]], [1, 2, 3, 4, 5, 6]),
+        ([1, [2, 3, 4, 5], 6, []], [1, 2, 3, 4, 5, 6]),
+        ([[1, 2], [3, 4, 5], 6], [1, 2, 3, 4, 5, 6]),
+        (([[1, 2], [3, 4, 5], 6],), [1, 2, 3, 4, 5, 6]),
+        (
+            [["one", 2], 3, [4, "five"], ["six"]],
+            ["one", 2, 3, 4, "five", "six"],
+        ),
+        (map(lambda x: 2 * x, range(1, 7)), [2, 4, 6, 8, 10, 12]),
+        ((2 * x for x in range(1, 7)), [2, 4, 6, 8, 10, 12]),
+        (tuple(2 * x for x in range(1, 7)), [2, 4, 6, 8, 10, 12]),
+        (list(2 * x for x in range(1, 7)), [2, 4, 6, 8, 10, 12]),
+        (([-1], 0, range(1, 7)), [-1, 0, 1, 2, 3, 4, 5, 6]),
+        (([-1], 0, map(lambda x: 2 * x, range(1, 4))), [-1, 0, 2, 4, 6]),
+        (([-1], 0, (2 * x for x in range(1, 4))), [-1, 0, 2, 4, 6]),
+        (([-1], 0, tuple(2 * x for x in range(1, 4))), [-1, 0, 2, 4, 6]),
+        (([-1], 0, list(2 * x for x in range(1, 4))), [-1, 0, 2, 4, 6]),
+        (filter(lambda x: x % 2 == 0, range(1, 7)), [2, 4, 6]),
+        ((-1, filter(lambda x: x % 2 == 0, range(1, 7))), [-1, 2, 4, 6]),
+        (([-1], filter(lambda x: x % 2 == 0, range(1, 7))), [-1, 2, 4, 6]),
+    ],
+)
+def test_flatten(args, expected):
+    seqs = args
+    actual = list(core.flatten(seqs))
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "x, expected_order",
+    [
+        (["a", "c", "b", "g", "h", "a", "g", "a"], ["a", "g", "c", "b", "h"]),
+        (
+            ["a", "c", None, "g", "h", "a", "g", "a"],
+            ["a", "g", "c", None, "h"],
+        ),
+        (["a", 1, None, "g", "h", "a", "g", "a"], ["a", "g", 1, None, "h"]),
+        (["a", 1, None, "g", 2.0, "a", "g", "a"], ["a", "g", 1, None, 2.0]),
+        ([5, 2, True, "g", False, 5, "g", 5], [5, "g", 2, True, False]),
+        ([1, 3, 2, 4, 8, 1, 4, 1], [1, 4, 3, 2, 8]),
+    ],
+)
+def test_freq(x, expected_order):
+    actual = core.freq(x)
+    assert isinstance(actual, dict)
+
+    v1, v2, v3, v4, v5 = expected_order
+    expected_frequency = {v1: 3, v2: 2, v3: 1, v4: 1, v5: 1}
+    expected_cumulative_frequency = {v1: 3, v2: 5, v3: 6, v4: 7, v5: 8}
+    expected_relative = {v1: 0.375, v2: 0.25, v3: 0.125, v4: 0.125, v5: 0.125}
+    expected_cumulative_relative = {
+        v1: 0.375,
+        v2: 0.625,
+        v3: 0.75,
+        v4: 0.875,
+        v5: 1.0,
+    }
+
+    assert list(actual["n"]) == expected_order
+    assert actual["n"] == expected_frequency
+    assert actual["N"] == expected_cumulative_frequency
+    assert actual["r"] == expected_relative
+    assert actual["R"] == expected_cumulative_relative
+
+
+def test_get_function_name():
+    def my_test_function():
+        return core.get_function_name()
+
+    actual = my_test_function()
+    expected = "my_test_function"
+    assert actual == expected
+
+
+def test_get_source_code():
+    def my_test_function():
+        return "Hello, World!"
+
+    actual = core.get_source_code(my_test_function)
+    expected = '    def my_test_function():\n        return "Hello, World!"\n'
+    assert actual == expected
+
+
 @pytest.mark.parametrize("arg, expected", [(0, 1), (1, 2), (10, 11), (21, 22)])
 def test_op(arg, expected):
     inc = core.op(operator.add, 1)
@@ -67,89 +187,6 @@ def test_sig(args, expected):
         assert actual == expected
 
 
-@pytest.mark.parametrize(
-    "args, expected",
-    [
-        ((0, 1, -0.1, 0.1), None),
-        ((0, 1, 0.1, -0.1), None),
-        ((0, 1, -0.1, -0.1), None),
-        ((0, 1, 0.0, 0.0), (0, 1)),
-        ((0, 1, 0.05, 0.05), (-0.05, 1.05)),
-        ((0, 1, 0.1, 0.1), (-0.1, 1.1)),
-        ((0, 1, 0.05, 0.1), (-0.05, 1.1)),
-        ((0, 1, 0.1, 0.05), (-0.1, 1.05)),
-        ((-1, 10, 0.1, 0.1), (-2.1, 11.1)),
-        ((0, 10, 0.1, 0.1), (-1.0, 11.0)),
-        ((1, 0, -0.1, 0.1), None),
-        ((1, 0, 0.05, 0.05), (-0.05, 1.05)),
-    ],
-)
-def test_extend_range(args, expected):
-    min_value, max_value, min_factor, max_factor = args
-    f = core.extend_range(min_factor=min_factor, max_factor=max_factor)
-    if min_factor < 0 or max_factor < 0:
-        with pytest.raises(ValueError):
-            f(min_value, max_value)
-    else:
-        actual = f(min_value, max_value)
-        assert actual == expected
-
-
-def test_get_function_name():
-    def my_test_function():
-        return core.get_function_name()
-
-    actual = my_test_function()
-    expected = "my_test_function"
-    assert actual == expected
-
-
-def test_get_source_code():
-    def my_test_function():
-        return "Hello, World!"
-
-    actual = core.get_source_code(my_test_function)
-    expected = '    def my_test_function():\n        return "Hello, World!"\n'
-    assert actual == expected
-
-
-@pytest.mark.parametrize(
-    "x, expected_order",
-    [
-        (["a", "c", "b", "g", "h", "a", "g", "a"], ["a", "g", "c", "b", "h"]),
-        (
-            ["a", "c", None, "g", "h", "a", "g", "a"],
-            ["a", "g", "c", None, "h"],
-        ),
-        (["a", 1, None, "g", "h", "a", "g", "a"], ["a", "g", 1, None, "h"]),
-        (["a", 1, None, "g", 2.0, "a", "g", "a"], ["a", "g", 1, None, 2.0]),
-        ([5, 2, True, "g", False, 5, "g", 5], [5, "g", 2, True, False]),
-        ([1, 3, 2, 4, 8, 1, 4, 1], [1, 4, 3, 2, 8]),
-    ],
-)
-def test_freq(x, expected_order):
-    actual = core.freq(x)
-    assert isinstance(actual, dict)
-
-    v1, v2, v3, v4, v5 = expected_order
-    expected_frequency = {v1: 3, v2: 2, v3: 1, v4: 1, v5: 1}
-    expected_cumulative_frequency = {v1: 3, v2: 5, v3: 6, v4: 7, v5: 8}
-    expected_relative = {v1: 0.375, v2: 0.25, v3: 0.125, v4: 0.125, v5: 0.125}
-    expected_cumulative_relative = {
-        v1: 0.375,
-        v2: 0.625,
-        v3: 0.75,
-        v4: 0.875,
-        v5: 1.0,
-    }
-
-    assert list(actual["n"]) == expected_order
-    assert actual["n"] == expected_frequency
-    assert actual["N"] == expected_cumulative_frequency
-    assert actual["r"] == expected_relative
-    assert actual["R"] == expected_cumulative_relative
-
-
 def test_two_set_summary():
     x = {"a", "c", "b", "g", "h"}
     y = {"c", "d", "e", "f", "g"}
@@ -193,40 +230,3 @@ def test_two_set_summary():
     ]
     report = "\n".join(lines)
     assert summary["report"] == report
-
-
-@pytest.mark.parametrize(
-    "args, expected",
-    [
-        ((1, 2, 3, 4, 5, 6), [1, 2, 3, 4, 5, 6]),
-        (range(1, 7), [1, 2, 3, 4, 5, 6]),
-        ([[1, 2], [3, 4], [5, 6]], [1, 2, 3, 4, 5, 6]),
-        ([[], [1, 2], [3, 4, 5], [6]], [1, 2, 3, 4, 5, 6]),
-        ([[1, 2], 3, (4, 5), (6,)], [1, 2, 3, 4, 5, 6]),
-        ([[[1, 2]], [3], 4, [[[5]]], [[[[6]]]]], [1, 2, 3, 4, 5, 6]),
-        ([1, [2, 3, 4], [[5, 6]]], [1, 2, 3, 4, 5, 6]),
-        ([1, [2, 3, 4, 5], 6, []], [1, 2, 3, 4, 5, 6]),
-        ([[1, 2], [3, 4, 5], 6], [1, 2, 3, 4, 5, 6]),
-        (([[1, 2], [3, 4, 5], 6],), [1, 2, 3, 4, 5, 6]),
-        (
-            [["one", 2], 3, [4, "five"], ["six"]],
-            ["one", 2, 3, 4, "five", "six"],
-        ),
-        (map(lambda x: 2 * x, range(1, 7)), [2, 4, 6, 8, 10, 12]),
-        ((2 * x for x in range(1, 7)), [2, 4, 6, 8, 10, 12]),
-        (tuple(2 * x for x in range(1, 7)), [2, 4, 6, 8, 10, 12]),
-        (list(2 * x for x in range(1, 7)), [2, 4, 6, 8, 10, 12]),
-        (([-1], 0, range(1, 7)), [-1, 0, 1, 2, 3, 4, 5, 6]),
-        (([-1], 0, map(lambda x: 2 * x, range(1, 4))), [-1, 0, 2, 4, 6]),
-        (([-1], 0, (2 * x for x in range(1, 4))), [-1, 0, 2, 4, 6]),
-        (([-1], 0, tuple(2 * x for x in range(1, 4))), [-1, 0, 2, 4, 6]),
-        (([-1], 0, list(2 * x for x in range(1, 4))), [-1, 0, 2, 4, 6]),
-        (filter(lambda x: x % 2 == 0, range(1, 7)), [2, 4, 6]),
-        ((-1, filter(lambda x: x % 2 == 0, range(1, 7))), [-1, 2, 4, 6]),
-        (([-1], filter(lambda x: x % 2 == 0, range(1, 7))), [-1, 2, 4, 6]),
-    ],
-)
-def test_flatten(args, expected):
-    seqs = args
-    actual = list(core.flatten(seqs))
-    assert actual == expected
