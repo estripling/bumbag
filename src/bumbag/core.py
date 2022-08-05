@@ -130,10 +130,9 @@ def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
     if not isinstance(max_factor, float) or max_factor < 0:
         raise ValueError(f"{max_factor=} - must be a non-negative number")
 
-    if min_value > max_value:
-        min_value, max_value = max_value, min_value
-
+    min_value, max_value = sorted([min_value, max_value])
     value_range = max_value - min_value
+
     new_min_value = min_value - (min_factor * value_range)
     new_max_value = max_value + (max_factor * value_range)
 
