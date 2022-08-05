@@ -2,6 +2,75 @@ import random
 import string
 
 
+def coinflip(bias=0.5, seed=None):
+    """Flip a coin.
+
+    Parameters
+    ----------
+    bias : float, default=0.5
+        Specify the bias of the coin:
+         - A ``bias`` of 0.5 corresponds to a fair coin.
+         - A ``bias`` closer to 1.0 is more likely to generate ``True``.
+         - A ``bias`` closer to 0.0 is more likely to generate ``False``.
+    seed : None, int, random.Random, default=None
+        Value to seed an instance:
+         - If ``seed`` is None, return random module's singleton.
+         - If ``seed`` is an integer, return a new instance seeded with it.
+         - If ``seed`` is already a Random instance, return the instance.
+
+    Returns
+    -------
+    bool
+        Outcome of the digital coin flip.
+
+    Raises
+    ------
+    ValueError
+        If ``bias`` is not in [0, 1].
+
+    Examples
+    --------
+    >>> {coinflip() for _ in range(30)} == {True, False}
+    True
+    """
+    if not (0 <= bias <= 1):
+        raise ValueError(f"{bias=} - must be a float in [0, 1]")
+    rng = get_random_instance(seed)
+    return rng.random() < bias
+
+
+def get_random_character(alphabet=None, seed=None):
+    """Get a random character from a given alphabet.
+
+    Parameters
+    ----------
+    alphabet : str, default=None
+        Set of characters to sample from.
+        If None, the default alphabet is made of [a-zA-Z0-9] characters.
+    seed : None, int, random.Random, default=None
+        Value to seed an instance:
+         - If ``seed`` is None, return random module's singleton.
+         - If ``seed`` is an integer, return a new instance seeded with it.
+         - If ``seed`` is already a Random instance, return the instance.
+
+    Returns
+    -------
+    str
+        A random character.
+
+    Examples
+    --------
+    >>> rnd_char = get_random_character("bumbag")
+    >>> isinstance(rnd_char, str)
+    True
+    >>> rnd_char in "bumbag"
+    True
+    """
+    rng = get_random_instance(seed)
+    alphabet = alphabet or string.ascii_letters + string.digits
+    return rng.sample(population=alphabet, k=len(alphabet))[0]
+
+
 def get_random_instance(seed=None):
     """Turn seed into a random.Random instance.
 
@@ -48,43 +117,6 @@ def get_random_instance(seed=None):
         raise ValueError(f"{seed=} cannot be used to seed a Random instance")
 
 
-def coinflip(bias=0.5, seed=None):
-    """Flip a coin.
-
-    Parameters
-    ----------
-    bias : float, default=0.5
-        Specify the bias of the coin:
-         - A ``bias`` of 0.5 corresponds to a fair coin.
-         - A ``bias`` closer to 1.0 is more likely to generate ``True``.
-         - A ``bias`` closer to 0.0 is more likely to generate ``False``.
-    seed : None, int, random.Random, default=None
-        Value to seed an instance:
-         - If ``seed`` is None, return random module's singleton.
-         - If ``seed`` is an integer, return a new instance seeded with it.
-         - If ``seed`` is already a Random instance, return the instance.
-
-    Returns
-    -------
-    bool
-        Outcome of the digital coin flip.
-
-    Raises
-    ------
-    ValueError
-        If ``bias`` is not in [0, 1].
-
-    Examples
-    --------
-    >>> {coinflip() for _ in range(30)} == {True, False}
-    True
-    """
-    if not (0 <= bias <= 1):
-        raise ValueError(f"{bias=} - must be a float in [0, 1]")
-    rng = get_random_instance(seed)
-    return rng.random() < bias
-
-
 def get_random_integer(a=0, b=2147483647, seed=None):
     """Get a random integer from interval [a, b].
 
@@ -117,35 +149,3 @@ def get_random_integer(a=0, b=2147483647, seed=None):
     """
     rng = get_random_instance(seed)
     return rng.randint(a, b)
-
-
-def get_random_character(alphabet=None, seed=None):
-    """Get a random character from a given alphabet.
-
-    Parameters
-    ----------
-    alphabet : str, default=None
-        Set of characters to sample from.
-        If None, the default alphabet is made of [a-zA-Z0-9] characters.
-    seed : None, int, random.Random, default=None
-        Value to seed an instance:
-         - If ``seed`` is None, return random module's singleton.
-         - If ``seed`` is an integer, return a new instance seeded with it.
-         - If ``seed`` is already a Random instance, return the instance.
-
-    Returns
-    -------
-    str
-        A random character.
-
-    Examples
-    --------
-    >>> rnd_char = get_random_character("bumbag")
-    >>> isinstance(rnd_char, str)
-    True
-    >>> rnd_char in "bumbag"
-    True
-    """
-    rng = get_random_instance(seed)
-    alphabet = alphabet or string.ascii_letters + string.digits
-    return rng.sample(population=alphabet, k=len(alphabet))[0]
