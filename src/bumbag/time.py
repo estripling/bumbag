@@ -1,11 +1,12 @@
 import calendar
-import math
+import operator
 from datetime import date, datetime, timedelta
 from math import isclose
 
 from dateutil import relativedelta
-from toolz import curry, drop, take
+from toolz import curry, drop, iterate, take
 
+from bumbag.core import op
 from bumbag.math import irange
 
 
@@ -182,45 +183,40 @@ def daterange(start, end, include_start=True, include_end=True):
     return date_sequence
 
 
-@curry
-def dseq(start, forward):
-    """Generate a sequence of consecutive dates.
+def drange(start, forward=True):
+    """Generate an 'infinite' sequence of consecutive dates.
 
     Parameters
     ----------
     start : datetime.date
-        Start of the sequence (inclusive).
-    forward : bool
+        Start of the sequence.
+    forward : bool, default=True
         Specify if dates should be generated in a forward or backward manner.
 
     Yields
     ------
     datetime.date
-        A generator of consecutive date objects.
+        A generator of the date sequence.
 
     See Also
     --------
-    bumbag.math.irange : A generator of consecutive integers.
-
-    Notes
-    -----
-    Function is curried.
+    bumbag.math.irange : Generate an 'infinite' number sequence.
 
     Examples
     --------
     >>> from datetime import date
     >>> from toolz.curried import pipe, take, map
     >>> from bumbag.time import to_str
-    >>> seed = dseq(date(2022, 1, 1))
+    >>> d1 = date(2022, 1, 1)
 
-    >>> pipe(seed(forward=True), map(to_str), take(3), list)
+    >>> pipe(drange(d1), map(to_str), take(3), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
-    >>> pipe(seed(forward=False), map(to_str), take(3), list)
+    >>> pipe(drange(d1, False), map(to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
     """
-    for i in irange(0):
-        yield start + timedelta(i) if forward else start - timedelta(i)
+    successor = op(operator.add if forward else operator.sub, y=timedelta(1))
+    return iterate(successor, start)
 
 
 def datedelta(reference, days):

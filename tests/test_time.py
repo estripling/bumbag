@@ -126,14 +126,14 @@ def test_daterange(args, expected):
     assert actual == expected[1:-1], "excluding start and end dates failed"
 
 
-def test_dseq():
-    seed = time.dseq(date(2022, 1, 1))
+def test_drange():
+    d1 = date(2022, 1, 1)
 
-    actual = toolz.pipe(seed(forward=True), toolz.curried.take(3), list)
+    actual = toolz.pipe(time.drange(d1, True), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2022, 1, 2), date(2022, 1, 3)]
     assert actual == expected, "forward generation failed"
 
-    actual = toolz.pipe(seed(forward=False), toolz.curried.take(3), list)
+    actual = toolz.pipe(time.drange(d1, False), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 31), date(2021, 12, 30)]
     assert actual == expected, "backward generation failed"
 
