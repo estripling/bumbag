@@ -81,20 +81,23 @@ def days_between_dates(date1, date2, include_last_date=False):
     Parameters
     ----------
     date1 : datetime.date
-        First date to compute the difference from.
+        First reference date.
     date2 : datetime.date
-        Second date to compute the difference from.
+        Second reference date.
     include_last_date : bool, default=False
-        Specify if the larger of the two dates should be excluded.
+        Specify if the larger date should be included in the computation:
+         - If ``False``, number of days based on date interval [date1, date2).
+         - If ``True``, number of days based on date interval [date1, date2].
 
     Notes
     -----
-    - ``date1 < date2`` or ``date2 < date1``: both return the same value.
+    - Swapping dates if necessary, i.e., ``date1 < date2`` and
+      ``date2 < date1`` return the same value.
 
     Returns
     -------
     int
-        Number of days between two days.
+        Number of days.
 
     Examples
     --------
