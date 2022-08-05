@@ -109,7 +109,7 @@ def days_between_dates(date1, date2, include_last_date=False):
     date2 : datetime.date
         Second date to compute the difference from.
     include_last_date : bool, default=False
-        Specifies if the larger of the two dates should be excluded.
+        Specify if the larger of the two dates should be excluded.
 
     Notes
     -----
@@ -147,9 +147,9 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
     end : datetime.date
         End of the date sequence.
     exclude_start : bool, default=False
-        Specifies if the start date of the sequence should be excluded.
+        Specify if the start date of the sequence should be excluded.
     exclude_end : bool, default=False
-        Specifies if the end date of the sequence should be excluded.
+        Specify if the end date of the sequence should be excluded.
 
     Yields
     ------
@@ -190,7 +190,7 @@ def dseq(start, forward):
     start : datetime.date
         Start of the sequence (inclusive).
     forward : bool
-        Specifies if dates should be generated in a forward or backward manner.
+        Specify if dates should be generated in a forward or backward manner.
 
     Yields
     ------
@@ -280,7 +280,7 @@ def months_between_dates(date1, date2, include_last_date=False):
     date2 : datetime.date
         Second date to compute the difference from.
     include_last_date : bool, default=False
-        Specifies if the larger of the two dates should be excluded.
+        Specify if the larger of the two dates should be excluded.
 
     Notes
     -----
@@ -320,9 +320,9 @@ def monthrange(start, end, exclude_start=False, exclude_end=False):
     end : datetime.date
         End of the month sequence.
     exclude_start : bool, default=False
-        Specifies if the start month of the sequence should be excluded.
+        Specify if the start month of the sequence should be excluded.
     exclude_end : bool, default=False
-        Specifies if the end month of the sequence should be excluded.
+        Specify if the end month of the sequence should be excluded.
 
     Yields
     ------
@@ -368,8 +368,7 @@ def mseq(start, forward):
     start : datetime.date
         Start of the sequence (inclusive).
     forward : bool
-        Specifies if months should be generated in a forward or backward
-        manner.
+        Specify if months should be generated in a forward or backward manner.
 
     Yields
     ------
