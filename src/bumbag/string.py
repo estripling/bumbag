@@ -2,7 +2,7 @@ import functools
 import re
 from string import punctuation
 
-from toolz import curry
+import toolz
 
 
 def remove_punctuation(string):
@@ -26,7 +26,7 @@ def remove_punctuation(string):
     return string.translate(str.maketrans("", "", punctuation))
 
 
-@curry
+@toolz.curry
 def map_regex(pattern, collection, flags=re.IGNORECASE):
     """Map regex pattern to a collection of strings.
 
@@ -71,7 +71,7 @@ def map_regex(pattern, collection, flags=re.IGNORECASE):
     return map(func, collection)
 
 
-@curry
+@toolz.curry
 def filter_regex(pattern, collection, flags=re.IGNORECASE):
     """Filter collection of strings with a regex pattern.
 
