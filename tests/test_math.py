@@ -38,12 +38,6 @@ def test_isodd(arg):
     assert actual == expected
 
 
-def test_iseq_even():
-    output = tuple(toolz.take(10, math.iseq_even(1)))
-    expect = (2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
-    assert output == expect
-
-
 def test_iseq_odd():
     output = tuple(toolz.take(10, math.iseq_odd(1)))
     expect = (1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
