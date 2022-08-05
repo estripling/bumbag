@@ -7,7 +7,7 @@ from bumbag import math
 @pytest.mark.parametrize("n", [1, 2, 3, 10, 100])
 @pytest.mark.parametrize("start", ["invalid_type", -2, -1, 0, 1, 2])
 @pytest.mark.parametrize("step", ["invalid_type", -1, -0.5, 0, 1, 2])
-def test_iseq(start, step, n):
+def test_irange(start, step, n):
     types = (int, float)
     if not (isinstance(start, types) and isinstance(step, types)):
         with pytest.raises(TypeError):
