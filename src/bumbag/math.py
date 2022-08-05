@@ -6,7 +6,7 @@ from bumbag import core
 
 
 def irange(start, step=1):
-    """Generate an infinite sequence of consecutive, equidistance numbers.
+    """Generate an 'infinite' sequence of consecutive, equidistance numbers.
 
     Parameters
     ----------
@@ -18,7 +18,7 @@ def irange(start, step=1):
     Yields
     ------
     int
-        A generator of consecutive numbers.
+        A generator of the number sequence.
 
     Raises
     ------
