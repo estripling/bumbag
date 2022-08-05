@@ -14,8 +14,8 @@ from bumbag import time
         ("2022-01-31", date(2022, 1, 31)),
     ],
 )
-def test_str_to_date(arg, expected):
-    actual = time.str_to_date(arg)
+def test_to_date(arg, expected):
+    actual = time.to_date(arg)
     assert actual == expected
 
 
