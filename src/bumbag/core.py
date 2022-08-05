@@ -393,6 +393,19 @@ def flatten(*sequences):
 
     >>> list(flatten(["one", 2], 3, [(4, "five")], [[["six"]]], "seven", []))
     ['one', 2, 3, 4, 'five', 'six', 'seven']
+
+    >>> list(flatten([-1], 0, range(1, 4)))
+    [-1, 0, 1, 2, 3]
+
+    >>> list(flatten([-1], 0, map(lambda x: 2 * x, range(1, 4))))
+    [-1, 0, 2, 4, 6]
+
+    >>> generator_comprehension = (2 * x for x in range(1, 4))  # noqa
+    >>> list(flatten([[-1], 0], generator_comprehension))
+    [-1, 0, 2, 4, 6]
+
+    >>> list(flatten([-1], 0, filter(lambda x: x % 2 == 0, range(1, 7))))
+    [-1, 0, 2, 4, 6]
     """
 
     def flattenit(seqs):
