@@ -2,8 +2,9 @@ import collections
 import inspect
 import math
 import operator
+from typing import Generator
 
-from toolz import curried, curry, isiterable
+from toolz import curried, curry
 
 
 @curry
@@ -395,8 +396,17 @@ def flatten(*sequences):
     """
 
     def flattenit(seqs):
+        iterator_types_to_flatten = (
+            Generator,
+            filter,
+            list,
+            map,
+            range,
+            tuple,
+        )
+
         for seq in seqs:
-            if isiterable(seq) and not isinstance(seq, str):
+            if isinstance(seq, iterator_types_to_flatten):
                 yield from flattenit(seq)
             else:
                 yield seq
