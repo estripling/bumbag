@@ -98,6 +98,7 @@ def iseven(number):
     --------
     >>> iseven(2)
     True
+
     >>> iseven(3)
     False
     """
@@ -121,6 +122,7 @@ def isodd(number):
     --------
     >>> isodd(2)
     False
+
     >>> isodd(3)
     True
     """
