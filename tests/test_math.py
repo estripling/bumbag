@@ -39,9 +39,9 @@ def test_isodd(arg):
 
 
 def test_fibonacci():
-    output = tuple(toolz.take(16, math.fibonacci()))
-    expect = (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987)
-    assert output == expect
+    actual = tuple(toolz.take(16, math.fibonacci()))
+    expected = (0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610)
+    assert actual == expected
 
 
 @pytest.mark.parametrize(
