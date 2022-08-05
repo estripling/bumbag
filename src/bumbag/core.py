@@ -257,7 +257,7 @@ def two_set_summary(x, y, show=3):
     y : set
         Right set.
     show : int, default=3
-        Specifies how many elements per set to show in report.
+        Specify how many elements per set to show in report.
 
     Returns
     -------
