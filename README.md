@@ -88,11 +88,11 @@ irregular_list = [
     [],
 ]
 
-list(flatten(irregular_list, 8))
+list(flatten(irregular_list, 8, [9, ("ten",)]))
 ```
 
 ```text
-['one', 2, 3, 4, 'five', 'six', 'seven', 8]
+['one', 2, 3, 4, 'five', 'six', 'seven', 8, 9, 'ten']
 ```
 
 Don't forget to check out [more examples](https://bumbag.readthedocs.io/en/stable/example.html#) and the [API Reference](https://bumbag.readthedocs.io/en/stable/autoapi/index.html).
