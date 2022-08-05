@@ -29,7 +29,7 @@ def irange(start, step=1):
 
     See Also
     --------
-    bumbag.time.dseq : Generate an 'infinite' date sequence.
+    bumbag.time.drange : Generate an 'infinite' date sequence.
     bumbag.time.mseq : A generator of consecutive months.
 
     Examples
