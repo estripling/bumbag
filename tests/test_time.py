@@ -26,8 +26,8 @@ def test_to_date(arg, expected):
         (date(2022, 1, 31), "2022-01-31"),
     ],
 )
-def test_date_to_str(arg, expected):
-    actual = time.date_to_str(arg)
+def test_to_str(arg, expected):
+    actual = time.to_str(arg)
     assert actual == expected
 
 
