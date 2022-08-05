@@ -111,7 +111,7 @@ def days_between_dates(date1, date2, include_last_date=False):
     >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7), True)
     7
     """
-    start, end = (date1, date2) if date1 <= date2 else (date2, date1)
+    start, end = sorted([date1, date2])
     return (end - start).days + 1 if include_last_date else (end - start).days
 
 
@@ -168,9 +168,7 @@ def daterange(start, end, include_start=True, include_end=True):
     >>> pipe(daterange(d2, d1), map(to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
     """
-    if start > end:
-        start, end = end, start
-
+    start, end = sorted([start, end])
     n_days = days_between_dates(start, end, include_last_date=True)
     date_sequence = (start + timedelta(i) for i in range(n_days))
 
@@ -306,7 +304,7 @@ def months_between_dates(date1, date2, include_last_date=False):
     >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 1), True)
     8
     """
-    start, end = (date1, date2) if date1 <= date2 else (date2, date1)
+    start, end = sorted([date1, date2])
     difference = relativedelta.relativedelta(end, start)
     n_months = difference.months + 12 * difference.years
     return n_months + 1 if include_last_date else n_months
@@ -351,9 +349,7 @@ def monthrange(start, end, exclude_start=False, exclude_end=False):
     >>> pipe(monthrange(d1, d2), map(to_str), list)
     ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
     """
-    if start > end:
-        start, end = end, start
-
+    start, end = sorted([start, end])
     n_months = months_between_dates(start, end, include_last_date=True)
     for i in range(n_months):
         if (i == 0 and exclude_start) or ((i + 1) == n_months and exclude_end):
