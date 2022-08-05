@@ -1,4 +1,5 @@
 import calendar
+import itertools
 import operator
 from datetime import date, datetime, timedelta
 from math import isclose
@@ -171,16 +172,9 @@ def daterange(start, end, include_start=True, include_end=True):
     ['2022-01-01', '2022-01-02', '2022-01-03']
     """
     start, end = sorted([start, end])
-    n_days = days_between_dates(start, end, include_last_date=True)
-    date_sequence = (start + timedelta(i) for i in range(n_days))
-
-    if not include_end:
-        date_sequence = toolz.take(n_days - 1, date_sequence)
-
-    if not include_start:
-        date_sequence = toolz.drop(1, date_sequence)
-
-    return date_sequence
+    start = start if include_start else start + timedelta(1)
+    end = end if include_end else end - timedelta(1)
+    return itertools.takewhile(lambda d: d <= end, drange(start))
 
 
 def drange(start, forward=True):

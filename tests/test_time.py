@@ -110,10 +110,7 @@ def test_days_between_dates(args, expected):
 def test_daterange(args, expected):
     start, end = args
 
-    output = time.daterange(start, end)
-    assert isinstance(output, types.GeneratorType)
-
-    actual = tuple(output)
+    actual = tuple(time.daterange(start, end))
     assert actual == expected, "including start and end dates failed"
 
     actual = tuple(time.daterange(start, end, include_start=False))
