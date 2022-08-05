@@ -111,16 +111,16 @@ def test_daterange(args, expected):
     start, end = args
 
     actual = tuple(time.daterange(start, end))
-    assert actual == expected, "including start and end dates failed"
+    assert actual == expected, "including start and end dates fails"
 
     actual = tuple(time.daterange(start, end, include_start=False))
-    assert actual == expected[1:], "excluding start date failed"
+    assert actual == expected[1:], "excluding start date fails"
 
     actual = tuple(time.daterange(start, end, include_end=False))
-    assert actual == expected[:-1], "excluding end date failed"
+    assert actual == expected[:-1], "excluding end date fails"
 
     actual = tuple(time.daterange(start, end, False, False))
-    assert actual == expected[1:-1], "excluding start and end dates failed"
+    assert actual == expected[1:-1], "excluding start and end dates fails"
 
 
 def test_drange():
@@ -128,11 +128,11 @@ def test_drange():
 
     actual = toolz.pipe(time.drange(d1, True), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2022, 1, 2), date(2022, 1, 3)]
-    assert actual == expected, "forward generation failed"
+    assert actual == expected, "forward generation fails"
 
     actual = toolz.pipe(time.drange(d1, False), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 31), date(2021, 12, 30)]
-    assert actual == expected, "backward generation failed"
+    assert actual == expected, "backward generation fails"
 
 
 @pytest.mark.parametrize(
@@ -297,16 +297,16 @@ def test_monthrange(args, expected):
     assert isinstance(output, types.GeneratorType)
 
     actual = tuple(output)
-    assert actual == expected, "including start and end dates failed"
+    assert actual == expected, "including start and end dates fails"
 
     actual = tuple(time.monthrange(start, end, include_start=False))
-    assert actual == expected[1:], "excluding start date failed"
+    assert actual == expected[1:], "excluding start date fails"
 
     actual = tuple(time.monthrange(start, end, include_end=False))
-    assert actual == expected[:-1], "excluding end date failed"
+    assert actual == expected[:-1], "excluding end date fails"
 
     actual = tuple(time.monthrange(start, end, False, False))
-    assert actual == expected[1:-1], "excluding start and end dates failed"
+    assert actual == expected[1:-1], "excluding start and end dates fails"
 
 
 def test_mrange():
@@ -314,33 +314,33 @@ def test_mrange():
 
     actual = toolz.pipe(time.mrange(d1, True), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2022, 2, 1), date(2022, 3, 1)]
-    assert actual == expected, "forward generation failed"
+    assert actual == expected, "forward generation fails"
 
     actual = toolz.pipe(time.mrange(d1, False), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 1), date(2021, 11, 1)]
-    assert actual == expected, "backward generation failed"
+    assert actual == expected, "backward generation fails"
 
     d2 = date(2022, 1, 31)
 
     actual = toolz.pipe(time.mrange(d2, True), toolz.curried.take(3), list)
     expected = [date(2022, 1, 31), date(2022, 2, 28), date(2022, 3, 31)]
-    assert actual == expected, "forward generation failed"
+    assert actual == expected, "forward generation fails"
 
     actual = toolz.pipe(time.mrange(d2, False), toolz.curried.take(3), list)
     expected = [date(2022, 1, 31), date(2021, 12, 31), date(2021, 11, 30)]
-    assert actual == expected, "backward generation failed"
+    assert actual == expected, "backward generation fails"
 
     d3 = date(2020, 1, 31)
 
     actual = toolz.pipe(time.mrange(d3, True), toolz.curried.take(3), list)
     expected = [date(2020, 1, 31), date(2020, 2, 29), date(2020, 3, 31)]
-    assert actual == expected, "forward generation failed"
+    assert actual == expected, "forward generation fails"
 
     d4 = date(2020, 1, 15)
 
     actual = toolz.pipe(time.mrange(d4, True), toolz.curried.take(3), list)
     expected = [date(2020, 1, 15), date(2020, 2, 15), date(2020, 3, 15)]
-    assert actual == expected, "forward generation failed"
+    assert actual == expected, "forward generation fails"
 
 
 @pytest.mark.parametrize(
