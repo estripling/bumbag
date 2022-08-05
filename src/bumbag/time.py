@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 from dateutil import relativedelta
 from toolz import curry
 
-from bumbag.math import iseq
+from bumbag.math import irange
 
 
 def str_to_date(string):
@@ -197,7 +197,7 @@ def dseq(start, forward):
 
     See Also
     --------
-    bumbag.math.iseq : A generator of consecutive integers.
+    bumbag.math.irange : A generator of consecutive integers.
 
     Notes
     -----
@@ -214,7 +214,7 @@ def dseq(start, forward):
     >>> pipe(seed(forward=False), map(date_to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
     """
-    for i in iseq(0):
+    for i in irange(0):
         yield start + timedelta(i) if forward else start - timedelta(i)
 
 
@@ -370,7 +370,7 @@ def mseq(start, forward):
 
     See Also
     --------
-    bumbag.math.iseq : A generator of consecutive integers.
+    bumbag.math.irange : A generator of consecutive integers.
 
     Notes
     -----
@@ -387,7 +387,7 @@ def mseq(start, forward):
     >>> pipe(seed(forward=False), map(date_to_str), take(4), list)
     ['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01']
     """
-    for i in iseq(0):
+    for i in irange(0):
         yield (
             start + relativedelta.relativedelta(months=i)
             if forward
