@@ -44,6 +44,27 @@ pip install bumbag
 
 ## Usage
 
+Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.flatten) an irregular list:
+
+```python
+from bumbag.core import flatten
+
+irregular_list = [
+    ["one", 2],
+    3,
+    [(4, "five")],
+    [[["six"]]],
+    "seven",
+    [],
+]
+
+list(flatten(irregular_list, 8, [9, ("ten",)]))
+```
+
+```text
+['one', 2, 3, 4, 'five', 'six', 'seven', 8, 9, 'ten']
+```
+
 Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.two_set_summary):
 
 ```python
@@ -72,27 +93,6 @@ x <= y: False
 x <  y: False
 y <= x: False
 y <  x: False
-```
-
-Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.flatten) an irregular list:
-
-```python
-from bumbag.core import flatten
-
-irregular_list = [
-    ["one", 2],
-    3,
-    [(4, "five")],
-    [[["six"]]],
-    "seven",
-    [],
-]
-
-list(flatten(irregular_list, 8, [9, ("ten",)]))
-```
-
-```text
-['one', 2, 3, 4, 'five', 'six', 'seven', 8, 9, 'ten']
 ```
 
 Don't forget to check out [more examples](https://bumbag.readthedocs.io/en/stable/example.html#) and the [API Reference](https://bumbag.readthedocs.io/en/stable/autoapi/index.html).
