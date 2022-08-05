@@ -8,8 +8,8 @@ def get_random_instance(seed=None):
     Parameters
     ----------
     seed : None, int, random.Random, default=None
-        Value used to seed a Random instance:
-         - If ``seed`` is None, return the Random singleton used by random.
+        Value to seed an instance:
+         - If ``seed`` is None, return random module's singleton.
          - If ``seed`` is an integer, return a new instance seeded with it.
          - If ``seed`` is already a Random instance, return the instance.
 
@@ -30,8 +30,8 @@ def get_random_instance(seed=None):
     Examples
     --------
     >>> import random
-    >>> prng = get_random_instance()
-    >>> isinstance(prng, random.Random)
+    >>> rng = get_random_instance()
+    >>> isinstance(rng, random.Random)
     True
     """
     random_singleton = getattr(random, "_inst")
@@ -59,8 +59,8 @@ def coinflip(bias=0.5, seed=None):
          - A ``bias`` closer to 1.0 is more likely to generate ``True``.
          - A ``bias`` closer to 0.0 is more likely to generate ``False``.
     seed : None, int, random.Random, default=None
-        Value used to seed a Random instance:
-         - If ``seed`` is None, return the Random singleton used by random.
+        Value to seed an instance:
+         - If ``seed`` is None, return random module's singleton.
          - If ``seed`` is an integer, return a new instance seeded with it.
          - If ``seed`` is already a Random instance, return the instance.
 
@@ -97,8 +97,8 @@ def get_random_integer(a=0, b=2147483647, seed=None):
     b : int, default=2147483647
         Upper endpoint of interval.
     seed : None, int, random.Random, default=None
-        Value used to seed a Random instance:
-         - If ``seed`` is None, return the Random singleton used by random.
+        Value to seed an instance:
+         - If ``seed`` is None, return random module's singleton.
          - If ``seed`` is an integer, return a new instance seeded with it.
          - If ``seed`` is already a Random instance, return the instance.
 
@@ -128,8 +128,8 @@ def get_random_character(alphabet=None, seed=None):
         Set of characters to sample from.
         If None, the default alphabet is made of [a-zA-Z0-9] characters.
     seed : None, int, random.Random, default=None
-        Value used to seed a Random instance:
-         - If ``seed`` is None, return the Random singleton used by random.
+        Value to seed an instance:
+         - If ``seed`` is None, return random module's singleton.
          - If ``seed`` is an integer, return a new instance seeded with it.
          - If ``seed`` is already a Random instance, return the instance.
 
