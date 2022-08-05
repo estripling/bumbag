@@ -136,7 +136,7 @@ def daterange(start, end, include_start=True, include_end=True):
 
     Notes
     -----
-    - If ``start == end``, generating one value with default settings.
+    - If ``start == end``, generating one value (with default settings).
     - If ``start > end``, swapping values.
 
     Examples
