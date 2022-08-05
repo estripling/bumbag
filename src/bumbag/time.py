@@ -424,7 +424,7 @@ def humantime(seconds):
     Parameters
     ----------
     seconds : int, float
-        Seconds to convert.
+        Seconds to convert, a non-negative number.
 
     Returns
     -------
@@ -434,7 +434,7 @@ def humantime(seconds):
     Raises
     ------
     ValueError
-        If ``seconds`` is not a positive integer.
+        If ``seconds`` is a negative number.
 
     Examples
     --------
