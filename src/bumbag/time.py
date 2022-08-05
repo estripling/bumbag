@@ -3,7 +3,7 @@ import math
 from datetime import date, datetime, timedelta
 
 from dateutil import relativedelta
-from toolz import curry
+from toolz import curry, drop, take
 
 from bumbag.math import irange
 
@@ -116,48 +116,72 @@ def days_between_dates(date1, date2, include_last_date=False):
     return (end - start).days + 1 if include_last_date else (end - start).days
 
 
-def daterange(start, end, exclude_start=False, exclude_end=False):
-    """Get sequence of dates.
+def daterange(start, end, include_start=True, include_end=True):
+    """Generate a sequence of consecutive days between two dates.
 
     Parameters
     ----------
     start : datetime.date
-        Start of the date sequence.
+        Start of the sequence.
     end : datetime.date
-        End of the date sequence.
-    exclude_start : bool, default=False
-        Specify if the start date of the sequence should be excluded.
-    exclude_end : bool, default=False
-        Specify if the end date of the sequence should be excluded.
+        End of the sequence.
+    include_start : bool, default=True
+        Specify if sequence should include start date.
+    include_end : bool, default=True
+        Specify if sequence should include end date.
 
     Yields
     ------
     datetime.date
-        A generator of consecutive dates from ``start`` to ``end``.
+        A generator of the date sequence.
 
     Notes
     -----
-    - If ``start == end``, only one element is generated.
-    - If ``start > end``, start and end are swapped.
+    - If ``start == end``, generating one value with default settings.
+    - If ``start > end``, swapping values.
 
     Examples
     --------
     >>> from datetime import date
-    >>> from toolz.curried import pipe, map
+    >>> from toolz.curried import map, pipe
     >>> from bumbag.time import to_str
     >>> d1 = date(2022, 1, 1)
     >>> d2 = date(2022, 1, 3)
+
     >>> pipe(daterange(d1, d2), map(to_str), list)
+    ['2022-01-01', '2022-01-02', '2022-01-03']
+
+    >>> pipe(daterange(d1, d2, False, True), map(to_str), list)
+    ['2022-01-02', '2022-01-03']
+
+    >>> pipe(daterange(d1, d2, True, False), map(to_str), list)
+    ['2022-01-01', '2022-01-02']
+
+    >>> pipe(daterange(d1, d2, False, False), map(to_str), list)
+    ['2022-01-02']
+
+    >>> pipe(daterange(date(2022, 1, 1), date(2022, 1, 1)), list)
+    [datetime.date(2022, 1, 1)]
+
+    >>> pipe(daterange(date(2022, 1, 1), date(2022, 1, 1), False), list)
+    []
+
+    >>> pipe(daterange(d2, d1), map(to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
     """
     if start > end:
         start, end = end, start
 
     n_days = days_between_dates(start, end, include_last_date=True)
-    for i in range(n_days):
-        if (i == 0 and exclude_start) or ((i + 1) == n_days and exclude_end):
-            continue
-        yield start + timedelta(i)
+    date_sequence = (start + timedelta(i) for i in range(n_days))
+
+    if not include_end:
+        date_sequence = take(n_days - 1, date_sequence)
+
+    if not include_start:
+        date_sequence = drop(1, date_sequence)
+
+    return date_sequence
 
 
 @curry

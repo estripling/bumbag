@@ -114,16 +114,16 @@ def test_daterange(args, expected):
     assert isinstance(output, types.GeneratorType)
 
     actual = tuple(output)
-    assert actual == expected, "include start and end failed"
+    assert actual == expected, "including start and end dates failed"
 
-    actual = tuple(time.daterange(start, end, exclude_start=True))
-    assert actual == expected[1:], "exclude start failed"
+    actual = tuple(time.daterange(start, end, include_start=False))
+    assert actual == expected[1:], "excluding start date failed"
 
-    actual = tuple(time.daterange(start, end, exclude_end=True))
-    assert actual == expected[:-1], "exclude end failed"
+    actual = tuple(time.daterange(start, end, include_end=False))
+    assert actual == expected[:-1], "excluding end date failed"
 
-    actual = tuple(time.daterange(start, end, True, True))
-    assert actual == expected[1:-1], "exclude start and end failed"
+    actual = tuple(time.daterange(start, end, False, False))
+    assert actual == expected[1:-1], "excluding start and end dates failed"
 
 
 def test_dseq():
