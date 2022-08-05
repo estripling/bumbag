@@ -1,6 +1,7 @@
 import calendar
 import math
 from datetime import date, datetime, timedelta
+from math import isclose
 
 from dateutil import relativedelta
 from toolz import curry, drop, take
@@ -439,7 +440,7 @@ def humantime(seconds):
     if seconds < 0:
         raise ValueError(f"{seconds=} - must be a non-negative number")
 
-    if math.isclose(seconds, 0):
+    if isclose(seconds, 0):
         return "0 seconds"
 
     minutes, seconds = divmod(seconds, 60)
@@ -450,7 +451,7 @@ def humantime(seconds):
         time_without_unit = float(time_with_unit.split(" ")[0])
         return (
             time_with_unit
-            if math.isclose(time_without_unit, 1)
+            if isclose(time_without_unit, 1)
             else f"{time_with_unit}s"
         )
 
@@ -465,7 +466,7 @@ def humantime(seconds):
         result.append(multiplier(f"{int(minutes)} minute"))
 
     if seconds and minutes < 2:
-        if math.isclose(seconds, int(seconds)):
+        if isclose(seconds, int(seconds)):
             result.append(multiplier(f"{int(seconds)} second"))
         else:
             result.append(f"{seconds:0.6f} seconds")
