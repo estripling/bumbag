@@ -373,41 +373,42 @@ def monthrange(start, end, include_start=True, include_end=True):
     return month_sequence
 
 
-@toolz.curry
-def mseq(start, forward):
-    """Generate a sequence of consecutive months.
+def mrange(start, forward=True):
+    """Generate an 'infinite' sequence of consecutive months.
 
     Parameters
     ----------
     start : datetime.date
-        Start of the sequence (inclusive).
-    forward : bool
+        Start of the sequence.
+    forward : bool, default=True
         Specify if months should be generated in a forward or backward manner.
 
     Yields
     ------
     datetime.date
-        A generator of consecutive months.
+        A generator of the month sequence.
 
     See Also
     --------
     bumbag.math.irange : A generator of consecutive integers.
 
-    Notes
-    -----
-    Function is curried.
-
     Examples
     --------
     >>> from datetime import date
-    >>> from toolz.curried import pipe, take, map
+    >>> from toolz.curried import map, pipe, take
     >>> from bumbag.time import to_str
-    >>> seed = mseq(date(2022, 1, 1))
-    >>> pipe(seed(forward=True), map(to_str), take(4), list)
+
+    >>> pipe(mrange(date(2022, 1, 1)), map(to_str), take(4), list)
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
 
-    >>> pipe(seed(forward=False), map(to_str), take(4), list)
+    >>> pipe(mrange(date(2022, 1, 1), False), map(to_str), take(4), list)
     ['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01']
+
+    >>> pipe(mrange(date(2022, 1, 31)), map(to_str), take(4), list)
+    ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
+
+    >>> pipe(mrange(date(2022, 1, 31), False), map(to_str), take(4), list)
+    ['2022-01-31', '2021-12-31', '2021-11-30', '2021-10-31']
     """
     for i in irange(0):
         yield (
