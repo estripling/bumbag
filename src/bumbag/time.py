@@ -266,11 +266,13 @@ def months_between_dates(date1, date2, include_last_date=False):
     Parameters
     ----------
     date1 : datetime.date
-        First date to compute the difference from.
+        First reference date.
     date2 : datetime.date
-        Second date to compute the difference from.
+        Second reference date.
     include_last_date : bool, default=False
-        Specify if the larger of the two dates should be excluded.
+        Specify if the larger date should be included in the computation:
+         - If ``False``, number of days based on date interval [date1, date2).
+         - If ``True``, number of days based on date interval [date1, date2].
 
     Notes
     -----
@@ -279,7 +281,7 @@ def months_between_dates(date1, date2, include_last_date=False):
     Returns
     -------
     int
-        Number of months between two days.
+        Number of months.
 
     Examples
     --------
