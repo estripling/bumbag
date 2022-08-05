@@ -29,26 +29,26 @@ def to_date(string_to_cast):
     return datetime.strptime(string_to_cast, "%Y-%m-%d").date()
 
 
-def date_to_str(input_date):
+def to_str(date_to_cast):
     """Cast a date object to an ISO date string.
 
     Parameters
     ----------
-    input_date : datetime.date
+    date_to_cast : datetime.date
         Date object to cast.
 
     Returns
     -------
     str
-        Date string in ISO 8601 format, YYYY-MM-DD.
+        Date string in ISO format (YYYY-MM-DD).
 
     Examples
     --------
     >>> from datetime import date
-    >>> date_to_str(date(2022, 1, 1))
+    >>> to_str(date(2022, 1, 1))
     '2022-01-01'
     """
-    return input_date.isoformat()
+    return date_to_cast.isoformat()
 
 
 def get_last_date_of_month(year, month):
@@ -165,10 +165,10 @@ def daterange(start, end, exclude_start=False, exclude_end=False):
     --------
     >>> from datetime import date
     >>> from toolz.curried import pipe, map
-    >>> from bumbag.time import date_to_str
+    >>> from bumbag.time import to_str
     >>> d1 = date(2022, 1, 1)
     >>> d2 = date(2022, 1, 3)
-    >>> pipe(daterange(d1, d2), map(date_to_str), list)
+    >>> pipe(daterange(d1, d2), map(to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
     """
     if start > end:
@@ -209,13 +209,13 @@ def dseq(start, forward):
     --------
     >>> from datetime import date
     >>> from toolz.curried import pipe, take, map
-    >>> from bumbag.time import date_to_str
+    >>> from bumbag.time import to_str
     >>> seed = dseq(date(2022, 1, 1))
 
-    >>> pipe(seed(forward=True), map(date_to_str), take(3), list)
+    >>> pipe(seed(forward=True), map(to_str), take(3), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
-    >>> pipe(seed(forward=False), map(date_to_str), take(3), list)
+    >>> pipe(seed(forward=False), map(to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
     """
     for i in irange(0):
@@ -338,15 +338,15 @@ def monthrange(start, end, exclude_start=False, exclude_end=False):
     --------
     >>> from datetime import date
     >>> from toolz.curried import pipe, map
-    >>> from bumbag.time import date_to_str
+    >>> from bumbag.time import to_str
     >>> d1 = date(2022, 1, 1)
     >>> d2 = date(2022, 4, 30)
-    >>> pipe(monthrange(d1, d2), map(date_to_str), list)
+    >>> pipe(monthrange(d1, d2), map(to_str), list)
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
 
     >>> d1 = date(2022, 1, 31)
     >>> d2 = date(2022, 4, 30)
-    >>> pipe(monthrange(d1, d2), map(date_to_str), list)
+    >>> pipe(monthrange(d1, d2), map(to_str), list)
     ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
     """
     if start > end:
@@ -387,12 +387,12 @@ def mseq(start, forward):
     --------
     >>> from datetime import date
     >>> from toolz.curried import pipe, take, map
-    >>> from bumbag.time import date_to_str
+    >>> from bumbag.time import to_str
     >>> seed = mseq(date(2022, 1, 1))
-    >>> pipe(seed(forward=True), map(date_to_str), take(4), list)
+    >>> pipe(seed(forward=True), map(to_str), take(4), list)
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
 
-    >>> pipe(seed(forward=False), map(date_to_str), take(4), list)
+    >>> pipe(seed(forward=False), map(to_str), take(4), list)
     ['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01']
     """
     for i in irange(0):
