@@ -51,7 +51,7 @@ def to_str(date_to_cast):
     return date_to_cast.isoformat()
 
 
-def get_last_date_of_month(year, month):
+def last_date_of_month(year, month):
     """Get last date of month.
 
     Parameters
@@ -68,7 +68,7 @@ def get_last_date_of_month(year, month):
 
     Examples
     --------
-    >>> get_last_date_of_month(2022, 1)
+    >>> last_date_of_month(2022, 1)
     datetime.date(2022, 1, 31)
     """
     _, number_days_in_month = calendar.monthrange(year, month)

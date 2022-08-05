@@ -58,8 +58,8 @@ def test_to_str(arg, expected):
         (date(2012, 2, 29), date(2012, 2, 29)),
     ],
 )
-def test_get_last_date_of_month(arg, expected):
-    actual = time.get_last_date_of_month(arg.year, arg.month)
+def test_last_date_of_month(arg, expected):
+    actual = time.last_date_of_month(arg.year, arg.month)
     assert actual == expected
 
 
