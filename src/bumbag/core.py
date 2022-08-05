@@ -114,8 +114,7 @@ def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
     Notes
     -----
     - Function is curried.
-    - Swapping values if necessary, i.e., ``min_value < max_value`` and
-      ``max_value < min_value`` return the same value.
+    - If ``min_value > max_value``, swapping values.
 
     Examples
     --------
