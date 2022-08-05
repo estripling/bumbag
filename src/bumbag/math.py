@@ -5,6 +5,101 @@ import toolz
 from bumbag import core
 
 
+def collatz(number):
+    """Generate the Collatz sequence for a positive integer.
+
+    The famous 3n + 1 conjecture. Given a positive integer :math:`n > 0`,
+    the next term in the Collatz sequence is half of :math:`n`
+    if :math:`n` is even; otherwise, if :math:`n` is odd,
+    the next term is 3 times :math:`n` plus 1.
+    Symbolically,
+
+    .. math::
+
+        f(n) =
+        \\begin{cases}
+            \\frac{n}{2} & \\text{ if } n \\equiv 0 \\text{ (mod 2) } \\\\[6pt]
+            3n + 1 & \\text{ if } n \\equiv 1 \\text{ (mod 2) }
+        \\end{cases}
+
+    The Collatz conjecture is that the sequence always reaches 1
+    for any positive integer.
+
+    Parameters
+    ----------
+    number : int
+        A positive integer seeding the Collatz sequence.
+
+    Yields
+    ------
+    int
+        A generator of Collatz numbers that breaks when 1 is reached.
+
+    Raises
+    ------
+    ValueError
+        If ``number`` is not a positive integer.
+
+    References
+    ----------
+    .. [1] "Collatz", The On-Line Encyclopedia of Integer Sequences®,
+           https://oeis.org/A006370
+
+    .. [2] "Collatz conjecture", Wikipedia,
+           https://en.wikipedia.org/wiki/Collatz_conjecture
+
+    Examples
+    --------
+    >>> from toolz import count
+    >>> list(collatz(12))
+    [12, 6, 3, 10, 5, 16, 8, 4, 2, 1]
+    >>> count(collatz(12))
+    10
+    """
+    if not isinstance(number, int) or number < 1:
+        raise ValueError(f"{number=} - must be a positive integer")
+
+    while True:
+        yield number
+
+        if number == 1:
+            break
+
+        # update
+        number = number // 2 if iseven(number) else 3 * number + 1
+
+
+def fibonacci():
+    """Generate the Fibonacci sequence.
+
+    Yields
+    ------
+    int
+        A generator of consecutive Fibonacci numbers.
+
+    References
+    ----------
+    .. [1] "Fibonacci numbers", The On-Line Encyclopedia of Integer Sequences®,
+           https://oeis.org/A000045
+    .. [2] "Fibonacci number", Wikipedia,
+           https://en.wikipedia.org/wiki/Fibonacci_number
+
+    Examples
+    --------
+    >>> from toolz import take
+    >>> list(take(10, fibonacci()))
+    [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+    """
+    lag1, lag2 = 1, 0
+    yield lag2
+    yield lag1
+
+    while True:
+        lag0 = lag1 + lag2
+        yield lag0
+        lag1, lag2 = lag0, lag1
+
+
 def irange(start, step=1):
     """Generate an 'infinite' sequence of consecutive, equidistance numbers.
 
@@ -127,98 +222,3 @@ def isodd(number):
     True
     """
     return toolz.complement(iseven)(number)
-
-
-def fibonacci():
-    """Generate the Fibonacci sequence.
-
-    Yields
-    ------
-    int
-        A generator of consecutive Fibonacci numbers.
-
-    References
-    ----------
-    .. [1] "Fibonacci numbers", The On-Line Encyclopedia of Integer Sequences®,
-           https://oeis.org/A000045
-    .. [2] "Fibonacci number", Wikipedia,
-           https://en.wikipedia.org/wiki/Fibonacci_number
-
-    Examples
-    --------
-    >>> from toolz import take
-    >>> list(take(10, fibonacci()))
-    [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-    """
-    lag1, lag2 = 1, 0
-    yield lag2
-    yield lag1
-
-    while True:
-        lag0 = lag1 + lag2
-        yield lag0
-        lag1, lag2 = lag0, lag1
-
-
-def collatz(number):
-    """Generate the Collatz sequence for a positive integer.
-
-    The famous 3n + 1 conjecture. Given a positive integer :math:`n > 0`,
-    the next term in the Collatz sequence is half of :math:`n`
-    if :math:`n` is even; otherwise, if :math:`n` is odd,
-    the next term is 3 times :math:`n` plus 1.
-    Symbolically,
-
-    .. math::
-
-        f(n) =
-        \\begin{cases}
-            \\frac{n}{2} & \\text{ if } n \\equiv 0 \\text{ (mod 2) } \\\\[6pt]
-            3n + 1 & \\text{ if } n \\equiv 1 \\text{ (mod 2) }
-        \\end{cases}
-
-    The Collatz conjecture is that the sequence always reaches 1
-    for any positive integer.
-
-    Parameters
-    ----------
-    number : int
-        A positive integer seeding the Collatz sequence.
-
-    Yields
-    ------
-    int
-        A generator of Collatz numbers that breaks when 1 is reached.
-
-    Raises
-    ------
-    ValueError
-        If ``number`` is not a positive integer.
-
-    References
-    ----------
-    .. [1] "Collatz", The On-Line Encyclopedia of Integer Sequences®,
-           https://oeis.org/A006370
-
-    .. [2] "Collatz conjecture", Wikipedia,
-           https://en.wikipedia.org/wiki/Collatz_conjecture
-
-    Examples
-    --------
-    >>> from toolz import count
-    >>> list(collatz(12))
-    [12, 6, 3, 10, 5, 16, 8, 4, 2, 1]
-    >>> count(collatz(12))
-    10
-    """
-    if not isinstance(number, int) or number < 1:
-        raise ValueError(f"{number=} - must be a positive integer")
-
-    while True:
-        yield number
-
-        if number == 1:
-            break
-
-        # update
-        number = number // 2 if iseven(number) else 3 * number + 1
