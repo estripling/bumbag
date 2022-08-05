@@ -75,30 +75,6 @@ def last_date_of_month(year, month):
     return date(year, month, number_days_in_month)
 
 
-def is_leap_year(year):
-    """Check if year is a leap year.
-
-    Parameters
-    ----------
-    year : int
-        Year to check.
-
-    Returns
-    -------
-    bool
-        Is leap year.
-
-    Examples
-    --------
-    >>> is_leap_year(2000)
-    True
-
-    >>> is_leap_year(2001)
-    False
-    """
-    return calendar.isleap(year)
-
-
 def days_between_dates(date1, date2, include_last_date=False):
     """Compute the number of days between two dates.
 
