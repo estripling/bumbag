@@ -139,22 +139,25 @@ def fibonacci():
 
     References
     ----------
-    .. [1] "Fibonacci number", Wikipedia,
+    .. [1] "Fibonacci numbers", The On-Line Encyclopedia of Integer Sequences®,
+           https://oeis.org/A000045
+    .. [2] "Fibonacci number", Wikipedia,
            https://en.wikipedia.org/wiki/Fibonacci_number
 
     Examples
     --------
     >>> from toolz import take
     >>> list(take(10, fibonacci()))
-    [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
     """
-    n1, n2 = 0, 1
-    nth = n1 + n2
+    lag1, lag2 = 1, 0
+    yield lag2
+    yield lag1
+
     while True:
-        yield nth
-        # update
-        nth = n1 + n2
-        n1, n2 = n2, nth
+        lag0 = lag1 + lag2
+        yield lag0
+        lag1, lag2 = lag0, lag1
 
 
 def collatz(number):
