@@ -4,14 +4,23 @@ import toolz
 from bumbag import math
 
 
-@pytest.mark.parametrize("len_seq", [1, 2, 3, 10, 100])
-@pytest.mark.parametrize("arg", [-2, -1, 0, 1, 2])
-def test_iseq(arg, len_seq):
-    actual = tuple(toolz.take(len_seq, math.iseq(arg)))
-    k = arg + len_seq
-    r = range(arg, k + 1) if arg or arg == len_seq else range(arg, k)
-    expected = tuple(r)[:len_seq]
-    assert actual == expected
+@pytest.mark.parametrize("n", [1, 2, 3, 10, 100])
+@pytest.mark.parametrize("start", ["invalid_type", -2, -1, 0, 1, 2])
+@pytest.mark.parametrize("step", ["invalid_type", -1, -0.5, 0, 1, 2])
+def test_iseq(start, step, n):
+    types = (int, float)
+    if not (isinstance(start, types) and isinstance(step, types)):
+        with pytest.raises(TypeError):
+            math.irange(start, step)
+
+    elif step <= 0:
+        with pytest.raises(ValueError):
+            math.irange(start, step)
+
+    else:
+        actual = tuple(toolz.take(n, math.irange(start, step)))
+        expected = tuple(range(start, 1000, step))[:n]
+        assert actual == expected
 
 
 @pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
