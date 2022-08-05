@@ -91,8 +91,7 @@ def days_between_dates(date1, date2, include_last_date=False):
 
     Notes
     -----
-    - Swapping dates if necessary, i.e., ``date1 < date2`` and
-      ``date2 < date1`` return the same value.
+    - If ``date1 > date2``, swapping values.
 
     Returns
     -------
@@ -287,8 +286,7 @@ def months_between_dates(date1, date2, include_last_date=False):
 
     Notes
     -----
-    - Swapping dates if necessary, i.e., ``date1 < date2`` and
-      ``date2 < date1`` return the same value.
+    - If ``date1 > date2``, swapping values.
 
     Returns
     -------
