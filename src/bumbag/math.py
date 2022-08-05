@@ -163,12 +163,22 @@ def fibonacci():
 def collatz(number):
     """Generate the Collatz sequence for a positive integer.
 
-    The famous 3n + 1 conjecture. Given a positive integer as starting term,
-    the next term in the Collatz sequence is half of the previous term
-    if the previous term is even; otherwise, the next term is 3 times the
-    previous term plus 1 if the previous term is odd. The conjecture is that
-    the Collatz sequence always reaches 1 for any positive integer as
-    starting term.
+    The famous 3n + 1 conjecture. Given a positive integer :math:`n > 0`,
+    the next term in the Collatz sequence is half of :math:`n`
+    if :math:`n` is even; otherwise, if :math:`n` is odd,
+    the next term is 3 times :math:`n` plus 1.
+    Symbolically,
+
+    .. math::
+
+        f(n) =
+        \\begin{cases}
+            \\frac{n}{2} & \\text{ if } n \\equiv 0 \\text{ (mod 2) } \\\\[6pt]
+            3n + 1 & \\text{ if } n \\equiv 1 \\text{ (mod 2) }
+        \\end{cases}
+
+    The Collatz conjecture is that the sequence always reaches 1
+    for any positive integer.
 
     Parameters
     ----------
@@ -187,19 +197,22 @@ def collatz(number):
 
     References
     ----------
-    .. [1] "Collatz conjecture", Wikipedia,
+    .. [1] "Collatz", The On-Line Encyclopedia of Integer Sequences®,
+           https://oeis.org/A006370
+
+    .. [2] "Collatz conjecture", Wikipedia,
            https://en.wikipedia.org/wiki/Collatz_conjecture
 
     Examples
     --------
+    >>> from toolz import count
     >>> list(collatz(12))
     [12, 6, 3, 10, 5, 16, 8, 4, 2, 1]
-    >>> from toolz import count
     >>> count(collatz(12))
     10
     """
     if not isinstance(number, int) or number < 1:
-        raise ValueError(f"{number=} - must be a non-negative number")
+        raise ValueError(f"{number=} - must be a positive integer")
 
     while True:
         yield number
