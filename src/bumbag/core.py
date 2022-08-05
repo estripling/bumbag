@@ -4,10 +4,10 @@ import math
 import operator
 from typing import Generator
 
-from toolz import curried, curry
+import toolz
 
 
-@curry
+@toolz.curry
 def op(func, x, y):
     """Apply an operator function that takes two inputs.
 
@@ -43,7 +43,7 @@ def op(func, x, y):
     return func(x, y)
 
 
-@curry
+@toolz.curry
 def sig(number, digits=3):
     """Round number to its significant digits.
 
@@ -89,7 +89,7 @@ def sig(number, digits=3):
     return round(number, digits)
 
 
-@curry
+@toolz.curry
 def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
     """Extend value range by a factor.
 
@@ -230,9 +230,9 @@ def freq(values):
     counter = collections.Counter(values)
     distinct_values, frequencies = zip(*counter.most_common(len(counter)))
 
-    cumsum = curried.accumulate(operator.add)
+    cumsum = toolz.curried.accumulate(operator.add)
     div_by_total = op(operator.truediv, y=sum(frequencies))
-    relative = curried.map(div_by_total)
+    relative = toolz.curried.map(div_by_total)
 
     output["n"] = dict(zip(distinct_values, frequencies))
     output["N"] = dict(zip(distinct_values, cumsum(frequencies)))

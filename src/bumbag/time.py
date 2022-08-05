@@ -3,8 +3,8 @@ import operator
 from datetime import date, datetime, timedelta
 from math import isclose
 
+import toolz
 from dateutil import relativedelta
-from toolz import curry, drop, iterate, take
 
 from bumbag.core import op
 from bumbag.math import irange
@@ -175,10 +175,10 @@ def daterange(start, end, include_start=True, include_end=True):
     date_sequence = (start + timedelta(i) for i in range(n_days))
 
     if not include_end:
-        date_sequence = take(n_days - 1, date_sequence)
+        date_sequence = toolz.take(n_days - 1, date_sequence)
 
     if not include_start:
-        date_sequence = drop(1, date_sequence)
+        date_sequence = toolz.drop(1, date_sequence)
 
     return date_sequence
 
@@ -216,7 +216,7 @@ def drange(start, forward=True):
     ['2022-01-01', '2021-12-31', '2021-12-30']
     """
     successor = op(operator.add if forward else operator.sub, y=timedelta(1))
-    return iterate(successor, start)
+    return toolz.iterate(successor, start)
 
 
 def datedelta(reference, days):
@@ -354,7 +354,7 @@ def monthrange(start, end, exclude_start=False, exclude_end=False):
         yield start + relativedelta.relativedelta(months=i)
 
 
-@curry
+@toolz.curry
 def mseq(start, forward):
     """Generate a sequence of consecutive months.
 
