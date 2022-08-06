@@ -226,7 +226,7 @@ def drange(start, forward=True):
     Examples
     --------
     >>> from datetime import date
-    >>> from toolz.curried import filter, map, pipe, take
+    >>> from toolz.curried import filter, map, pipe, take, take_nth
     >>> from bumbag.time import last_date_of_month, to_str
     >>> d1 = date(2022, 1, 1)
 
@@ -259,6 +259,20 @@ def drange(start, forward=True):
     ...     list,
     ... )
     ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30', '2022-05-31']
+
+    >>> # Monday sequence
+    >>> pipe(
+    ...     drange(d1),
+    ...     filter(lambda d: day_of_week(d) == "Monday"),
+    ...     map(to_str),
+    ...     take(5),
+    ...     list,
+    ... )
+    ['2022-01-03', '2022-01-10', '2022-01-17', '2022-01-24', '2022-01-31']
+
+    >>> # pick every 7th day
+    >>> pipe(drange(d1), take_nth(7), map(to_str), take(5), list)
+    ['2022-01-01', '2022-01-08', '2022-01-15', '2022-01-22', '2022-01-29']
     """
     successor = op(operator.add if forward else operator.sub, y=timedelta(1))
     return toolz.iterate(successor, start)
