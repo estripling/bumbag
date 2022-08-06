@@ -1,4 +1,3 @@
-import types
 from datetime import date
 
 import pytest
@@ -164,98 +163,6 @@ def test_humantime(arg, expected):
 def test_last_date_of_month(arg, expected):
     actual = time.last_date_of_month(arg.year, arg.month)
     assert actual == expected
-
-
-@pytest.mark.parametrize(
-    "args, expected",
-    [
-        (
-            (date(2022, 1, 1), date(2022, 4, 30)),
-            (
-                date(2022, 1, 1),
-                date(2022, 2, 1),
-                date(2022, 3, 1),
-                date(2022, 4, 1),
-            ),
-        ),
-        (
-            (date(2022, 1, 1), date(2022, 4, 1)),
-            (
-                date(2022, 1, 1),
-                date(2022, 2, 1),
-                date(2022, 3, 1),
-                date(2022, 4, 1),
-            ),
-        ),
-        (
-            (date(2022, 4, 30), date(2022, 1, 31)),
-            (
-                date(2022, 1, 31),
-                date(2022, 2, 28),
-                date(2022, 3, 31),
-                date(2022, 4, 30),
-            ),
-        ),
-        (
-            (date(2022, 1, 1), date(2022, 3, 31)),
-            (
-                date(2022, 1, 1),
-                date(2022, 2, 1),
-                date(2022, 3, 1),
-            ),
-        ),
-        (
-            (date(2022, 1, 31), date(2022, 4, 1)),
-            (
-                date(2022, 1, 31),
-                date(2022, 2, 28),
-                date(2022, 3, 31),
-            ),
-        ),
-        (
-            (date(2022, 4, 1), date(2022, 1, 31)),
-            (
-                date(2022, 1, 31),
-                date(2022, 2, 28),
-                date(2022, 3, 31),
-            ),
-        ),
-        (
-            (date(2022, 1, 1), date(2022, 3, 31)),
-            (
-                date(2022, 1, 1),
-                date(2022, 2, 1),
-                date(2022, 3, 1),
-            ),
-        ),
-        (
-            (date(2022, 1, 31), date(2022, 3, 31)),
-            (
-                date(2022, 1, 31),
-                date(2022, 2, 28),
-                date(2022, 3, 31),
-            ),
-        ),
-        ((date(2022, 1, 1), date(2022, 1, 1)), (date(2022, 1, 1),)),
-    ],
-)
-def test_monthrange(args, expected):
-    start, end = args
-
-    output = time.monthrange(start, end)
-    assert isinstance(output, types.GeneratorType)
-
-    actual = tuple(output)
-    assert actual == expected, "including start and end dates fails"
-
-    actual = tuple(time.monthrange(start, end, include_start=False))
-    assert actual == expected[1:], "excluding start date fails"
-
-    actual = tuple(time.monthrange(start, end, include_end=False))
-    assert actual == expected[:-1], "excluding end date fails"
-
-    actual = tuple(time.monthrange(start, end, False, False))
-    assert actual == expected[1:-1], "excluding start and end dates fails"
 
 
 @pytest.mark.parametrize(
