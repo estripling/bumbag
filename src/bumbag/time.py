@@ -84,7 +84,7 @@ def daterange(start, end, include_start=True, include_end=True):
     Examples
     --------
     >>> from datetime import date
-    >>> from toolz.curried import map, pipe
+    >>> from toolz.curried import filter, map, pipe
     >>> from bumbag.time import to_str
     >>> d1 = date(2022, 1, 1)
     >>> d2 = date(2022, 1, 3)
@@ -109,6 +109,25 @@ def daterange(start, end, include_start=True, include_end=True):
 
     >>> pipe(daterange(d2, d1), map(to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
+
+    >>> # month sequence - first date
+    >>> pipe(
+    ...     daterange(date(2022, 1, 1), date(2022, 4, 30)),
+    ...     filter(lambda d: d.day == 1),
+    ...     map(to_str),
+    ...     list,
+    ... )
+    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
+
+    >>> # month sequence - last date
+    >>> pipe(
+    ...     daterange(date(2022, 1, 1), date(2022, 4, 30)),
+    ...     filter(lambda d: d.day == 1),
+    ...     map(lambda d: last_date_of_month(d.year, d.month)),
+    ...     map(to_str),
+    ...     list,
+    ... )
+    ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
     """
     start, end = sorted([start, end])
     start = start if include_start else start + timedelta(1)
@@ -310,77 +329,6 @@ def last_date_of_month(year, month):
     """
     _, number_days_in_month = calendar.monthrange(year, month)
     return date(year, month, number_days_in_month)
-
-
-def monthrange(start, end, include_start=True, include_end=True):
-    """Generate a sequence of consecutive months between two dates.
-
-    Parameters
-    ----------
-    start : datetime.date
-        Start of the sequence.
-    end : datetime.date
-        End of the sequence.
-    include_start : bool, default=True
-        Specify if sequence should include start date.
-    include_end : bool, default=True
-        Specify if sequence should include end date.
-
-    Yields
-    ------
-    datetime.date
-        A generator of the month sequence.
-
-    Notes
-    -----
-    - If ``start == end``, generating one value (with default settings).
-    - If ``start > end``, swapping values.
-
-    Examples
-    --------
-    >>> from datetime import date
-    >>> from toolz.curried import map, pipe
-    >>> from bumbag.time import to_str
-    >>> d1 = date(2022, 1, 1)
-    >>> d2 = date(2022, 4, 30)
-
-    >>> pipe(monthrange(d1, d2), map(to_str), list)
-    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
-
-    >>> pipe(monthrange(d1, d2, False, True), map(to_str), list)
-    ['2022-02-01', '2022-03-01', '2022-04-01']
-
-    >>> pipe(monthrange(d1, d2, True, False), map(to_str), list)
-    ['2022-01-01', '2022-02-01', '2022-03-01']
-
-    >>> pipe(monthrange(d1, d2, False, False), map(to_str), list)
-    ['2022-02-01', '2022-03-01']
-
-    >>> pipe(monthrange(d1, d1), list)
-    [datetime.date(2022, 1, 1)]
-
-    >>> pipe(monthrange(d1, d1, False), list)
-    []
-
-    >>> pipe(monthrange(d2, d1), map(to_str), list)
-    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
-
-    >>> d1 = date(2022, 1, 31)
-    >>> d2 = date(2022, 4, 30)
-    >>> pipe(monthrange(d1, d2), map(to_str), list)
-    ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
-    """
-    start, end = sorted([start, end])
-    n_months = months_between_dates(start, end, include_last_date=True)
-    month_sequence = (start + relativedelta(months=i) for i in range(n_months))
-
-    if not include_end:
-        month_sequence = toolz.take(n_months - 1, month_sequence)
-
-    if not include_start:
-        month_sequence = toolz.drop(1, month_sequence)
-
-    return month_sequence
 
 
 def months_between_dates(date1, date2, include_last_date=False):
