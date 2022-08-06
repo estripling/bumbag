@@ -7,6 +7,24 @@ from bumbag import time
 
 
 @pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (date(2022, 8, 1), "Monday"),
+        (date(2022, 8, 2), "Tuesday"),
+        (date(2022, 8, 3), "Wednesday"),
+        (date(2022, 8, 4), "Thursday"),
+        (date(2022, 8, 5), "Friday"),
+        (date(2022, 8, 6), "Saturday"),
+        (date(2022, 8, 7), "Sunday"),
+    ],
+)
+def test_day_of_week(arg, expected):
+    date_to_name = arg
+    actual = time.day_of_week(date_to_name)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
     "args, expected",
     [
         ((date(2022, 8, 1), date(2022, 8, 1), False), 0),
