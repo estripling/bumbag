@@ -2,6 +2,54 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.0 (2022-08-06)
+### Feature
+* **time.py:** Add day_of_week ([`b83be9c`](https://github.com/estripling/bumbag/commit/b83be9c032b5e2b4c00dd0cf42bdf8e25340ca09))
+* **math.py:** Refactor iseq to irange ([`e37f1ee`](https://github.com/estripling/bumbag/commit/e37f1ee130252f6e49391d1bf94c0ebda442c694))
+
+### Fix
+* **time.py:** Deprecate monthrange ([`398268a`](https://github.com/estripling/bumbag/commit/398268ae7201c9d4bb8f9b21878d83cf0ef340b0))
+* **time.py:** Deprecate mrange ([`015b14b`](https://github.com/estripling/bumbag/commit/015b14b4b2dac42573641e6936103fd093806a8e))
+* **time.py:** Deprecate is_leap_year ([`af8cc07`](https://github.com/estripling/bumbag/commit/af8cc07cf99098760d6621edd1a03e20c1ffa594))
+* **math.py:** Deprecate iseq_odd ([`dd6b98c`](https://github.com/estripling/bumbag/commit/dd6b98c61dd457a31d40f0b3619ed2cf96f105b8))
+* **math.py:** Deprecate iseq_even ([`c6e76ba`](https://github.com/estripling/bumbag/commit/c6e76ba928adffa8bd01a678aa5698a2cef6fa2c))
+
+### Breaking
+* deprecate monthrange  ([`398268a`](https://github.com/estripling/bumbag/commit/398268ae7201c9d4bb8f9b21878d83cf0ef340b0))
+* deprecate mrange  ([`015b14b`](https://github.com/estripling/bumbag/commit/015b14b4b2dac42573641e6936103fd093806a8e))
+* rename mseq to mrange  ([`93a4807`](https://github.com/estripling/bumbag/commit/93a4807a21cdf8bbfef71a8c9621b1fb6d5673b5))
+* rename arguments in monthrange  ([`5740c7b`](https://github.com/estripling/bumbag/commit/5740c7b86d21e8a9fcd457642ff757957e6376ed))
+* rename dseq to drange  ([`ee0f957`](https://github.com/estripling/bumbag/commit/ee0f957bd725383a10c645be64666d2380027ba1))
+* rename arguments in daterange  ([`9ee0d77`](https://github.com/estripling/bumbag/commit/9ee0d77c2eb077f3aa866892b6fdd3369a1b16a7))
+* deprecate is_leap_year  ([`af8cc07`](https://github.com/estripling/bumbag/commit/af8cc07cf99098760d6621edd1a03e20c1ffa594))
+* rename get_last_date_of_month to last_date_of_month  ([`4da3246`](https://github.com/estripling/bumbag/commit/4da3246671147680b38598dc5c5c244ab742b4fa))
+* rename date_to_str to to_str  ([`e88ef6f`](https://github.com/estripling/bumbag/commit/e88ef6f465138938fa3fe6f97552764a787e1add))
+* rename str_to_date to to_date  ([`509e931`](https://github.com/estripling/bumbag/commit/509e931fc8068b552749785814117f53de3c13be))
+* deprecate iseq_odd  ([`dd6b98c`](https://github.com/estripling/bumbag/commit/dd6b98c61dd457a31d40f0b3619ed2cf96f105b8))
+* deprecate iseq_even  ([`c6e76ba`](https://github.com/estripling/bumbag/commit/c6e76ba928adffa8bd01a678aa5698a2cef6fa2c))
+* refactor iseq to irange  ([`e37f1ee`](https://github.com/estripling/bumbag/commit/e37f1ee130252f6e49391d1bf94c0ebda442c694))
+* rename argument in flatten  ([`bd74e80`](https://github.com/estripling/bumbag/commit/bd74e80b621a132592c4baa2b56f84a44deee376))
+* remove default values from iseq functions in math module  ([`22c3a17`](https://github.com/estripling/bumbag/commit/22c3a178d501a02de3e151ff2976e48a1f813305))
+* move filter_regex to string module  ([`9aa74fe`](https://github.com/estripling/bumbag/commit/9aa74fe5a4d6f2878f2b298ddd480053332abc54))
+* move map_regex to string module  ([`a7d4bac`](https://github.com/estripling/bumbag/commit/a7d4bac93c7fe6768600cc4c8ad191979d84b915))
+* refactor argument names  ([`6df5b3b`](https://github.com/estripling/bumbag/commit/6df5b3ba819a938e6ebc2aa0ef7cb776a6ac761a))
+* introducing string module  ([`ef2414f`](https://github.com/estripling/bumbag/commit/ef2414fb97bd0db88d21959a1cc51113ef46ceee))
+
+### Documentation
+* **drange:** Add more docstring examples ([`fe1da35`](https://github.com/estripling/bumbag/commit/fe1da3589a719288187eeec97f6a99160cf70b54))
+* **humantime:** Improve docstring ([`fd6d620`](https://github.com/estripling/bumbag/commit/fd6d62006dca611b332d42a18c8e0aa8fe498971))
+* **months_between_dates:** Improve docstring ([`e01d893`](https://github.com/estripling/bumbag/commit/e01d893e43f20265e52b09043948a82212864d71))
+* **datedelta:** Improve docstring ([`fa1b239`](https://github.com/estripling/bumbag/commit/fa1b2392316daea9469e71ec0d6ddca1f76c6771))
+* **days_between_dates:** Improve docstring ([`72163e4`](https://github.com/estripling/bumbag/commit/72163e4d488cf3a8d2dbabff142fe915acdcb0a5))
+* **random.py:** Update seed description ([`3e51a8f`](https://github.com/estripling/bumbag/commit/3e51a8ff3cb3077c43c1dc336d6acb651c865015))
+* **collatz:** Improve docstring ([`12c878a`](https://github.com/estripling/bumbag/commit/12c878a2379b6d198d8afe8a22892283ddbe9ab2))
+* **flatten:** Update usage example ([`4474117`](https://github.com/estripling/bumbag/commit/44741171881e60b6894d0aa0e7282ce69bf89585))
+* **archive_files:** Improve docstring ([`7176076`](https://github.com/estripling/bumbag/commit/7176076f35f0118bb6b90bc03ed3a561127b1b4d))
+* **query_yes_no:** Improve docstring ([`f28c83e`](https://github.com/estripling/bumbag/commit/f28c83e77b5eed29154bb8106538010a6b9164e8))
+* **flatten:** Improve docstring ([`3a86de9`](https://github.com/estripling/bumbag/commit/3a86de93d184590c9597ab8aa27afa5c2a0b0711))
+* **freq:** Improve docstring ([`5477749`](https://github.com/estripling/bumbag/commit/547774923e3720c7de1bd0c3c909a4efbec18b63))
+* **op:** Improve docstring ([`4527eca`](https://github.com/estripling/bumbag/commit/4527eca5166e198a68ade9641ce9543e2b31223e))
+
 ## v1.3.0 (2022-07-15)
 ### Feature
 * **core.py:** Add flatten ([`5e15beb`](https://github.com/estripling/bumbag/commit/5e15beb27a98ab155e2dcce958b585bed06c5185))
