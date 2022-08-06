@@ -8,7 +8,6 @@ import toolz
 from dateutil.relativedelta import relativedelta
 
 from bumbag.core import op
-from bumbag.math import irange
 
 
 def datedelta(reference, days):
@@ -179,8 +178,8 @@ def drange(start, forward=True):
     Examples
     --------
     >>> from datetime import date
-    >>> from toolz.curried import pipe, take, map
-    >>> from bumbag.time import to_str
+    >>> from toolz.curried import filter, map, pipe, take
+    >>> from bumbag.time import last_date_of_month, to_str
     >>> d1 = date(2022, 1, 1)
 
     >>> pipe(drange(d1), map(to_str), take(3), list)
@@ -188,6 +187,30 @@ def drange(start, forward=True):
 
     >>> pipe(drange(d1, False), map(to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
+
+    >>> pipe(drange(d1, False), map(to_str), take(3), list)
+    ['2022-01-01', '2021-12-31', '2021-12-30']
+
+    >>> # month sequence - first date
+    >>> pipe(
+    ...     drange(d1),
+    ...     filter(lambda d: d.day == 1),
+    ...     map(to_str),
+    ...     take(5),
+    ...     list,
+    ... )
+    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01']
+
+    >>> # month sequence - last date
+    >>> pipe(
+    ...     drange(d1),
+    ...     filter(lambda d: d.day == 1),
+    ...     map(lambda d: last_date_of_month(d.year, d.month)),
+    ...     map(to_str),
+    ...     take(5),
+    ...     list,
+    ... )
+    ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30', '2022-05-31']
     """
     successor = op(operator.add if forward else operator.sub, y=timedelta(1))
     return toolz.iterate(successor, start)
@@ -400,51 +423,6 @@ def months_between_dates(date1, date2, include_last_date=False):
     difference = relativedelta(end, start)
     n_months = difference.months + 12 * difference.years
     return n_months + 1 if include_last_date else n_months
-
-
-def mrange(start, forward=True):
-    """Generate an 'infinite' sequence of consecutive months.
-
-    Parameters
-    ----------
-    start : datetime.date
-        Start of the sequence.
-    forward : bool, default=True
-        Specify if months should be generated in a forward or backward manner.
-
-    Yields
-    ------
-    datetime.date
-        A generator of the month sequence.
-
-    See Also
-    --------
-    bumbag.math.irange : A generator of consecutive integers.
-
-    Examples
-    --------
-    >>> from datetime import date
-    >>> from toolz.curried import map, pipe, take
-    >>> from bumbag.time import to_str
-
-    >>> pipe(mrange(date(2022, 1, 1)), map(to_str), take(4), list)
-    ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
-
-    >>> pipe(mrange(date(2022, 1, 1), False), map(to_str), take(4), list)
-    ['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01']
-
-    >>> pipe(mrange(date(2022, 1, 31)), map(to_str), take(4), list)
-    ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
-
-    >>> pipe(mrange(date(2022, 1, 31), False), map(to_str), take(4), list)
-    ['2022-01-31', '2021-12-31', '2021-11-30', '2021-10-31']
-    """
-    for i in irange(0):
-        yield (
-            start + relativedelta(months=i)
-            if forward
-            else start - relativedelta(months=i)
-        )
 
 
 def to_date(string_to_cast):

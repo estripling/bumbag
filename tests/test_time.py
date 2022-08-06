@@ -312,40 +312,6 @@ def test_months_between_dates(args, expected):
     assert actual == expected
 
 
-def test_mrange():
-    d1 = date(2022, 1, 1)
-
-    actual = toolz.pipe(time.mrange(d1, True), toolz.curried.take(3), list)
-    expected = [date(2022, 1, 1), date(2022, 2, 1), date(2022, 3, 1)]
-    assert actual == expected, "forward generation fails"
-
-    actual = toolz.pipe(time.mrange(d1, False), toolz.curried.take(3), list)
-    expected = [date(2022, 1, 1), date(2021, 12, 1), date(2021, 11, 1)]
-    assert actual == expected, "backward generation fails"
-
-    d2 = date(2022, 1, 31)
-
-    actual = toolz.pipe(time.mrange(d2, True), toolz.curried.take(3), list)
-    expected = [date(2022, 1, 31), date(2022, 2, 28), date(2022, 3, 31)]
-    assert actual == expected, "forward generation fails"
-
-    actual = toolz.pipe(time.mrange(d2, False), toolz.curried.take(3), list)
-    expected = [date(2022, 1, 31), date(2021, 12, 31), date(2021, 11, 30)]
-    assert actual == expected, "backward generation fails"
-
-    d3 = date(2020, 1, 31)
-
-    actual = toolz.pipe(time.mrange(d3, True), toolz.curried.take(3), list)
-    expected = [date(2020, 1, 31), date(2020, 2, 29), date(2020, 3, 31)]
-    assert actual == expected, "forward generation fails"
-
-    d4 = date(2020, 1, 15)
-
-    actual = toolz.pipe(time.mrange(d4, True), toolz.curried.take(3), list)
-    expected = [date(2020, 1, 15), date(2020, 2, 15), date(2020, 3, 15)]
-    assert actual == expected, "forward generation fails"
-
-
 @pytest.mark.parametrize(
     "arg, expected",
     [
