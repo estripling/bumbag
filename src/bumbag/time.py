@@ -135,6 +135,35 @@ def daterange(start, end, include_start=True, include_end=True):
     return itertools.takewhile(lambda d: d <= end, drange(start))
 
 
+def day_of_week(date_to_name):
+    """Get the day of the week.
+
+    Parameters
+    ----------
+    date_to_name : datetime.date
+        Date object to extract day name from.
+
+    Returns
+    -------
+    str
+        Day name of the week.
+
+    Examples
+    --------
+    >>> from datetime import date
+    >>> from bumbag.time import daterange
+    >>> list(map(day_of_week, daterange(date(2022, 8, 1), date(2022, 8, 5))))
+    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
+    >>> day_of_week(date(2022, 8, 6))
+    'Saturday'
+
+    >>> day_of_week(date(2022, 8, 7))
+    'Sunday'
+    """
+    return date_to_name.strftime("%A")
+
+
 def days_between_dates(date1, date2, include_last_date=False):
     """Compute the number of days between two dates.
 
