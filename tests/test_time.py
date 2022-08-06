@@ -7,39 +7,31 @@ from bumbag import time
 
 
 @pytest.mark.parametrize(
-    "arg, expected",
-    [
-        (date(2022, 8, 1), "Monday"),
-        (date(2022, 8, 2), "Tuesday"),
-        (date(2022, 8, 3), "Wednesday"),
-        (date(2022, 8, 4), "Thursday"),
-        (date(2022, 8, 5), "Friday"),
-        (date(2022, 8, 6), "Saturday"),
-        (date(2022, 8, 7), "Sunday"),
-    ],
-)
-def test_day_of_week(arg, expected):
-    date_to_name = arg
-    actual = time.day_of_week(date_to_name)
-    assert actual == expected
-
-
-@pytest.mark.parametrize(
     "args, expected",
     [
-        ((date(2022, 8, 1), date(2022, 8, 1), False), 0),
-        ((date(2022, 8, 1), date(2022, 8, 1), True), 1),
-        ((date(2022, 8, 1), date(2022, 8, 7), False), 6),
-        ((date(2022, 8, 7), date(2022, 8, 1), False), 6),
-        ((date(2022, 8, 1), date(2022, 8, 7), True), 7),
-        ((date(2022, 8, 7), date(2022, 8, 1), True), 7),
-        ((date(2014, 1, 1), date(2016, 5, 6), False), 856),
+        ((date(2022, 1, 1), 0), date(2022, 1, 1)),
+        ((date(2022, 1, 1), 3), date(2022, 1, 3)),
+        ((date(2022, 1, 1), -3), date(2021, 12, 30)),
+        ((date(2022, 8, 1), 7), date(2022, 8, 7)),
+        ((date(2022, 8, 7), -7), date(2022, 8, 1)),
+        ((date(2022, 8, 8), -7), date(2022, 8, 2)),
+        ((date(2022, 8, 1), 31), date(2022, 8, 31)),
+        ((date(2022, 2, 1), 28), date(2022, 2, 28)),
+        ((date(2022, 2, 1), 29), date(2022, 3, 1)),
+        ((date(2020, 2, 1), 28), date(2020, 2, 28)),
+        ((date(2020, 2, 1), 29), date(2020, 2, 29)),
+        ((date(2020, 2, 1), 30), date(2020, 3, 1)),
     ],
 )
-def test_days_between_dates(args, expected):
-    date1, date2, include_last_date = args
-    actual = time.days_between_dates(date1, date2, include_last_date)
-    assert actual == expected
+def test_datedelta(args, expected):
+    reference_date, days = args
+
+    relative_date = time.datedelta(reference_date, days)
+    assert relative_date == expected, "relative date does not match expected"
+
+    n_days = toolz.count(time.daterange(reference_date, relative_date))
+    n_days_expected = 1 if days == 0 else abs(days)
+    assert n_days == n_days_expected, "number of days does not match expected"
 
 
 @pytest.mark.parametrize(
@@ -84,6 +76,42 @@ def test_daterange(args, expected):
     assert actual == expected[1:-1], "excluding start and end dates fails"
 
 
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (date(2022, 8, 1), "Monday"),
+        (date(2022, 8, 2), "Tuesday"),
+        (date(2022, 8, 3), "Wednesday"),
+        (date(2022, 8, 4), "Thursday"),
+        (date(2022, 8, 5), "Friday"),
+        (date(2022, 8, 6), "Saturday"),
+        (date(2022, 8, 7), "Sunday"),
+    ],
+)
+def test_day_of_week(arg, expected):
+    date_to_name = arg
+    actual = time.day_of_week(date_to_name)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "args, expected",
+    [
+        ((date(2022, 8, 1), date(2022, 8, 1), False), 0),
+        ((date(2022, 8, 1), date(2022, 8, 1), True), 1),
+        ((date(2022, 8, 1), date(2022, 8, 7), False), 6),
+        ((date(2022, 8, 7), date(2022, 8, 1), False), 6),
+        ((date(2022, 8, 1), date(2022, 8, 7), True), 7),
+        ((date(2022, 8, 7), date(2022, 8, 1), True), 7),
+        ((date(2014, 1, 1), date(2016, 5, 6), False), 856),
+    ],
+)
+def test_days_between_dates(args, expected):
+    date1, date2, include_last_date = args
+    actual = time.days_between_dates(date1, date2, include_last_date)
+    assert actual == expected
+
+
 def test_drange():
     d1 = date(2022, 1, 1)
 
@@ -94,34 +122,6 @@ def test_drange():
     actual = toolz.pipe(time.drange(d1, False), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 31), date(2021, 12, 30)]
     assert actual == expected, "backward generation fails"
-
-
-@pytest.mark.parametrize(
-    "args, expected",
-    [
-        ((date(2022, 1, 1), 0), date(2022, 1, 1)),
-        ((date(2022, 1, 1), 3), date(2022, 1, 3)),
-        ((date(2022, 1, 1), -3), date(2021, 12, 30)),
-        ((date(2022, 8, 1), 7), date(2022, 8, 7)),
-        ((date(2022, 8, 7), -7), date(2022, 8, 1)),
-        ((date(2022, 8, 8), -7), date(2022, 8, 2)),
-        ((date(2022, 8, 1), 31), date(2022, 8, 31)),
-        ((date(2022, 2, 1), 28), date(2022, 2, 28)),
-        ((date(2022, 2, 1), 29), date(2022, 3, 1)),
-        ((date(2020, 2, 1), 28), date(2020, 2, 28)),
-        ((date(2020, 2, 1), 29), date(2020, 2, 29)),
-        ((date(2020, 2, 1), 30), date(2020, 3, 1)),
-    ],
-)
-def test_datedelta(args, expected):
-    reference_date, days = args
-
-    relative_date = time.datedelta(reference_date, days)
-    assert relative_date == expected, "relative date does not match expected"
-
-    n_days = toolz.count(time.daterange(reference_date, relative_date))
-    n_days_expected = 1 if days == 0 else abs(days)
-    assert n_days == n_days_expected, "number of days does not match expected"
 
 
 @pytest.mark.parametrize(
