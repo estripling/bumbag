@@ -70,6 +70,13 @@ install:
 	$(POETRY) install
 
 
+## update_dependencies :: Update project dependencies
+.PHONY: update_dependencies
+update_dependencies:
+	$(POETRY) update
+	$(POETRY) add toolz@latest
+
+
 ## test :: Run tests with coverage report
 .PHONY: test
 test: clean
