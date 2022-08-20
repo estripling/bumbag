@@ -12,7 +12,6 @@
 :hidden:
 
 example.ipynb
-benchmark.md
 changelog.md
 contributing.md
 developers.md
