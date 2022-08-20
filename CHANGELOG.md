@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.1 (2022-08-20)
+### Documentation
+* **example.ipynb:** Use watermark in first cell ([`0c204b0`](https://github.com/estripling/bumbag/commit/0c204b0dcb5d3ae40d50731e08769ac94d15d311))
+* ***:** Remove benchmark ([`da76b5b`](https://github.com/estripling/bumbag/commit/da76b5b8aec067a3ce8576801685a421d423e819))
+
 ## v2.0.0 (2022-08-06)
 ### Feature
 * **time.py:** Add day_of_week ([`b83be9c`](https://github.com/estripling/bumbag/commit/b83be9c032b5e2b4c00dd0cf42bdf8e25340ca09))
