@@ -262,14 +262,6 @@ ssh = ["bcrypt (>=3.1.5)"]
 test = ["pytest (>=6.2.0)", "pytest-benchmark", "pytest-cov", "pytest-subtests", "pytest-xdist", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,!=3.79.2)"]
 
 [[package]]
-name = "cycler"
-version = "0.11.0"
-description = "Composable style cycles"
-category = "dev"
-optional = false
-python-versions = ">=3.6"
-
-[[package]]
 name = "debugpy"
 version = "1.6.3"
 description = "An implementation of the Debug Adapter Protocol for Python"
@@ -348,28 +340,6 @@ python-versions = ">=3.6"
 mccabe = ">=0.6.0,<0.7.0"
 pycodestyle = ">=2.8.0,<2.9.0"
 pyflakes = ">=2.4.0,<2.5.0"
-
-[[package]]
-name = "fonttools"
-version = "4.36.0"
-description = "Tools to manipulate font files"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[package.extras]
-woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
-unicode = ["unicodedata2 (>=14.0.0)"]
-ufo = ["fs (>=2.2.0,<3)"]
-type1 = ["xattr"]
-symfont = ["sympy"]
-repacker = ["uharfbuzz (>=0.23.0)"]
-plot = ["matplotlib"]
-pathops = ["skia-pathops (>=0.5.0)"]
-lxml = ["lxml (>=4.0,<5)"]
-interpolatable = ["munkres", "scipy"]
-graphite = ["lz4 (>=1.7.4.2)"]
-all = ["xattr", "unicodedata2 (>=14.0.0)", "munkres", "brotli (>=1.0.1)", "scipy", "brotlicffi (>=0.8.0)", "uharfbuzz (>=0.23.0)", "skia-pathops (>=0.5.0)", "sympy", "matplotlib", "lz4 (>=1.7.4.2)", "zopfli (>=0.1.4)", "lxml (>=4.0,<5)", "fs (>=2.2.0,<3)"]
 
 [[package]]
 name = "furo"
@@ -768,14 +738,6 @@ testing = ["pytest-mypy (>=0.9.1)", "pytest-black (>=0.3.7)", "pytest-enabler (>
 docs = ["jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "jaraco.packaging (>=9)", "sphinx"]
 
 [[package]]
-name = "kiwisolver"
-version = "1.4.4"
-description = "A fast implementation of the Cassowary constraint solver"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[[package]]
 name = "lazy-object-proxy"
 version = "1.7.1"
 description = "A fast and thorough lazy object proxy."
@@ -825,25 +787,6 @@ description = "Safely add untrusted strings to HTML/XML markup."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
-
-[[package]]
-name = "matplotlib"
-version = "3.5.3"
-description = "Python plotting package"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[package.dependencies]
-cycler = ">=0.10"
-fonttools = ">=4.22.0"
-kiwisolver = ">=1.0.1"
-numpy = ">=1.17"
-packaging = ">=20.0"
-pillow = ">=6.2.0"
-pyparsing = ">=2.2.1"
-python-dateutil = ">=2.7"
-setuptools_scm = ">=4,<7"
 
 [[package]]
 name = "matplotlib-inline"
@@ -1062,14 +1005,6 @@ json-logging = ["json-logging"]
 test = ["pytest", "coverage", "requests", "testpath", "nbval", "selenium", "pytest-cov", "requests-unixsocket"]
 
 [[package]]
-name = "numpy"
-version = "1.23.2"
-description = "NumPy is the fundamental package for array computing with Python."
-category = "dev"
-optional = false
-python-versions = ">=3.8"
-
-[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
@@ -1126,18 +1061,6 @@ description = "Tiny 'shelve'-like database with concurrency support"
 category = "dev"
 optional = false
 python-versions = "*"
-
-[[package]]
-name = "pillow"
-version = "9.2.0"
-description = "Python Imaging Library (Fork)"
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-
-[package.extras]
-docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
-tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
 
 [[package]]
 name = "pkginfo"
@@ -1562,22 +1485,6 @@ python-versions = "*"
 nativelib = ["pyobjc-framework-cocoa", "pywin32"]
 objc = ["pyobjc-framework-cocoa"]
 win32 = ["pywin32"]
-
-[[package]]
-name = "setuptools-scm"
-version = "6.4.2"
-description = "the blessed package to manage your versions by scm tags"
-category = "dev"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-packaging = ">=20.0"
-tomli = ">=1.0.0"
-
-[package.extras]
-test = ["pytest (>=6.2)", "virtualenv (>20)"]
-toml = ["setuptools (>=42)"]
 
 [[package]]
 name = "six"
@@ -2043,7 +1950,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4b3c92c198a9ec3355481eb221af2d131cc19e87a90c7cd463b2b7c70c312f44"
+content-hash = "5f71fd737cc6d3ecd086ac17e29d605f258561510692b6e023151144ed8ddc29"
 
 [metadata.files]
 alabaster = [
@@ -2110,10 +2017,6 @@ click-log = [
 colorama = []
 coverage = []
 cryptography = []
-cycler = [
-    {file = "cycler-0.11.0-py3-none-any.whl", hash = "sha256:3a27e95f763a428a739d2add979fa7494c912a32c17c4c38c4d5f082cad165a3"},
-    {file = "cycler-0.11.0.tar.gz", hash = "sha256:9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f"},
-]
 debugpy = []
 decorator = [
     {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
@@ -2138,7 +2041,6 @@ flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
 ]
-fonttools = []
 furo = []
 gitdb = [
     {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
@@ -2265,7 +2167,6 @@ jupyterlab-pygments = [
 ]
 jupyterlab-widgets = []
 keyring = []
-kiwisolver = []
 lazy-object-proxy = [
     {file = "lazy-object-proxy-1.7.1.tar.gz", hash = "sha256:d609c75b986def706743cdebe5e47553f4a5a1da9c5ff66d76013ef396b5a8a4"},
     {file = "lazy_object_proxy-1.7.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:bb8c5fd1684d60a9902c60ebe276da1f2281a318ca16c1d0a96db28f62e9166b"},
@@ -2352,7 +2253,6 @@ markupsafe = [
     {file = "MarkupSafe-2.1.1-cp39-cp39-win_amd64.whl", hash = "sha256:46d00d6cfecdde84d40e572d63735ef81423ad31184100411e6e3388d405e247"},
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
 ]
-matplotlib = []
 matplotlib-inline = []
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
@@ -2393,7 +2293,6 @@ nest-asyncio = [
     {file = "nest_asyncio-1.5.5.tar.gz", hash = "sha256:e442291cd942698be619823a17a86a5759eabe1f8613084790de189fe9e16d65"},
 ]
 notebook = []
-numpy = []
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
@@ -2418,7 +2317,6 @@ pickleshare = [
     {file = "pickleshare-0.7.5-py2.py3-none-any.whl", hash = "sha256:9649af414d74d4df115d5d718f82acb59c9d418196b7b4290ed47a12ce62df56"},
     {file = "pickleshare-0.7.5.tar.gz", hash = "sha256:87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca"},
 ]
-pillow = []
 pkginfo = []
 pkgutil-resolve-name = []
 platformdirs = [
@@ -2612,10 +2510,6 @@ semver = [
 send2trash = [
     {file = "Send2Trash-1.8.0-py3-none-any.whl", hash = "sha256:f20eaadfdb517eaca5ce077640cb261c7d2698385a6a0f072a4a5447fd49fa08"},
     {file = "Send2Trash-1.8.0.tar.gz", hash = "sha256:d2c24762fd3759860a0aff155e45871447ea58d2be6bdd39b5c8f966a0c99c2d"},
-]
-setuptools-scm = [
-    {file = "setuptools_scm-6.4.2-py3-none-any.whl", hash = "sha256:acea13255093849de7ccb11af9e1fb8bde7067783450cee9ef7a93139bddf6d4"},
-    {file = "setuptools_scm-6.4.2.tar.gz", hash = "sha256:6833ac65c6ed9711a4d5d2266f8024cfa07c533a0e55f4c12f6eff280a5a9e30"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
