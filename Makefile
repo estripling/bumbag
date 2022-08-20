@@ -53,6 +53,7 @@ add_dev_dep:
 add_dev_docs:
 	$(POETRY) add --dev \
 		jupyter \
+		watermark \
 		myst-nb \
 		sphinx-autoapi \
 		sphinx-copybutton \
