@@ -187,3 +187,45 @@ def function_with_types_in_docstring(param1, param2):
     """
     return param1 == int(param2)
 ```
+
+## Terminology
+
+A few words on Python terminology for consistent use of language.
+
+* Python's [general purpose built-in container data structures](https://docs.python.org/3/library/collections.html) are designed to group data together. These are `dict`, `list`, `set` and `tuple`.
+* Each of these container data structures is also a so-called [iterable](https://docs.python.org/3/glossary.html#term-iterable).
+* Primitive [built-in types](https://docs.python.org/3/library/stdtypes.html) like `int`, `float`, and `bool` are no iterables.
+* Every [sequence](https://docs.python.org/3/glossary.html#term-sequence) is an iterable, but not every iterable is a sequence.
+* The [map](https://docs.python.org/3/library/functions.html#map) function, for example, takes an iterable as one of its input and returns an iterator.
+* An object with ``__iter__`` and ``__next__`` methods is an iterator.
+* Every [iterator](https://docs.python.org/3/glossary.html#term-iterator) is iterable, but not every iterable is an iterator.
+* An iterator is good for one pass over the values of an iterable.
+* `dict`, `list`, `range`, `set`, `str` and `tuple` are generally iterables. They all have the built-in ``__iter__`` method that returns an iterator.
+
+Sequence? Iterable? Iterator? `¯\_(ツ)_/¯`
+
+The following decision tree-type explanation for Python's built-in types might help to clarify the differences between those concepts:
+
+```text
+if hasattr(obj, "__getitem__") and __getitem__ uses integer indices for access:
+    if hasattr(obj, "__len__"):
+        (1) obj is of type Sequence -> list, range, str, tuple
+    else:
+        (2) obj is of type Iterable -> a class with merely a __getitem__ method (none of the built-ins)
+
+elif hasattr(obj, "__getitem__") and __getitem__ uses arbitrary immutable keys for access:
+    (3) obj is of type Mapping -> dict
+
+elif hasattr(obj, "__iter__"):
+    if hasattr(obj, "__len__"):
+        (4) obj is of type Iterable -> set
+    else:
+        (5) obj is of type Iterator -> map, filter, generator
+
+else:
+    (6) obj is not iterable -> int, float, bool
+```
+
+* Note that container data structures like (3) `dict` and (4) `set` have *no deterministic order*. That is, ordering is arbitrary and if you add or remove an item, it may affect the order.
+* In contrast, a sequence does have a deterministic order, meaning the order in which you insert an item into a sequence is the order in which you get an item out from it.
+* Regarding (5), a [generator](https://docs.python.org/3/glossary.html#term-generator) as well as a [generator expression](https://docs.python.org/3/glossary.html#term-generator-expression) essentially return an iterator object.
