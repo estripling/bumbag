@@ -2,7 +2,7 @@ import collections
 import inspect
 import math
 import operator
-from typing import Generator
+from typing import Iterator, Sequence
 
 import toolz
 
@@ -58,25 +58,28 @@ def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
 
 
 def flatten(*sequences):
-    """Flatten an arbitrarily nested and possibly irregular collection.
+    """Flatten arbitrarily nested sequences.
 
     Parameters
     ----------
-    sequences : collection
-        Collection of sequences and/or items to flatten.
+    sequences : Any, Iterator, Sequence
+        Arbitrarily nested sequences of possibly heterogeneous data types
+        to flatten. If an object in ``sequences`` is not of type Iterator or
+        Sequence, the object itself is returned. Note that a string, albeit
+        being of type Sequence, is not further processed but is immediately
+        returned instead.
 
     Yields
     ------
     Any
-        A generator of flattened collection items.
-
-    Notes
-    -----
-    A string is not treated as a sequence.
+        A generator of objects of flattened sequences.
 
     Examples
     --------
     >>> list(flatten([1, 2, 3]))
+    [1, 2, 3]
+
+    >>> list(flatten((1, 2, 3)))
     [1, 2, 3]
 
     >>> list(flatten(*[1, 2, 3]))
@@ -94,6 +97,9 @@ def flatten(*sequences):
     >>> list(flatten([[1, (2, 3)], 4, [], [[[5]], 6]]))
     [1, 2, 3, 4, 5, 6]
 
+    >>> list(flatten([iter([1, iter((2, 3))]), 4, [], iter([[[5]], 6])]))
+    [1, 2, 3, 4, 5, 6]
+
     >>> list(flatten(["one", 2], 3, [(4, "five")], [[["six"]]], "seven", []))
     ['one', 2, 3, 4, 'five', 'six', 'seven']
 
@@ -103,29 +109,20 @@ def flatten(*sequences):
     >>> list(flatten([-1], 0, map(lambda x: 2 * x, range(1, 4))))
     [-1, 0, 2, 4, 6]
 
-    >>> generator_comprehension = (2 * x for x in range(1, 4))  # noqa
-    >>> list(flatten([[-1], 0], generator_comprehension))
+    >>> generator_expression = (2 * x for x in range(1, 4))  # noqa
+    >>> list(flatten([[-1], 0], generator_expression))
     [-1, 0, 2, 4, 6]
 
     >>> list(flatten([-1], 0, filter(lambda x: x % 2 == 0, range(1, 7))))
     [-1, 0, 2, 4, 6]
     """
 
-    def flattenit(seqs):
-        iterator_types_to_flatten = (
-            Generator,
-            filter,
-            list,
-            map,
-            range,
-            tuple,
-        )
-
-        for seq in seqs:
-            if isinstance(seq, iterator_types_to_flatten):
-                yield from flattenit(seq)
+    def flattenit(iterables):
+        for i in iterables:
+            if isinstance(i, (Iterator, Sequence)) and not isinstance(i, str):
+                yield from flattenit(i)
             else:
-                yield seq
+                yield i
 
     return flattenit(sequences)
 
