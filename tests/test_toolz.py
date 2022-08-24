@@ -193,7 +193,7 @@ def test_get(n10):
 
 
 def test_groupby(n10):
-    """Group a collection by a key function."""
+    """Group an iterable by a key function."""
     actual = groupby(is_even, n10)
     expected = {False: [1, 3, 5, 7, 9], True: [2, 4, 6, 8, 10]}
     assert actual == expected
@@ -215,7 +215,7 @@ def test_iterate():
 
 
 def test_mapcat():
-    """Apply a function to each sequence in collection and flatten it."""
+    """Apply a function to each sequence in seqs and concatenate results."""
     actual = tuple(mapcat(map(str.upper), [["a", "b"], ["c", "d", "e"]]))
     expected = ("A", "B", "C", "D", "E")
     assert actual == expected
@@ -371,7 +371,7 @@ def test_unique():
 
 class TestRecipes:
     def test_countby(self):
-        """Count elements of a collection by a key function."""
+        """Count elements of an iterable by a key function."""
         actual = pipe(integer_sequence(1), take(11), countby(is_even))
         expected = {True: 5, False: 6}
         assert actual == expected
@@ -489,7 +489,7 @@ class TestDictToolz:
         assert actual == expected
 
     def test_merge(self):
-        """Merge a collection of dictionaries.
+        """Merge an iterable of dictionaries.
         Later dictionaries have precedence.
         """
         actual = merge({1: "one"}, {2: "two"})
