@@ -49,15 +49,15 @@ def filter_regex(pattern, strings, flags=re.IGNORECASE):
 
 
 @toolz.curry
-def map_regex(pattern, collection, flags=re.IGNORECASE):
-    """Map regex pattern to a collection of strings.
+def map_regex(pattern, strings, flags=re.IGNORECASE):
+    """Map regex pattern to an iterable of strings.
 
     Parameters
     ----------
     pattern : str
         Regex pattern to use.
-    collection : list of str
-        A collection of strings to match ``pattern`` against it.
+    strings : iterable of str
+        An iterable of strings to match ``pattern`` against its members.
     flags : RegexFlag, default=re.IGNORECASE
         Regex flag passed to ``re.findall`` function.
         See official Python documentation for more information.
@@ -65,8 +65,9 @@ def map_regex(pattern, collection, flags=re.IGNORECASE):
     Yields
     ------
     str
-        A generator of matches where each match corresponds to a list of all
-        non-overlapping matches in the string.
+        A generator returning the matches per string. If there is a match for a
+        given string, a list of all occurrences of the pattern is returned.
+        The list is empty if there is no match.
 
     Notes
     -----
@@ -82,15 +83,14 @@ def map_regex(pattern, collection, flags=re.IGNORECASE):
     >>> list_of_strings = [
     ...     "Guiding principles for Python's design: The Zen of Python",
     ...     "Beautiful is better than ugly.",
-    ...     "Explicit is better than implicit",
+    ...     "Explicit is better than implicit.",
     ...     "Simple is better than complex.",
     ... ]
     >>> map_python_regex = map_regex("python")
     >>> list(map_python_regex(list_of_strings))
     [['Python', 'Python'], [], [], []]
     """
-    func = functools.partial(re.findall, pattern, flags=flags)
-    return map(func, collection)
+    return map(functools.partial(re.findall, pattern, flags=flags), strings)
 
 
 def remove_punctuation(string):
