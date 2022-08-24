@@ -130,7 +130,7 @@ def flatten(*sequences):
 def freq(values):
     """Compute value frequencies.
 
-    Given a collection of values, calculate for each value:
+    Given an iterable of values, calculate for each distinct value:
      - the frequency (``n``),
      - the cumulative frequency (``N``),
      - the relative frequency (``r``), and
@@ -138,14 +138,15 @@ def freq(values):
 
     Parameters
     ----------
-    values : iterable
-        Collection of values, where each value must be of an immutable type
-        that can be used as a dictionary key.
+    values : iterable of Any
+        An iterable of values to compute the frequencies of its members.
 
     Returns
     -------
-    dict of dict
-        Frequencies of each distinct value.
+    dict
+        A dictionary with its keys being the frequency type and its values
+        being dictionaries with the frequencies of the distinct values of the
+        iterable.
 
     Examples
     --------
