@@ -138,7 +138,7 @@ def freq(values):
 
     Parameters
     ----------
-    values : iterable of Any
+    values : Iterable of Any
         An iterable of values to compute the frequencies of its members.
 
     Returns

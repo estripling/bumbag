@@ -13,7 +13,7 @@ def filter_regex(pattern, strings, flags=re.IGNORECASE):
     ----------
     pattern : str
         Regex pattern to use.
-    strings : iterable of str
+    strings : Iterable of str
         An iterable of strings to filter according to ``pattern``.
     flags : RegexFlag, default=re.IGNORECASE
         Regex flag passed to ``re.findall`` function.
@@ -56,7 +56,7 @@ def map_regex(pattern, strings, flags=re.IGNORECASE):
     ----------
     pattern : str
         Regex pattern to use.
-    strings : iterable of str
+    strings : Iterable of str
         An iterable of strings to match ``pattern`` against its members.
     flags : RegexFlag, default=re.IGNORECASE
         Regex flag passed to ``re.findall`` function.
