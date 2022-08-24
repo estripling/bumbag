@@ -6,15 +6,15 @@ import toolz
 
 
 @toolz.curry
-def filter_regex(pattern, collection, flags=re.IGNORECASE):
-    """Filter collection of strings with a regex pattern.
+def filter_regex(pattern, strings, flags=re.IGNORECASE):
+    """Filter an iterable of strings with a regex pattern.
 
     Parameters
     ----------
     pattern : str
         Regex pattern to use.
-    collection : list of str
-        A collection of strings to filter according to the ``pattern``.
+    strings : iterable of str
+        An iterable of strings to filter according to ``pattern``.
     flags : RegexFlag, default=re.IGNORECASE
         Regex flag passed to ``re.findall`` function.
         See official Python documentation for more information.
@@ -22,8 +22,7 @@ def filter_regex(pattern, collection, flags=re.IGNORECASE):
     Yields
     ------
     str
-        A generator of the original string values of the collection,
-        containing those values where the string matches the regex pattern.
+        A generator returning the original string if there is a match.
 
     Notes
     -----
@@ -39,15 +38,14 @@ def filter_regex(pattern, collection, flags=re.IGNORECASE):
     >>> list_of_strings = [
     ...     "Guiding principles for Python's design: The Zen of Python",
     ...     "Beautiful is better than ugly.",
-    ...     "Explicit is better than implicit",
+    ...     "Explicit is better than implicit.",
     ...     "Simple is better than complex.",
     ... ]
     >>> filter_python_regex = filter_regex("python")
     >>> list(filter_python_regex(list_of_strings))
     ["Guiding principles for Python's design: The Zen of Python"]
     """
-    func = functools.partial(re.findall, pattern, flags=flags)
-    return filter(func, collection)
+    return filter(functools.partial(re.findall, pattern, flags=flags), strings)
 
 
 @toolz.curry
