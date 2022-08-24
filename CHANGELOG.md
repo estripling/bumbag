@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v3.0.0 (2022-08-24)
+### Breaking
+* rename map_regex parameter from collection to strings  ([`8cb77aa`](https://github.com/estripling/bumbag/commit/8cb77aae741199cdd0a3460ad0fffc56a6366364))
+* rename filter_regex parameter from collection to strings  ([`0bf83fb`](https://github.com/estripling/bumbag/commit/0bf83fb355bc8ae12140cbbc1bcd5992481aab3e))
+
+### Documentation
+* **freq:** Use the term iterable instead of collection ([`9d8e0a6`](https://github.com/estripling/bumbag/commit/9d8e0a6bb60481e2c483158e7c8ca9c6217e6609))
+* **map_regex:** Rename parameter from collection to strings ([`8cb77aa`](https://github.com/estripling/bumbag/commit/8cb77aae741199cdd0a3460ad0fffc56a6366364))
+* **filter_regex:** Rename parameter from collection to strings ([`0bf83fb`](https://github.com/estripling/bumbag/commit/0bf83fb355bc8ae12140cbbc1bcd5992481aab3e))
+* **DEVELOPERS.md:** Add terminology section ([`45e3f45`](https://github.com/estripling/bumbag/commit/45e3f458ada4dd146ccda10a5daec2c9f7d99c6f))
+* **flatten:** Use the term sequence instead of collection ([`e34ef65`](https://github.com/estripling/bumbag/commit/e34ef65ccc4d9f80277369ad3240872764dae300))
+
 ## v2.0.1 (2022-08-20)
 ### Documentation
 * **example.ipynb:** Use watermark in first cell ([`0c204b0`](https://github.com/estripling/bumbag/commit/0c204b0dcb5d3ae40d50731e08769ac94d15d311))
