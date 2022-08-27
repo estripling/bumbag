@@ -44,7 +44,6 @@ def collatz(number):
     ----------
     .. [1] "Collatz", The On-Line Encyclopedia of Integer Sequences®,
            https://oeis.org/A006370
-
     .. [2] "Collatz conjecture", Wikipedia,
            https://en.wikipedia.org/wiki/Collatz_conjecture
 
