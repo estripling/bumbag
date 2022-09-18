@@ -22,7 +22,9 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx_copybutton",
 ]
-autoapi_dirs = ["../../src"]
+autoapi_type = "python"
+autoapi_dirs = ["../../src/"]
+autoapi_member_order = "alphabetical"
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -43,7 +45,19 @@ language = "en"
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-suppress_warnings = ["myst.header"]
+suppress_warnings = ["myst.header", "autoapi"]
+
+
+def skip_util_classes(app, what, name, obj, skip, options):
+    # https://sphinx-autoapi.readthedocs.io/en/latest/reference/config.html#event-autoapi-skip-member
+    if what == "module":
+        skip = True
+    return skip
+
+
+def setup(sphinx):
+    sphinx.connect("autoapi-skip-member", skip_util_classes)
+
 
 # -- Options for HTML output -------------------------------------------------
 
