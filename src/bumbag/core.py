@@ -1,7 +1,7 @@
-import collections
 import inspect
 import math
 import operator
+from collections import Counter
 from typing import Iterator, Sequence
 
 import toolz
@@ -171,8 +171,7 @@ def freq(values):
     {1: 3, 2.0: 2, 'c': 1, False: 1, None: 1}
     """
     output = dict()
-    counter = collections.Counter(values)
-    distinct_values, frequencies = zip(*counter.most_common(len(counter)))
+    distinct_values, frequencies = zip(*Counter(iter(values)).most_common())
 
     cumsum = toolz.curried.accumulate(operator.add)
     div_by_total = op(operator.truediv, y=sum(frequencies))
