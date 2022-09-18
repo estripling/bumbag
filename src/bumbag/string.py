@@ -4,6 +4,12 @@ from string import punctuation
 
 import toolz
 
+__all__ = (
+    "filter_regex",
+    "map_regex",
+    "remove_punctuation",
+)
+
 
 @toolz.curry
 def filter_regex(pattern, strings, flags=re.IGNORECASE):
