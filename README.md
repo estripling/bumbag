@@ -44,10 +44,10 @@ pip install bumbag
 
 ## Usage
 
-Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.flatten) an irregular list:
+Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.html#bumbag.flatten) an irregular list:
 
 ```python
-from bumbag.core import flatten
+from bumbag import flatten
 
 irregular_list = [
     ["one", 2],
@@ -65,10 +65,10 @@ list(flatten(irregular_list, 8, [9, ("ten",)]))
 ['one', 2, 3, 4, 'five', 'six', 'seven', 8, 9, 'ten']
 ```
 
-Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/core/index.html#bumbag.core.two_set_summary):
+Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.html#bumbag.two_set_summary):
 
 ```python
-from bumbag.core import two_set_summary
+from bumbag import two_set_summary
 
 x = {"a", "c", "b", "g", "h"}
 y = {"c", "d", "e", "f", "g"}

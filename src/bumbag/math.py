@@ -138,8 +138,7 @@ def irange(start, step=1):
     >>> import itertools
     >>> import math
     >>> from toolz.curried import curry, filter, map, pipe, take
-    >>> from bumbag.core import sig
-    >>> from bumbag.math import iseven, isodd, irange
+    >>> from bumbag import iseven, isodd, irange, sig
     >>> takewhile = curry(itertools.takewhile)
     >>> power = curry(math.pow)
     >>> power2 = power(2)

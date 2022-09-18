@@ -98,7 +98,7 @@ def daterange(start, end, include_start=True, include_end=True):
     --------
     >>> from datetime import date
     >>> from toolz.curried import filter, map, pipe
-    >>> from bumbag.time import to_str
+    >>> from bumbag import to_str
     >>> d1 = date(2022, 1, 1)
     >>> d2 = date(2022, 1, 3)
 
@@ -164,7 +164,7 @@ def day_of_week(date_to_name):
     Examples
     --------
     >>> from datetime import date
-    >>> from bumbag.time import daterange
+    >>> from bumbag import daterange
     >>> list(map(day_of_week, daterange(date(2022, 8, 1), date(2022, 8, 5))))
     ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
@@ -240,7 +240,7 @@ def drange(start, forward=True):
     --------
     >>> from datetime import date
     >>> from toolz.curried import filter, map, pipe, take, take_nth
-    >>> from bumbag.time import last_date_of_month, to_str
+    >>> from bumbag import last_date_of_month, to_str
     >>> d1 = date(2022, 1, 1)
 
     >>> pipe(drange(d1), map(to_str), take(3), list)
