@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.0 (2022-09-18)
+### Feature
+* ***:** Enable direct import of functions ([`109dc0a`](https://github.com/estripling/bumbag/commit/109dc0ac58a732d9382309f9bc4755af0ab08fe5))
+
+### Documentation
+* ***:** Use direct imports ([`bf94052`](https://github.com/estripling/bumbag/commit/bf9405294f61b463d2d771a143e6015d32fa2452))
+* ***:** Disable API documentation for submodules ([`c50a093`](https://github.com/estripling/bumbag/commit/c50a0930dcfa0c20badc3d33939722078c34086d))
+
 ## v3.0.0 (2022-08-24)
 ### Breaking
 * rename map_regex parameter from collection to strings  ([`8cb77aa`](https://github.com/estripling/bumbag/commit/8cb77aae741199cdd0a3460ad0fffc56a6366364))

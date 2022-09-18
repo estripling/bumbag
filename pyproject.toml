@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bumbag"
-version = "3.0.0"
+version = "3.1.0"
 description = "A package for Python utility functions."
 authors = ["BumBag Developers"]
 license = "BSD-3-Clause"
