@@ -4,6 +4,14 @@ import toolz
 
 from bumbag import core
 
+__all__ = (
+    "collatz",
+    "fibonacci",
+    "irange",
+    "iseven",
+    "isodd",
+)
+
 
 def collatz(number):
     """Generate the Collatz sequence for a positive integer.
