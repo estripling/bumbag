@@ -1,6 +1,13 @@
 import random
 import string
 
+__all__ = (
+    "coinflip",
+    "get_random_character",
+    "get_random_instance",
+    "get_random_integer",
+)
+
 
 def coinflip(bias=0.5, seed=None):
     """Flip a coin.
