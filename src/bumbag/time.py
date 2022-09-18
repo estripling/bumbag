@@ -9,6 +9,19 @@ from dateutil.relativedelta import relativedelta
 
 from bumbag.core import op
 
+__all__ = (
+    "datedelta",
+    "daterange",
+    "day_of_week",
+    "days_between_dates",
+    "drange",
+    "humantime",
+    "last_date_of_month",
+    "months_between_dates",
+    "to_date",
+    "to_str",
+)
+
 
 def datedelta(reference, days):
     """Compute date relative to reference date.
