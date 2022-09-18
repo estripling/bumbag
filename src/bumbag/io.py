@@ -5,6 +5,11 @@ from distutils.util import strtobool
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+__all__ = (
+    "archive_files",
+    "query_yes_no",
+)
+
 
 def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
     """Archive files in target directory.
