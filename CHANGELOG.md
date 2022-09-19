@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.1 (2022-09-19)
+
+
 ## v3.1.0 (2022-09-18)
 ### Feature
 * ***:** Enable direct import of functions ([`109dc0a`](https://github.com/estripling/bumbag/commit/109dc0ac58a732d9382309f9bc4755af0ab08fe5))
