@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 import toolz
 
-from bumbag import time
+import bumbag as bb
 
 
 @pytest.mark.parametrize(
@@ -26,10 +26,10 @@ from bumbag import time
 def test_datedelta(args, expected):
     reference_date, days = args
 
-    relative_date = time.datedelta(reference_date, days)
+    relative_date = bb.datedelta(reference_date, days)
     assert relative_date == expected, "relative date does not match expected"
 
-    n_days = toolz.count(time.daterange(reference_date, relative_date))
+    n_days = toolz.count(bb.daterange(reference_date, relative_date))
     n_days_expected = 1 if days == 0 else abs(days)
     assert n_days == n_days_expected, "number of days does not match expected"
 
@@ -63,16 +63,16 @@ def test_datedelta(args, expected):
 def test_daterange(args, expected):
     start, end = args
 
-    actual = tuple(time.daterange(start, end))
+    actual = tuple(bb.daterange(start, end))
     assert actual == expected, "including start and end dates fails"
 
-    actual = tuple(time.daterange(start, end, include_start=False))
+    actual = tuple(bb.daterange(start, end, include_start=False))
     assert actual == expected[1:], "excluding start date fails"
 
-    actual = tuple(time.daterange(start, end, include_end=False))
+    actual = tuple(bb.daterange(start, end, include_end=False))
     assert actual == expected[:-1], "excluding end date fails"
 
-    actual = tuple(time.daterange(start, end, False, False))
+    actual = tuple(bb.daterange(start, end, False, False))
     assert actual == expected[1:-1], "excluding start and end dates fails"
 
 
@@ -90,7 +90,7 @@ def test_daterange(args, expected):
 )
 def test_day_of_week(arg, expected):
     date_to_name = arg
-    actual = time.day_of_week(date_to_name)
+    actual = bb.day_of_week(date_to_name)
     assert actual == expected
 
 
@@ -108,18 +108,18 @@ def test_day_of_week(arg, expected):
 )
 def test_days_between_dates(args, expected):
     date1, date2, include_last_date = args
-    actual = time.days_between_dates(date1, date2, include_last_date)
+    actual = bb.days_between_dates(date1, date2, include_last_date)
     assert actual == expected
 
 
 def test_drange():
     d1 = date(2022, 1, 1)
 
-    actual = toolz.pipe(time.drange(d1, True), toolz.curried.take(3), list)
+    actual = toolz.pipe(bb.drange(d1, True), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2022, 1, 2), date(2022, 1, 3)]
     assert actual == expected, "forward generation fails"
 
-    actual = toolz.pipe(time.drange(d1, False), toolz.curried.take(3), list)
+    actual = toolz.pipe(bb.drange(d1, False), toolz.curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 31), date(2021, 12, 30)]
     assert actual == expected, "backward generation fails"
 
@@ -145,9 +145,9 @@ def test_drange():
 def test_humantime(arg, expected):
     if arg < 0:
         with pytest.raises(ValueError):
-            time.humantime(arg)
+            bb.humantime(arg)
     else:
-        actual = time.humantime(arg)
+        actual = bb.humantime(arg)
         assert actual == expected
 
 
@@ -179,7 +179,7 @@ def test_humantime(arg, expected):
     ],
 )
 def test_last_date_of_month(arg, expected):
-    actual = time.last_date_of_month(arg.year, arg.month)
+    actual = bb.last_date_of_month(arg.year, arg.month)
     assert actual == expected
 
 
@@ -233,7 +233,7 @@ def test_last_date_of_month(arg, expected):
 )
 def test_months_between_dates(args, expected):
     date1, date2, include_last_date = args
-    actual = time.months_between_dates(date1, date2, include_last_date)
+    actual = bb.months_between_dates(date1, date2, include_last_date)
     assert actual == expected
 
 
@@ -245,7 +245,7 @@ def test_months_between_dates(args, expected):
     ],
 )
 def test_to_date(arg, expected):
-    actual = time.to_date(arg)
+    actual = bb.to_date(arg)
     assert actual == expected
 
 
@@ -257,5 +257,5 @@ def test_to_date(arg, expected):
     ],
 )
 def test_to_str(arg, expected):
-    actual = time.to_str(arg)
+    actual = bb.to_str(arg)
     assert actual == expected

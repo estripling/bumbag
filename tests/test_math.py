@@ -1,7 +1,7 @@
 import pytest
 import toolz
 
-from bumbag import math
+import bumbag as bb
 
 
 @pytest.mark.parametrize(
@@ -21,14 +21,14 @@ from bumbag import math
 def test_collatz(arg, expected):
     if arg < 1:
         with pytest.raises(ValueError):
-            tuple(math.collatz(arg))
+            tuple(bb.collatz(arg))
     else:
-        actual = tuple(math.collatz(arg))
+        actual = tuple(bb.collatz(arg))
         assert actual == expected
 
 
 def test_fibonacci():
-    actual = tuple(toolz.take(16, math.fibonacci()))
+    actual = tuple(toolz.take(16, bb.fibonacci()))
     expected = (0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610)
     assert actual == expected
 
@@ -40,28 +40,28 @@ def test_irange(start, step, n):
     types = (int, float)
     if not (isinstance(start, types) and isinstance(step, types)):
         with pytest.raises(TypeError):
-            math.irange(start, step)
+            bb.irange(start, step)
 
     elif step <= 0:
         with pytest.raises(ValueError):
-            math.irange(start, step)
+            bb.irange(start, step)
 
     else:
-        actual = tuple(toolz.take(n, math.irange(start, step)))
+        actual = tuple(toolz.take(n, bb.irange(start, step)))
         expected = tuple(range(start, 1000, step))[:n]
         assert actual == expected
 
 
 @pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 def test_iseven(arg):
-    actual = math.iseven(arg)
+    actual = bb.iseven(arg)
     expected = arg % 2 == 0
     assert actual == expected
 
 
 @pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 def test_isodd(arg):
-    actual = math.isodd(arg)
+    actual = bb.isodd(arg)
     is_even_number = arg % 2 == 0
     expected = not is_even_number
     assert actual == expected
