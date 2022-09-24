@@ -234,7 +234,7 @@ def drange(start, forward=True):
 
     See Also
     --------
-    bumbag.math.irange : Generate an 'infinite' number sequence.
+    bumbag.irange : Generate an 'infinite' number sequence.
 
     Examples
     --------
