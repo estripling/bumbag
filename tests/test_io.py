@@ -11,14 +11,14 @@ import bumbag as bb
 @pytest.mark.parametrize("kind", ["zip", "gztar"])
 def test_archive_files(kind):
     with TemporaryDirectory() as tmpdir:
-        path = Path(tmpdir).joinpath("test_file.txt")
+        path = Path(tmpdir).joinpath("test_file_for_archive_files.txt")
 
         with path.open("w") as fh:
             fh.write("Hello, World!\n")
 
-        dir_path = Path(tmpdir).joinpath("test_directory/")
+        dir_path = Path(tmpdir).joinpath("test_directory_for_archive_files/")
         os.makedirs(dir_path)
-        path2 = Path(dir_path).joinpath("test_file2.txt")
+        path2 = Path(dir_path).joinpath("test_file_for_archive_files2.txt")
 
         with path2.open("w") as fh:
             fh.write("Hello, Again!\n")
