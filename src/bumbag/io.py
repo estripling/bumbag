@@ -67,9 +67,9 @@ def query_yes_no(question, default=None):
 
     Parameters
     ----------
-    question: str
+    question : str
         Specify a yes/no question to prompt the user.
-    default: None, str, default=None
+    default : None, str, default=None
         Define default answer:
          - If ``default`` is None, an explicit answer is needed from the user.
          - If ``default`` is "yes" or "no", the presumed answer, indicated by
