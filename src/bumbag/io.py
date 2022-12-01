@@ -7,6 +7,7 @@ from tempfile import TemporaryDirectory
 
 __all__ = (
     "archive_files",
+    "lazy_read_lines",
     "query_yes_no",
 )
 
@@ -60,6 +61,53 @@ def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
                 shutil.copy(str(src_file), dst_file)
 
         shutil.make_archive(name, kind, tmpdir)
+
+
+def lazy_read_lines(path, encoding=None, errors=None, newline=None):
+    """Lazily read text file line by line.
+
+    Parameters
+    ----------
+    path : str or Path
+        Path to the text file to read from.
+    encoding : str, default=None
+        Name of the encoding.
+    errors : str, default=None
+        Specify how encoding errors are handled.
+    newline : str, default=None
+        Specify how the universal newlines should work.
+
+    Yields
+    ------
+    str
+        A line of the text file.
+
+    Notes
+    -----
+    The parameters `encoding`, `errors`, `newline` are passed to the built-in
+    function ``open()``.
+
+    Examples
+    --------
+    >>> import inspect
+    >>> inspect.isgeneratorfunction(lazy_read_lines)
+    True
+
+    >>> from toolz.curried import map, pipe
+    >>> text_lines = pipe(  # doctest: +SKIP
+    ...     lazy_read_lines("./my_text_file.txt"),
+    ...     map(str.rstrip),
+    ... )
+    """
+    with open(
+        file=str(path),
+        mode="r",
+        encoding=encoding,
+        errors=errors,
+        newline=newline,
+    ) as lines:
+        for line in lines:
+            yield line
 
 
 def query_yes_no(question, default=None):

@@ -31,6 +31,26 @@ def test_archive_files(kind):
     os.remove(f"archive.{kind}")
 
 
+def test_lazy_read_lines():
+    expected = ("one", "two", "three")
+
+    with TemporaryDirectory() as tmpdir:
+        path = Path(tmpdir).joinpath("test_file_for_lazy_read_lines.txt")
+
+        with path.open("w") as fh:
+            fh.write("\n".join(expected))
+
+        actual = tuple(map(str.rstrip, bb.lazy_read_lines(path)))
+        assert actual == expected
+
+        for i, line in enumerate(bb.lazy_read_lines(str(path))):
+            actual = line.replace("\n", "")
+            assert actual == expected[i]
+
+        with pytest.raises(FileNotFoundError):
+            tuple(bb.lazy_read_lines(Path(tmpdir).joinpath("./not_exist.txt")))
+
+
 class TestQueryYesNo:
     @pytest.mark.parametrize(
         "arg, answer, expected",
