@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.2.0 (2022-12-03)
+### Feature
+* **io.py:** Add lazy_read_lines ([`185cf70`](https://github.com/estripling/bumbag/commit/185cf70dbc36f1273e892259718548f2b62eb849))
+
 ## v3.1.2 (2022-11-07)
 
 
