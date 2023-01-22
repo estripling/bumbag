@@ -9,42 +9,44 @@ jobs:
     # Only run this job when on "main"
     if: github.ref == 'refs/heads/main'
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.8", "3.9", "3.10"]
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check-out repository
       uses: actions/checkout@v3
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.8"
+
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
 
     - name: Install Poetry
       uses: snok/install-poetry@v1
+      with:
+        version: 1.3.1
+        virtualenvs-create: false
+        installer-parallel: true
 
     - name: Install bumbag
       run: poetry install
 
     - name: Run isort
-      run: poetry run isort --check-only --line-length 79 --profile black ./
+      run: python -m isort --check-only --line-length 79 --profile black ./
 
     - name: Run Black
-      run: poetry run black --check --line-length 79 ./
+      run: python -m black --check --line-length 79 ./
 
     - name: Run Flake8
-      run: poetry run flake8 --doctests --max-line-length 79 src/ tests/
+      run: python -m flake8 --doctests --max-line-length 79 src/ tests/
 
     - name: Run pytest doctest
-      run: poetry run pytest --doctest-modules
+      run: python -m pytest --doctest-modules
 
     - name: Run pytest
-      run: poetry run pytest tests/ --cov=bumbag --cov-report=xml
+      run: python -m pytest tests/ --cov=bumbag --cov-report=xml
 
     - name: Use Codecov to track coverage
       uses: codecov/codecov-action@v2
@@ -52,8 +54,7 @@ jobs:
         files: ./coverage.xml
 
     - name: Build documentation
-      run: poetry run make html --directory docs/
-
+      run: make html --directory docs/
 
   cd:
     needs: ci
@@ -61,12 +62,7 @@ jobs:
     # Only run this job when on "main"
     if: github.ref == 'refs/heads/main'
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.8"]
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check-out repository
@@ -74,13 +70,20 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.8"
+
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
 
     - name: Install Poetry
       uses: snok/install-poetry@v1
+      with:
+        version: 1.3.1
+        virtualenvs-create: false
+        installer-parallel: true
 
     - name: Install bumbag
       run: poetry install
@@ -91,4 +94,4 @@ jobs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        poetry run semantic-release publish
+        python -m semantic-release publish
