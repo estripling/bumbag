@@ -1,0 +1,15 @@
+# docker-compose up --build --detach
+version: "3.9"
+services:
+  dev:
+    build: .
+    image: "bumbag-image"
+    container_name: bumbag-dev
+    command: sleep infinity
+    volumes:
+      - .:/code
+  test:
+    build: .
+    image: "bumbag-image"
+    container_name: bumbag-test
+    command: python -c "import bumbag; print(f'{bumbag.__version__=}')"
