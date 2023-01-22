@@ -74,6 +74,7 @@ install:
 .PHONY: update_dependencies
 update_dependencies:
 	$(POETRY) update
+	$(POETRY) add python-dateutil@latest
 	$(POETRY) add toolz@latest
 
 
