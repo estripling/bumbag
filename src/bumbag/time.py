@@ -40,7 +40,7 @@ def datedelta(reference, days):
          - If ``days == 0``, returns the reference date.
          - If ``days > 0``, returns the date ahead w.r.t. the reference date.
          - If ``days < 0``, returns the date ago w.r.t. the reference date.
-        The value of ``days`` equals the length of the corrsponding sequence of
+        The value of ``days`` equals the length of the corresponding sequence of
         consecutive dates with inclusive endpoints.
 
     Returns
@@ -231,10 +231,6 @@ def drange(start, forward=True):
     ------
     datetime.date
         A generator of the date sequence.
-
-    See Also
-    --------
-    bumbag.irange : Generate an 'infinite' number sequence.
 
     Examples
     --------

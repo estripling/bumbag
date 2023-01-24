@@ -1,13 +1,8 @@
-import operator
-
 import toolz
-
-from bumbag import core
 
 __all__ = (
     "collatz",
     "fibonacci",
-    "irange",
     "iseven",
     "isodd",
 )
@@ -105,80 +100,6 @@ def fibonacci():
         lag0 = lag1 + lag2
         yield lag0
         lag1, lag2 = lag0, lag1
-
-
-def irange(start, step=1):
-    """Generate an 'infinite' sequence of consecutive, equidistance numbers.
-
-    Parameters
-    ----------
-    start : int, float
-        Start of the sequence.
-    step : int, float, default=1
-        Step size to use.
-
-    Yields
-    ------
-    int
-        A generator of the number sequence.
-
-    Raises
-    ------
-    TypeError
-        If ``start`` and ``step`` are not ``int`` or ``float``.
-    ValueError
-        If ``step`` is not a positive number.
-
-    See Also
-    --------
-    bumbag.drange : Generate an 'infinite' date sequence.
-
-    Examples
-    --------
-    >>> import itertools
-    >>> import math
-    >>> from toolz.curried import curry, filter, map, pipe, take
-    >>> from bumbag import iseven, isodd, irange, sig
-    >>> takewhile = curry(itertools.takewhile)
-    >>> power = curry(math.pow)
-    >>> power2 = power(2)
-    >>> power10 = power(10)
-
-    >>> pipe(irange(1), take(5), list)
-    [1, 2, 3, 4, 5]
-
-    >>> pipe(irange(-2), takewhile(lambda x: x <= 2), list)
-    [-2, -1, 0, 1, 2]
-
-    >>> pipe(irange(0, step=0.1), map(sig), takewhile(lambda x: x <= 1), list)
-    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-
-    >>> pipe(irange(-5), takewhile(lambda x: x <= 5), map(power2), list)
-    [0.03125, 0.0625, 0.125, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0]
-
-    >>> pipe(irange(-5), takewhile(lambda x: x <= 4), map(power10), list)
-    [1e-05, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0, 10000.0]
-
-    >>> pipe(irange(0), filter(iseven), take(5), list)
-    [0, 2, 4, 6, 8]
-
-    >>> pipe(irange(0), filter(isodd), take(5), list)
-    [1, 3, 5, 7, 9]
-
-    >>> pipe(irange(0, step=4), map(lambda x: -x), take(5), list)
-    [0, -4, -8, -12, -16]
-    """
-    if not isinstance(start, (int, float)):
-        raise TypeError(f"{type(start)=} - must be 'int' or 'float'")
-
-    if not isinstance(step, (int, float)):
-        raise TypeError(f"{type(step)=} - must be 'int' or 'float'")
-
-    if step <= 0:
-        raise ValueError(f"{step=} - must be a positive number")
-
-    successor = core.op(operator.add, y=step)
-    return toolz.iterate(successor, start)
 
 
 def iseven(number):
