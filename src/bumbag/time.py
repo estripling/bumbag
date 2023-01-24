@@ -338,11 +338,7 @@ def humantime(seconds):
 
     def multiplier(time_with_unit: str) -> str:
         time_without_unit = float(time_with_unit.split(" ")[0])
-        return (
-            time_with_unit
-            if isclose(time_without_unit, 1)
-            else f"{time_with_unit}s"
-        )
+        return time_with_unit if isclose(time_without_unit, 1) else f"{time_with_unit}s"
 
     result = []
     if days:
