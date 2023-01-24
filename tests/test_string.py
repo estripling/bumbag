@@ -1,11 +1,11 @@
 import pytest
 
-import bumbag as bb
+import bumbag
 
 
 def test_filter_regex(zen_of_python):
-    filter_python_regex = bb.filter_regex("python")
-    filter_better_regex = bb.filter_regex("better")
+    filter_python_regex = bumbag.filter_regex("python")
+    filter_better_regex = bumbag.filter_regex("better")
 
     actual = list(filter_python_regex(zen_of_python))
     expected = ["The Zen of Python, by Tim Peters"]
@@ -26,8 +26,8 @@ def test_filter_regex(zen_of_python):
 
 
 def test_map_regex(zen_of_python):
-    map_python_regex = bb.map_regex("python")
-    map_better_regex = bb.map_regex("better")
+    map_python_regex = bumbag.map_regex("python")
+    map_better_regex = bumbag.map_regex("better")
 
     actual = list(map_python_regex(zen_of_python))
     expected = [["Python"]] + [[] for _ in range(19)]
@@ -82,5 +82,5 @@ def test_map_regex(zen_of_python):
     ],
 )
 def test_remove_punctuation(arg, expected):
-    actual = bb.remove_punctuation(arg)
+    actual = bumbag.remove_punctuation(arg)
     assert actual == expected

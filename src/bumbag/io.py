@@ -1,7 +1,7 @@
+import distutils
 import os
 import shutil
 from datetime import datetime
-from distutils.util import strtobool
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -166,8 +166,8 @@ def query_yes_no(question, default=None):
     while True:
         try:
             if answer == "" and default in ["yes", "no"]:
-                return bool(strtobool(default))
-            return bool(strtobool(answer))
+                return bool(distutils.util.strtobool(default))
+            return bool(distutils.util.strtobool(answer))
 
         except ValueError:
             msg = "{} Please respond with 'yes' [{}] or 'no' [{}] ".format(

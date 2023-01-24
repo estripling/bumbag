@@ -1,6 +1,6 @@
 import functools
 import re
-from string import punctuation
+import string as builtin_string_module
 
 import toolz
 
@@ -117,4 +117,4 @@ def remove_punctuation(string):
     >>> remove_punctuation("I think, therefore I am. --Descartes")
     'I think therefore I am Descartes'
     """
-    return string.translate(str.maketrans("", "", punctuation))
+    return string.translate(str.maketrans("", "", builtin_string_module.punctuation))

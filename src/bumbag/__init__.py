@@ -1,6 +1,6 @@
-from importlib.metadata import version
+from importlib import metadata
 
-__version__ = version("bumbag")
+__version__ = metadata.version("bumbag")
 
 from .core import *
 from .io import *
@@ -9,4 +9,4 @@ from .random import *
 from .string import *
 from .time import *
 
-del core, io, math, random, string, time, version
+del core, io, math, random, string, time, metadata

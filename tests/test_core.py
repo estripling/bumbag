@@ -3,7 +3,7 @@ import operator
 
 import pytest
 
-import bumbag as bb
+import bumbag
 
 
 @pytest.mark.parametrize(
@@ -25,7 +25,7 @@ import bumbag as bb
 )
 def test_extend_range(args, expected):
     min_value, max_value, min_factor, max_factor = args
-    f = bb.extend_range(min_factor=min_factor, max_factor=max_factor)
+    f = bumbag.extend_range(min_factor=min_factor, max_factor=max_factor)
     if min_factor < 0 or max_factor < 0:
         with pytest.raises(ValueError):
             f(min_value, max_value)
@@ -68,7 +68,7 @@ def test_extend_range(args, expected):
 )
 def test_flatten(args, expected):
     seqs = args
-    actual = list(bb.flatten(seqs))
+    actual = list(bumbag.flatten(seqs))
     assert actual == expected
 
 
@@ -87,7 +87,7 @@ def test_flatten(args, expected):
     ],
 )
 def test_freq(x, expected_order):
-    actual = bb.freq(x)
+    actual = bumbag.freq(x)
     assert isinstance(actual, dict)
 
     v1, v2, v3, v4, v5 = expected_order
@@ -111,7 +111,7 @@ def test_freq(x, expected_order):
 
 def test_get_function_name():
     def my_test_function():
-        return bb.get_function_name()
+        return bumbag.get_function_name()
 
     actual = my_test_function()
     expected = "my_test_function"
@@ -122,14 +122,14 @@ def test_get_source_code():
     def my_test_function():
         return "Hello, World!"
 
-    actual = bb.get_source_code(my_test_function)
+    actual = bumbag.get_source_code(my_test_function)
     expected = '    def my_test_function():\n        return "Hello, World!"\n'
     assert actual == expected
 
 
 @pytest.mark.parametrize("arg, expected", [(0, 1), (1, 2), (10, 11), (21, 22)])
 def test_op(arg, expected):
-    inc = bb.op(operator.add, 1)
+    inc = bumbag.op(operator.add, 1)
     actual = inc(arg)
     assert actual == expected
 
@@ -179,7 +179,7 @@ def test_op(arg, expected):
 )
 def test_sig(args, expected):
     number, digits = args
-    f = bb.sig(digits=digits)
+    f = bumbag.sig(digits=digits)
     if digits < 1:
         with pytest.raises(ValueError):
             f(number)
@@ -191,7 +191,7 @@ def test_sig(args, expected):
 def test_two_set_summary():
     x = {"a", "c", "b", "g", "h"}
     y = {"c", "d", "e", "f", "g"}
-    summary = bb.two_set_summary(x, y)
+    summary = bumbag.two_set_summary(x, y)
 
     assert isinstance(summary, dict)
     assert summary["x"] == x
