@@ -112,14 +112,14 @@ def test_days_between_dates(args, expected):
     assert actual == expected
 
 
-def test_drange():
+def test_daycount():
     d1 = date(2022, 1, 1)
 
-    actual = curried.pipe(bumbag.drange(d1, True), curried.take(3), list)
+    actual = curried.pipe(bumbag.daycount(d1, True), curried.take(3), list)
     expected = [date(2022, 1, 1), date(2022, 1, 2), date(2022, 1, 3)]
     assert actual == expected, "forward generation fails"
 
-    actual = curried.pipe(bumbag.drange(d1, False), curried.take(3), list)
+    actual = curried.pipe(bumbag.daycount(d1, False), curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 31), date(2021, 12, 30)]
     assert actual == expected, "backward generation fails"
 

@@ -83,7 +83,7 @@ def test_accumulate():
 
 
 def test_cons():
-    """Add element to beginning of (possibly infinite) sequence."""
+    """Add element to the beginning of an in principle infinite sequence."""
     actual = tuple(curried.cons(10, [2, 3]))
     expected = (10, 2, 3)
     assert actual == expected
