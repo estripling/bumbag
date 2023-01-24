@@ -14,7 +14,7 @@ __all__ = (
     "daterange",
     "day_of_week",
     "days_between_dates",
-    "drange",
+    "daycount",
     "humantime",
     "last_date_of_month",
     "months_between_dates",
@@ -145,7 +145,7 @@ def daterange(start, end, include_start=True, include_end=True):
     start, end = sorted([start, end])
     start = start if include_start else start + timedelta(1)
     end = end if include_end else end - timedelta(1)
-    return itertools.takewhile(lambda d: d <= end, drange(start))
+    return itertools.takewhile(lambda d: d <= end, daycount(start))
 
 
 def day_of_week(date_to_name):
@@ -217,8 +217,8 @@ def days_between_dates(date1, date2, include_last_date=False):
     return (end - start).days + 1 if include_last_date else (end - start).days
 
 
-def drange(start, forward=True):
-    """Generate an 'infinite' sequence of consecutive dates.
+def daycount(start, forward=True):
+    """Generate an in principle infinite sequence of consecutive dates.
 
     Parameters
     ----------
@@ -232,6 +232,10 @@ def drange(start, forward=True):
     datetime.date
         A generator of the date sequence.
 
+    See Also
+    --------
+    itertools.count : Generate an in principle infinite number sequence.
+
     Examples
     --------
     >>> from datetime import date
@@ -239,18 +243,18 @@ def drange(start, forward=True):
     >>> from bumbag import last_date_of_month, to_str
     >>> d1 = date(2022, 1, 1)
 
-    >>> pipe(drange(d1), map(to_str), take(3), list)
+    >>> pipe(daycount(d1), map(to_str), take(3), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
-    >>> pipe(drange(d1, False), map(to_str), take(3), list)
+    >>> pipe(daycount(d1, False), map(to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
 
-    >>> pipe(drange(d1, False), map(to_str), take(3), list)
+    >>> pipe(daycount(d1, False), map(to_str), take(3), list)
     ['2022-01-01', '2021-12-31', '2021-12-30']
 
     >>> # month sequence - first date
     >>> pipe(
-    ...     drange(d1),
+    ...     daycount(d1),
     ...     filter(lambda d: d.day == 1),
     ...     map(to_str),
     ...     take(5),
@@ -260,7 +264,7 @@ def drange(start, forward=True):
 
     >>> # month sequence - last date
     >>> pipe(
-    ...     drange(d1),
+    ...     daycount(d1),
     ...     filter(lambda d: d.day == 1),
     ...     map(lambda d: last_date_of_month(d.year, d.month)),
     ...     map(to_str),
@@ -271,7 +275,7 @@ def drange(start, forward=True):
 
     >>> # Monday sequence
     >>> pipe(
-    ...     drange(d1),
+    ...     daycount(d1),
     ...     filter(lambda d: day_of_week(d) == "Monday"),
     ...     map(to_str),
     ...     take(5),
@@ -280,7 +284,7 @@ def drange(start, forward=True):
     ['2022-01-03', '2022-01-10', '2022-01-17', '2022-01-24', '2022-01-31']
 
     >>> # pick every 7th day
-    >>> pipe(drange(d1), take_nth(7), map(to_str), take(5), list)
+    >>> pipe(daycount(d1), take_nth(7), map(to_str), take(5), list)
     ['2022-01-01', '2022-01-08', '2022-01-15', '2022-01-22', '2022-01-29']
     """
     successor = op(operator.add if forward else operator.sub, y=timedelta(1))
