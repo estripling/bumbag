@@ -8,8 +8,8 @@ PGKENV := bumbag-py38
 GHUSER := estripling
 
 
-# https://peps.python.org/pep-0008/#maximum-line-length
-MAXLINELENGTH := 79
+# Using Black's default, as pandas-dev and scikit-learn
+MAXLINELENGTH := 88
 
 
 # Main

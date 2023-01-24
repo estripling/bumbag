@@ -379,9 +379,7 @@ class TestRecipes:
     def test_partitionby(self):
         """Partition a sequence according to a function."""
         actual = tuple(
-            partitionby(
-                lambda x: x > 10, [1, 2, 1, 99, 88, 33, 3, 10, 99, -1, 5]
-            )
+            partitionby(lambda x: x > 10, [1, 2, 1, 99, 88, 33, 3, 10, 99, -1, 5])
         )
         expected = (
             (1, 2, 1),
