@@ -4,7 +4,7 @@ import operator
 from collections import Counter
 from typing import Iterator, Sequence
 
-import toolz
+from toolz import curried
 
 __all__ = (
     "extend_range",
@@ -18,7 +18,7 @@ __all__ = (
 )
 
 
-@toolz.curry
+@curried.curry
 def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
     """Extend value range by a factor.
 
@@ -184,9 +184,9 @@ def freq(values):
     output = dict()
     distinct_values, frequencies = zip(*Counter(iter(values)).most_common())
 
-    cumsum = toolz.curried.accumulate(operator.add)
+    cumsum = curried.accumulate(operator.add)
     div_by_total = op(operator.truediv, y=sum(frequencies))
-    relative = toolz.curried.map(div_by_total)
+    relative = curried.map(div_by_total)
 
     output["n"] = dict(zip(distinct_values, frequencies))
     output["N"] = dict(zip(distinct_values, cumsum(frequencies)))
@@ -241,7 +241,7 @@ def get_source_code(obj):
     return inspect.getsource(obj)
 
 
-@toolz.curry
+@curried.curry
 def op(func, x, y):
     """Apply an operator function that takes two inputs.
 
@@ -277,7 +277,7 @@ def op(func, x, y):
     return func(x, y)
 
 
-@toolz.curry
+@curried.curry
 def sig(number, digits=3):
     """Round number to its significant digits.
 

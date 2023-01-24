@@ -1,8 +1,8 @@
 import calendar
 import itertools
+import math
 import operator
 from datetime import date, datetime, timedelta
-from math import isclose
 
 import toolz
 from dateutil.relativedelta import relativedelta
@@ -329,7 +329,7 @@ def humantime(seconds):
     if seconds < 0:
         raise ValueError(f"{seconds=} - must be a non-negative number")
 
-    if isclose(seconds, 0):
+    if math.isclose(seconds, 0):
         return "0 seconds"
 
     minutes, seconds = divmod(seconds, 60)
@@ -338,7 +338,11 @@ def humantime(seconds):
 
     def multiplier(time_with_unit: str) -> str:
         time_without_unit = float(time_with_unit.split(" ")[0])
-        return time_with_unit if isclose(time_without_unit, 1) else f"{time_with_unit}s"
+        return (
+            time_with_unit
+            if math.isclose(time_without_unit, 1)
+            else f"{time_with_unit}s"
+        )
 
     result = []
     if days:
@@ -351,7 +355,7 @@ def humantime(seconds):
         result.append(multiplier(f"{int(minutes)} minute"))
 
     if seconds and minutes < 2:
-        if isclose(seconds, int(seconds)):
+        if math.isclose(seconds, int(seconds)):
             result.append(multiplier(f"{int(seconds)} second"))
         else:
             result.append(f"{seconds:0.6f} seconds")

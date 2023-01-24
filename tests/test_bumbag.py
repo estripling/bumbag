@@ -1,7 +1,7 @@
-from importlib.metadata import version
+from importlib import metadata
 
 import bumbag
 
 
 def test_version():
-    assert bumbag.__version__ == version("bumbag")
+    assert bumbag.__version__ == metadata.version("bumbag")
