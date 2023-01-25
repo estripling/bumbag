@@ -1,0 +1,12 @@
+{
+	"name": "bumbag",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "dev",
+	"workspaceFolder": "/code",
+	"remoteUser": "developer",
+
+	// Set default container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.defaultProfile.linux": "bash"
+	}
+}
