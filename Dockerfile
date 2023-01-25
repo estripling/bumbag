@@ -30,7 +30,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     bash \
     build-essential \
     curl \
+    locales \
     git \
+    gnupg \
+    # set up locale
+    && locale-gen en_US.UTF-8 \
     # Installing `poetry` package manager:
     # https://github.com/python-poetry/poetry
     && curl -sSL 'https://install.python-poetry.org' | python - \
@@ -68,5 +72,3 @@ RUN poetry install --no-root
 # install project in editable mode
 COPY . .
 RUN poetry install
-
-USER ${USER_NAME}
