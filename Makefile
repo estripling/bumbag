@@ -1,11 +1,8 @@
 # Global parameters
-SHELL := /bin/bash
-CONDA := conda
-PYTHON := python
+SHELL := /bin/zsh
+PYTHON := python3
 POETRY := poetry
 PGK := bumbag
-PGKENV := bumbag-py38
-GHUSER := estripling
 
 
 # Using Black's default, as pandas-dev and scikit-learn
@@ -21,61 +18,6 @@ help: Makefile
 
 program:
 	@echo "use 'make help'"
-
-
-## create_env :: Create env with conda
-.PHONY: create_env
-create_env:
-	$(CONDA) create -n $(PGKENV) python=3.8
-
-
-## remove_env :: Remove conda env
-.PHONY: remove_env
-remove_env:
-	$(CONDA) env remove -n $(PGKENV)
-
-
-## add_dev_dep :: Add main dev dependencies
-.PHONY: add_dev_dep
-add_dev_dep:
-	$(POETRY) add --dev \
-		pytest \
-		pytest-cov \
-		black \
-		black[jupyter] \
-		isort \
-		flake8 \
-		python-semantic-release
-
-
-## add_dev_docs :: Add dev dependencies for documentation
-.PHONY: add_dev_docs
-add_dev_docs:
-	$(POETRY) add --dev \
-		jupyter \
-		myst-nb \
-		sphinx-autoapi \
-		sphinx-copybutton \
-		furo
-
-
-## add_dev_all :: Add all dev dependencies
-.PHONY: add_dev_all
-add_dev_all: add_dev_dep add_dev_docs
-
-
-## install :: Install requirements in poetry.lock
-.PHONY: install
-install:
-	$(POETRY) install
-
-
-## update_dependencies :: Update project dependencies
-.PHONY: update_dependencies
-update_dependencies:
-	$(POETRY) update
-	$(POETRY) add python-dateutil@latest
-	$(POETRY) add toolz@latest
 
 
 ## test :: Run tests with coverage report
@@ -105,12 +47,6 @@ remove_docs_build:
 	rm -rf docs/_build/
 
 
-## echo_release_action :: Echo link to manually trigger release action
-.PHONY: echo_release_action
-echo_release_action:
-	@echo https://github.com/$(GHUSER)/$(PGK)/actions/workflows/release.yml
-
-
 ## build_pkg :: Build sdist and wheel distributions
 .PHONY: build_pkg
 build_pkg:
@@ -134,12 +70,3 @@ publish_pkg:
 .PHONY: clean
 clean:
 	$(PYTHON) cleanup.py
-
-
-## info :: Echo variables
-.PHONY: info
-info:
-	@echo SHELL: $(SHELL)
-	@echo PGK: $(PGK)
-	@echo PGKENV: $(PGKENV)
-	@echo GHUSER: $(GHUSER)
