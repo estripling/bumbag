@@ -8,7 +8,7 @@ TODO
 
 In root directory, execute the following command to run all tests:
 
-```console
+```shell
 make test
 ```
 
@@ -16,7 +16,7 @@ make test
 
 In root directory, run the following command to check code style:
 
-```console
+```shell
 make check_style
 ```
 
