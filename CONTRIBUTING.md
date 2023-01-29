@@ -45,11 +45,11 @@ Then,
 
 1. Use `git` (or similar) to create a branch for local development and make your changes:
 
-   ```console
+   ```shell
    git checkout -b feature/name-of-your-enhancement
    ```
    or
-   ```console
+   ```shell
    git checkout -b bugfix/name-of-your-fix
    ```
 
