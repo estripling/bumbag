@@ -7,7 +7,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "bumbag"
-copyright = "2022, BumBag Developers"
+copyright = "2022-2023, BumBag Developers"
 author = "BumBag Developers"
 
 # -- General configuration ---------------------------------------------------
