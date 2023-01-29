@@ -1,72 +1,63 @@
-# Global parameters
 SHELL := /bin/zsh
 PYTHON := python3
 POETRY := poetry
-PGK := bumbag
 
+.PHONY: help \
+	check \
+	check_style \
+	run_tests \
+	clean \
+	create_docs \
+	remove_docs \
+	build_package \
+	publish_to_test_pypi \
+	publish_to_pypi
 
-# Using Black's default, as pandas-dev and scikit-learn
-MAXLINELENGTH := 88
-
-
-# Main
-.PHONY: all help program
-all: program
-
+## help                                 :: print this help
 help: Makefile
 	@sed -n 's/^##//p' $<
 
-program:
-	@echo "use 'make help'"
+## check                                :: run all checks using check_style, run_tests, and clean
+check: clean check_style run_tests clean
 
+## check_style                          :: check code style with isort, black, and flake8
+check_style:
+	$(PYTHON) -m isort --line-length 88 --profile black ./
+	@echo "\n"
+	$(PYTHON) -m black ./
+	@echo "\n"
+	$(PYTHON) -m flake8 --doctests --max-line-length 88 ./
+	@echo "\n"
 
-## test :: Run tests with coverage report
-.PHONY: test
-test: clean
+## run_tests                            :: run pytest with coverage report
+run_tests:
 	$(PYTHON) -m pytest --doctest-modules src/
-	$(PYTHON) -m pytest --cov=$(PGK) tests/
+	@echo "\n"
+	$(PYTHON) -m pytest --cov=src/ tests/
+	@echo "\n"
 
+## clean                                :: remove Python cache files and directories
+clean:
+	$(PYTHON) scripts/cleanup.py
+	@echo "\n"
 
-## check_style :: Check code style
-.PHONY: check_style
-check_style: clean
-	$(PYTHON) -m isort --line-length $(MAXLINELENGTH) --profile black ./
-	$(PYTHON) -m black --line-length $(MAXLINELENGTH) ./
-	$(PYTHON) -m flake8 --doctests --max-line-length $(MAXLINELENGTH) ./
-
-
-## create_docs :: Create documentation source files with sphinx
-.PHONY: create_docs
+## create_docs                          :: create local documentation files
 create_docs:
 	cd docs; make html; cd ..;
 
+## remove_docs                          :: remove local documentation files
+remove_docs:
+	@rm -rf docs/_build/
 
-## remove_docs_build :: Remove docs/_build/ directory (if there is a significant change)
-.PHONY: remove_docs_build
-remove_docs_build:
-	rm -rf docs/_build/
-
-
-## build_pkg :: Build sdist and wheel distributions
-.PHONY: build_pkg
-build_pkg:
+## build_package                        :: build sdist and wheel distributions
+build_package:
 	$(POETRY) build
 
-
-## test_publish_pkg :: Publish to TestPyPI
-.PHONY: test_publish_pkg
-test_publish_pkg:
+## publish_to_test_pypi                 :: publish to TestPyPI
+publish_to_test_pypi:
 	$(POETRY) config repositories.test-pypi https://test.pypi.org/legacy/
 	$(POETRY) publish -r test-pypi
 
-
-## publish_pkg :: Publish to PyPI
-.PHONY: publish_pkg
-publish_pkg:
+## publish_to_pypi                      :: publish to PyPI
+publish_to_pypi:
 	$(POETRY) publish
-
-
-## clean :: Clean up Python cache files and directories
-.PHONY: clean
-clean:
-	$(PYTHON) scripts/cleanup.py
