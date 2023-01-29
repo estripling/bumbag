@@ -2,21 +2,7 @@
 
 ## Development Setup
 
-It is assumed the following software packages are installed on your system:
-
-* [Git](https://git-scm.com/)
-* [Conda](https://docs.conda.io/en/latest/)
-* [Poetry](https://python-poetry.org/)
-
-In root directory, run the following commands if your system supports [GNU Make](https://www.gnu.org/software/make/):
-
-```console
-make create_env
-conda activate <pkg-env>
-make install
-```
-
-If your system does not support GNU Make, run the corresponding commands manually.
+TODO
 
 ## Test
 
