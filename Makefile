@@ -69,4 +69,4 @@ publish_pkg:
 ## clean :: Clean up Python cache files and directories
 .PHONY: clean
 clean:
-	$(PYTHON) cleanup.py
+	$(PYTHON) scripts/cleanup.py
