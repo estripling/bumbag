@@ -1,28 +1,45 @@
 # Developer Guide
 
-## Development Setup
+## Development Environment: Dev Container
 
-TODO
+This project comes with a [development container (or dev container)](https://containers.dev), which allows for a reproducible development environment.
+To get started with the development, make sure you have the following software installed on your machine:
 
-## Test
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [VS Code editor](https://code.visualstudio.com)
+- [VS Code: Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [VS Code: Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
-In root directory, execute the following command to run all tests:
+After the installation, start the Docker Desktop application. There are two ways you can launch a dev container:
+
+1. Simply click the following button:
+
+   <a href="https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/estripling/bumbag
+"><img alt="Open Dev Containers" src="https://img.shields.io/static/v1?label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode"></a>
+
+   This will automatically clone the repository and open it in a dev container straightaway.
+
+2. Clone the repository manually and open it in VS Code using the `Open Folder` option.
+   VS Code will prompt you to reopen the folder in a dev container, click the `Reopen in Container` button.
+
+Once the dev container has been created, you are all set and ready to code!
+
+## Things To Try
+
+The `Makefile` provides a collection of common shell commands.
+Open a new terminal and run the following command to see what is available:
 
 ```shell
-make test
+make help
 ```
 
-## Code Style
-
-In root directory, run the following command to check code style:
-
-```shell
-make check_style
-```
+This will allow you, for example, to easily check for code style errors, run tests, or all at once using only one command.
+Try to run the tests to make sure everything works as intended.
+Code on the main branch must have no code style errors nor failing tests.
 
 ## Git Commit Guidelines
 
-The commit style of BumBag is the [Angular style](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines), but used as suggested in this [Git commit messages guide](https://py-pkgs.org/07-releasing-versioning#automatic-version-bumping).
+The commit style of BumBag is the [Angular style](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines), but used as suggested in this [Git commit messages guide](https://py-pkgs.org/07-releasing-versioning#automatic-version-bumping) for automatic version bumping with the help of the [Python Semantic Release](https://python-semantic-release.readthedocs.io/en/stable/) tool.
 
 ### Commit Message Format
 
@@ -149,7 +166,7 @@ In the numpydoc style:
       Human readable error message, or None on success.
   ```
 
-### Examples:
+### Example:
 
 ```python
 def function_with_types_in_docstring(param1, param2):
