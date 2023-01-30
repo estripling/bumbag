@@ -22,7 +22,7 @@ check: clean check_style run_tests clean
 
 ## check_style                          :: check code style with isort, black, and flake8
 check_style:
-	$(PYTHON) -m isort --line-length 88 --profile black ./
+	$(PYTHON) -m isort ./
 	@echo "\n"
 	$(PYTHON) -m black ./
 	@echo "\n"
