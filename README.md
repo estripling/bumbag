@@ -20,7 +20,7 @@ BumBag is a collection of Python utility functions:
 
 ## Installation
 
-`bumbag` is available on [PyPI](https://pypi.org/project/bumbag/):
+`bumbag` is available on [PyPI](https://pypi.org/project/bumbag/) for Python 3.8+:
 
 ```shell
 pip install bumbag
