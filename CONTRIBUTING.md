@@ -39,9 +39,9 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute to `bumbag`?
-Check out the developer guide for local setup.
-Then,
+Ready to contribute to BumBag?
+Check out the [developer guide](https://bumbag.readthedocs.io/en/latest/developers.html) to set up the development environment.
+Next,
 
 1. Use `git` (or similar) to create a branch for local development and make your changes:
 
@@ -67,5 +67,5 @@ Before you submit a pull request, check that it meets these guidelines:
 
 ## Code of Conduct
 
-Please note that the `bumbag` project is released with a Code of Conduct.
+Please note that the BumBag project is released with a [Code of Conduct](https://bumbag.readthedocs.io/en/latest/conduct.html).
 By contributing to this project you agree to abide by its terms.
