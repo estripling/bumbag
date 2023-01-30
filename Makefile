@@ -31,9 +31,7 @@ check_style:
 
 ## run_tests                            :: run pytest with coverage report
 run_tests:
-	$(PYTHON) -m pytest --doctest-modules src/
-	@echo "\n"
-	$(PYTHON) -m pytest --cov=src/ tests/
+	$(PYTHON) -m pytest
 	@echo "\n"
 
 ## clean                                :: remove Python cache files and directories
