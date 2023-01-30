@@ -26,7 +26,7 @@ check_style:
 	@echo "\n"
 	$(PYTHON) -m black ./
 	@echo "\n"
-	$(PYTHON) -m flake8 --doctests --max-line-length 88 ./
+	$(PYTHON) -m flake8 ./
 	@echo "\n"
 
 ## run_tests                            :: run pytest with coverage report

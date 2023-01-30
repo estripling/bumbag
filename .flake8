@@ -1,3 +1,19 @@
 [flake8]
+exclude =
+    __pycache__,
+    .git,
+    .idea,
+    .pytest_cache,
+    bin,
+    build,
+    dist,
+    include,
+    lib,
+    share,
+doctests = True
+max-line-length = 88
 per-file-ignores =
-    __init__.py: F401,F403,F821
+    __init__.py:
+        F401,
+        F403,
+        F821,
