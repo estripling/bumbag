@@ -17,7 +17,7 @@ POETRY := poetry
 help: Makefile
 	@sed -n 's/^##//p' $<
 
-## check                                :: run all checks using check_style, run_tests, and clean
+## check                                :: check style, run tests, and clean up cache all at once
 check: clean check_style run_tests clean
 
 ## check_style                          :: check code style with isort, black, and flake8
