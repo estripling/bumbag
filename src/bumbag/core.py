@@ -47,10 +47,11 @@ def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
 
     Examples
     --------
-    >>> extend_range(0, 1)
+    >>> import bumbag
+    >>> bumbag.extend_range(0, 1)
     (-0.05, 1.05)
 
-    >>> extend_range(0, 1, 0.1, 0.2)
+    >>> bumbag.extend_range(0, 1, 0.1, 0.2)
     (-0.1, 1.2)
     """
     if not isinstance(min_factor, float) or min_factor < 0:
@@ -87,44 +88,45 @@ def flatten(*sequences):
 
     Examples
     --------
-    >>> list(flatten([1, 2, 3]))
+    >>> import bumbag
+    >>> list(bumbag.flatten([1, 2, 3]))
     [1, 2, 3]
 
-    >>> list(flatten((1, 2, 3)))
+    >>> list(bumbag.flatten((1, 2, 3)))
     [1, 2, 3]
 
-    >>> list(flatten(*[1, 2, 3]))
+    >>> list(bumbag.flatten(*[1, 2, 3]))
     [1, 2, 3]
 
-    >>> list(flatten(1, 2, 3))
+    >>> list(bumbag.flatten(1, 2, 3))
     [1, 2, 3]
 
-    >>> list(flatten([1, 2], 3))
+    >>> list(bumbag.flatten([1, 2], 3))
     [1, 2, 3]
 
-    >>> list(flatten([1, (2, 3)], 4, [], [[[5]], 6]))
+    >>> list(bumbag.flatten([1, (2, 3)], 4, [], [[[5]], 6]))
     [1, 2, 3, 4, 5, 6]
 
-    >>> list(flatten([[1, (2, 3)], 4, [], [[[5]], 6]]))
+    >>> list(bumbag.flatten([[1, (2, 3)], 4, [], [[[5]], 6]]))
     [1, 2, 3, 4, 5, 6]
 
-    >>> list(flatten([iter([1, iter((2, 3))]), 4, [], iter([[[5]], 6])]))
+    >>> list(bumbag.flatten([iter([1, iter((2, 3))]), 4, [], iter([[[5]], 6])]))
     [1, 2, 3, 4, 5, 6]
 
-    >>> list(flatten(["one", 2], 3, [(4, "five")], [[["six"]]], "seven", []))
+    >>> list(bumbag.flatten(["one", 2], 3, [(4, "five")], [[["six"]]], "seven", []))
     ['one', 2, 3, 4, 'five', 'six', 'seven']
 
-    >>> list(flatten([-1], 0, range(1, 4)))
+    >>> list(bumbag.flatten([-1], 0, range(1, 4)))
     [-1, 0, 1, 2, 3]
 
-    >>> list(flatten([-1], 0, map(lambda x: 2 * x, range(1, 4))))
+    >>> list(bumbag.flatten([-1], 0, map(lambda x: 2 * x, range(1, 4))))
     [-1, 0, 2, 4, 6]
 
     >>> generator_expression = (2 * x for x in range(1, 4))  # noqa
-    >>> list(flatten([[-1], 0], generator_expression))
+    >>> list(bumbag.flatten([[-1], 0], generator_expression))
     [-1, 0, 2, 4, 6]
 
-    >>> list(flatten([-1], 0, filter(lambda x: x % 2 == 0, range(1, 7))))
+    >>> list(bumbag.flatten([-1], 0, filter(lambda x: x % 2 == 0, range(1, 7))))
     [-1, 0, 2, 4, 6]
     """
 
@@ -161,8 +163,9 @@ def freq(values):
 
     Examples
     --------
+    >>> import bumbag
     >>> x = ["a", "c", "b", "g", "h", "a", "g", "a"]
-    >>> frequency = freq(x)
+    >>> frequency = bumbag.freq(x)
     >>> isinstance(frequency, dict)
     True
     >>> frequency["n"]
@@ -173,11 +176,11 @@ def freq(values):
     {'a': 0.375, 'g': 0.25, 'c': 0.125, 'b': 0.125, 'h': 0.125}
     >>> frequency["R"]
     {'a': 0.375, 'g': 0.625, 'c': 0.75, 'b': 0.875, 'h': 1.0}
-    >>> freq("acbghaga") == frequency
+    >>> bumbag.freq("acbghaga") == frequency
     True
 
     >>> x = [1, "c", False, 2.0, None, 1, 2.0, 1]
-    >>> frequency = freq(x)
+    >>> frequency = bumbag.freq(x)
     >>> frequency["n"]
     {1: 3, 2.0: 2, 'c': 1, False: 1, None: 1}
     """
@@ -206,8 +209,9 @@ def get_function_name():
 
     Examples
     --------
+    >>> import bumbag
     >>> def my_test_function():
-    ...     return get_function_name()
+    ...     return bumbag.get_function_name()
     ...
     >>> my_test_function()
     'my_test_function'
@@ -230,10 +234,11 @@ def get_source_code(obj):
 
     Examples
     --------
+    >>> import bumbag
     >>> def my_test_function():
     ...     return "Hello, World!"
     ...
-    >>> print(get_source_code(my_test_function))
+    >>> print(bumbag.get_source_code(my_test_function))
     def my_test_function():
         return "Hello, World!"
     <BLANKLINE>
@@ -266,8 +271,9 @@ def op(func, x, y):
 
     Examples
     --------
-    >>> from operator import add
-    >>> inc = op(add, 1)
+    >>> import bumbag
+    >>> import operator
+    >>> inc = bumbag.op(operator.add, 1)
     >>> inc(0)
     1
 
@@ -304,13 +310,14 @@ def sig(number, digits=3):
 
     Examples
     --------
-    >>> sig(987654321)
+    >>> import bumbag
+    >>> bumbag.sig(987654321)
     988000000
 
-    >>> sig(14393237.76, 2)
+    >>> bumbag.sig(14393237.76, 2)
     14000000.0
 
-    >>> sig(14393237.76, 3)
+    >>> bumbag.sig(14393237.76, 3)
     14400000.0
     """
     if not isinstance(digits, int) or digits < 1:
@@ -356,9 +363,10 @@ def two_set_summary(x, y, show=3):
 
     Examples
     --------
+    >>> import bumbag
     >>> a = {"a", "c", "b", "g", "h"}
     >>> b = {"c", "d", "e", "f", "g"}
-    >>> summary = two_set_summary(a, b)
+    >>> summary = bumbag.two_set_summary(a, b)
     >>> isinstance(summary, dict)
     True
     >>> summary["x"] == a

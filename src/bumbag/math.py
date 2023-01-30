@@ -52,10 +52,11 @@ def collatz(number):
 
     Examples
     --------
-    >>> from toolz import count
-    >>> list(collatz(12))
+    >>> import bumbag
+    >>> import toolz
+    >>> list(bumbag.collatz(12))
     [12, 6, 3, 10, 5, 16, 8, 4, 2, 1]
-    >>> count(collatz(12))
+    >>> toolz.count(bumbag.collatz(12))
     10
     """
     if not isinstance(number, int) or number < 1:
@@ -88,8 +89,9 @@ def fibonacci():
 
     Examples
     --------
-    >>> from toolz import take
-    >>> list(take(10, fibonacci()))
+    >>> import bumbag
+    >>> import toolz
+    >>> list(toolz.take(10, bumbag.fibonacci()))
     [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
     """
     lag1, lag2 = 1, 0
@@ -117,10 +119,11 @@ def iseven(number):
 
     Examples
     --------
-    >>> iseven(2)
+    >>> import bumbag
+    >>> bumbag.iseven(2)
     True
 
-    >>> iseven(3)
+    >>> bumbag.iseven(3)
     False
     """
     return number % 2 == 0
@@ -141,10 +144,11 @@ def isodd(number):
 
     Examples
     --------
-    >>> isodd(2)
+    >>> import bumbag
+    >>> bumbag.isodd(2)
     False
 
-    >>> isodd(3)
+    >>> bumbag.isodd(3)
     True
     """
     return toolz.complement(iseven)(number)

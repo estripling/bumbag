@@ -50,14 +50,15 @@ def datedelta(reference, days):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> datedelta(date(2022, 1, 1), 0)
+    >>> bumbag.datedelta(date(2022, 1, 1), 0)
     datetime.date(2022, 1, 1)
 
-    >>> datedelta(date(2022, 1, 1), 3)
+    >>> bumbag.datedelta(date(2022, 1, 1), 3)
     datetime.date(2022, 1, 3)
 
-    >>> datedelta(date(2022, 1, 1), -3)
+    >>> bumbag.datedelta(date(2022, 1, 1), -3)
     datetime.date(2021, 12, 30)
     """
     relative_date = reference + timedelta(days=days)
@@ -96,48 +97,54 @@ def daterange(start, end, include_start=True, include_end=True):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> from toolz.curried import filter, map, pipe
-    >>> from bumbag import to_str
+    >>> from toolz import curried
     >>> d1 = date(2022, 1, 1)
     >>> d2 = date(2022, 1, 3)
 
-    >>> pipe(daterange(d1, d2), map(to_str), list)
+    >>> curried.pipe(bumbag.daterange(d1, d2), curried.map(bumbag.to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
-    >>> pipe(daterange(d1, d2, False, True), map(to_str), list)
+    >>> curried.pipe(
+    ...     bumbag.daterange(d1, d2, False, True), curried.map(bumbag.to_str), list
+    ... )
     ['2022-01-02', '2022-01-03']
 
-    >>> pipe(daterange(d1, d2, True, False), map(to_str), list)
+    >>> curried.pipe(
+    ...     bumbag.daterange(d1, d2, True, False), curried.map(bumbag.to_str), list
+    ... )
     ['2022-01-01', '2022-01-02']
 
-    >>> pipe(daterange(d1, d2, False, False), map(to_str), list)
+    >>> curried.pipe(
+    ...     bumbag.daterange(d1, d2, False, False), curried.map(bumbag.to_str), list
+    ... )
     ['2022-01-02']
 
-    >>> pipe(daterange(date(2022, 1, 1), date(2022, 1, 1)), list)
+    >>> curried.pipe(bumbag.daterange(date(2022, 1, 1), date(2022, 1, 1)), list)
     [datetime.date(2022, 1, 1)]
 
-    >>> pipe(daterange(date(2022, 1, 1), date(2022, 1, 1), False), list)
+    >>> curried.pipe(bumbag.daterange(date(2022, 1, 1), date(2022, 1, 1), False), list)
     []
 
-    >>> pipe(daterange(d2, d1), map(to_str), list)
+    >>> curried.pipe(bumbag.daterange(d2, d1), curried.map(bumbag.to_str), list)
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
     >>> # month sequence - first date
-    >>> pipe(
-    ...     daterange(date(2022, 1, 1), date(2022, 4, 30)),
-    ...     filter(lambda d: d.day == 1),
-    ...     map(to_str),
+    >>> curried.pipe(
+    ...     bumbag.daterange(date(2022, 1, 1), date(2022, 4, 30)),
+    ...     curried.filter(lambda d: d.day == 1),
+    ...     curried.map(bumbag.to_str),
     ...     list,
     ... )
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01']
 
     >>> # month sequence - last date
-    >>> pipe(
-    ...     daterange(date(2022, 1, 1), date(2022, 4, 30)),
-    ...     filter(lambda d: d.day == 1),
-    ...     map(lambda d: last_date_of_month(d.year, d.month)),
-    ...     map(to_str),
+    >>> curried.pipe(
+    ...     bumbag.daterange(date(2022, 1, 1), date(2022, 4, 30)),
+    ...     curried.filter(lambda d: d.day == 1),
+    ...     curried.map(lambda d: last_date_of_month(d.year, d.month)),
+    ...     curried.map(bumbag.to_str),
     ...     list,
     ... )
     ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30']
@@ -163,15 +170,17 @@ def day_of_week(date_to_name):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> from bumbag import daterange
-    >>> list(map(day_of_week, daterange(date(2022, 8, 1), date(2022, 8, 5))))
+    >>> d1 = date(2022, 8, 1)
+    >>> d2 = date(2022, 8, 5)
+    >>> list(map(bumbag.day_of_week, bumbag.daterange(d1, d2)))
     ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
-    >>> day_of_week(date(2022, 8, 6))
+    >>> bumbag.day_of_week(date(2022, 8, 6))
     'Saturday'
 
-    >>> day_of_week(date(2022, 8, 7))
+    >>> bumbag.day_of_week(date(2022, 8, 7))
     'Sunday'
     """
     return date_to_name.strftime("%A")
@@ -202,15 +211,16 @@ def days_between_dates(date1, date2, include_last_date=False):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1))
+    >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 1))
     0
-    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 1), True)
+    >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 1), True)
     1
 
-    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7))
+    >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 7))
     6
-    >>> days_between_dates(date(2022, 8, 1), date(2022, 8, 7), True)
+    >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 7), True)
     7
     """
     start, end = sorted([date1, date2])
@@ -238,53 +248,71 @@ def daycount(start, forward=True):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> from toolz.curried import filter, map, pipe, take, take_nth
-    >>> from bumbag import last_date_of_month, to_str
+    >>> from toolz import curried
     >>> d1 = date(2022, 1, 1)
 
-    >>> pipe(daycount(d1), map(to_str), take(3), list)
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1), curried.map(bumbag.to_str), curried.take(3), list
+    ... )
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
-    >>> pipe(daycount(d1, False), map(to_str), take(3), list)
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1, False),
+    ...     curried.map(bumbag.to_str),
+    ...     curried.take(3),
+    ...     list,
+    ... )
     ['2022-01-01', '2021-12-31', '2021-12-30']
 
-    >>> pipe(daycount(d1, False), map(to_str), take(3), list)
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1, False),
+    ...     curried.map(bumbag.to_str),
+    ...     curried.take(3),
+    ...     list,
+    ... )
     ['2022-01-01', '2021-12-31', '2021-12-30']
 
     >>> # month sequence - first date
-    >>> pipe(
-    ...     daycount(d1),
-    ...     filter(lambda d: d.day == 1),
-    ...     map(to_str),
-    ...     take(5),
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1),
+    ...     curried.filter(lambda d: d.day == 1),
+    ...     curried.map(bumbag.to_str),
+    ...     curried.take(5),
     ...     list,
     ... )
     ['2022-01-01', '2022-02-01', '2022-03-01', '2022-04-01', '2022-05-01']
 
     >>> # month sequence - last date
-    >>> pipe(
-    ...     daycount(d1),
-    ...     filter(lambda d: d.day == 1),
-    ...     map(lambda d: last_date_of_month(d.year, d.month)),
-    ...     map(to_str),
-    ...     take(5),
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1),
+    ...     curried.filter(lambda d: d.day == 1),
+    ...     curried.map(lambda d: bumbag.last_date_of_month(d.year, d.month)),
+    ...     curried.map(bumbag.to_str),
+    ...     curried.take(5),
     ...     list,
     ... )
     ['2022-01-31', '2022-02-28', '2022-03-31', '2022-04-30', '2022-05-31']
 
     >>> # Monday sequence
-    >>> pipe(
-    ...     daycount(d1),
-    ...     filter(lambda d: day_of_week(d) == "Monday"),
-    ...     map(to_str),
-    ...     take(5),
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1),
+    ...     curried.filter(lambda d: day_of_week(d) == "Monday"),
+    ...     curried.map(bumbag.to_str),
+    ...     curried.take(5),
     ...     list,
     ... )
     ['2022-01-03', '2022-01-10', '2022-01-17', '2022-01-24', '2022-01-31']
 
     >>> # pick every 7th day
-    >>> pipe(daycount(d1), take_nth(7), map(to_str), take(5), list)
+    >>> curried.pipe(
+    ...     bumbag.daycount(d1),
+    ...     curried.take_nth(7),
+    ...     curried.map(bumbag.to_str),
+    ...     curried.take(5),
+    ...     list,
+    ... )
     ['2022-01-01', '2022-01-08', '2022-01-15', '2022-01-22', '2022-01-29']
     """
     successor = op(operator.add if forward else operator.sub, y=timedelta(1))
@@ -311,19 +339,20 @@ def humantime(seconds):
 
     Examples
     --------
-    >>> humantime(1)
+    >>> import bumbag
+    >>> bumbag.humantime(1)
     '1 second'
 
-    >>> humantime(2)
+    >>> bumbag.humantime(2)
     '2 seconds'
 
-    >>> humantime(60)
+    >>> bumbag.humantime(60)
     '1 minute'
 
-    >>> humantime(120)
+    >>> bumbag.humantime(120)
     '2 minutes'
 
-    >>> humantime(60 * 60 * 24 + 123456)
+    >>> bumbag.humantime(60 * 60 * 24 + 123456)
     '2 days, 10 hours, 17 minutes'
     """
     if seconds < 0:
@@ -380,7 +409,8 @@ def last_date_of_month(year, month):
 
     Examples
     --------
-    >>> last_date_of_month(2022, 1)
+    >>> import bumbag
+    >>> bumbag.last_date_of_month(2022, 1)
     datetime.date(2022, 1, 31)
     """
     _, number_days_in_month = calendar.monthrange(year, month)
@@ -412,15 +442,16 @@ def months_between_dates(date1, date2, include_last_date=False):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1))
+    >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 1, 1))
     0
-    >>> months_between_dates(date(2022, 1, 1), date(2022, 1, 1), True)
+    >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 1, 1), True)
     1
 
-    >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 31))
+    >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 8, 31))
     7
-    >>> months_between_dates(date(2022, 1, 1), date(2022, 8, 1), True)
+    >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 8, 1), True)
     8
     """
     start, end = sorted([date1, date2])
@@ -444,7 +475,8 @@ def to_date(string_to_cast):
 
     Examples
     --------
-    >>> to_date("2022-01-01")
+    >>> import bumbag
+    >>> bumbag.to_date("2022-01-01")
     datetime.date(2022, 1, 1)
     """
     return datetime.strptime(string_to_cast, "%Y-%m-%d").date()
@@ -465,8 +497,9 @@ def to_str(date_to_cast):
 
     Examples
     --------
+    >>> import bumbag
     >>> from datetime import date
-    >>> to_str(date(2022, 1, 1))
+    >>> bumbag.to_str(date(2022, 1, 1))
     '2022-01-01'
     """
     return date_to_cast.isoformat()

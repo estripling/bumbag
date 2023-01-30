@@ -37,7 +37,8 @@ def coinflip(bias=0.5, seed=None):
 
     Examples
     --------
-    >>> {coinflip() for _ in range(30)} == {True, False}
+    >>> import bumbag
+    >>> {bumbag.coinflip() for _ in range(30)} == {True, False}
     True
     """
     if not (0 <= bias <= 1):
@@ -67,7 +68,8 @@ def get_random_character(alphabet=None, seed=None):
 
     Examples
     --------
-    >>> rnd_char = get_random_character("bumbag")
+    >>> import bumbag
+    >>> rnd_char = bumbag.get_random_character("bumbag")
     >>> isinstance(rnd_char, str)
     True
     >>> rnd_char in "bumbag"
@@ -105,8 +107,9 @@ def get_random_instance(seed=None):
 
     Examples
     --------
+    >>> import bumbag
     >>> import random
-    >>> rng = get_random_instance()
+    >>> rng = bumbag.get_random_instance()
     >>> isinstance(rng, random.Random)
     True
     """
@@ -148,7 +151,8 @@ def get_random_integer(a=0, b=2147483647, seed=None):
 
     Examples
     --------
-    >>> rnd_int = get_random_integer()
+    >>> import bumbag
+    >>> rnd_int = bumbag.get_random_integer()
     >>> isinstance(rnd_int, int)
     True
     >>> 0 <= rnd_int <= 2147483647
