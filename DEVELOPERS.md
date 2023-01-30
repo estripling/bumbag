@@ -2,7 +2,7 @@
 
 ## Development Environment: Dev Container
 
-This project comes with a [development container (or dev container)](https://containers.dev), which allows for a reproducible development environment.
+This project comes with a [development container (or dev container)](https://containers.dev) setup, which allows for a reproducible development environment.
 To get started with the development, make sure you have the following software installed on your machine:
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -35,7 +35,7 @@ make help
 
 This will allow you, for example, to easily check for code style errors, run tests, or all at once using only one command.
 Try to run the tests to make sure everything works as intended.
-Code on the main branch must have no code style errors nor failing tests.
+Code on the main branch must have neither code style errors nor failing tests.
 
 ## Git Commit Guidelines
 
