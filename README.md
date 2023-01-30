@@ -70,6 +70,15 @@ y <= x: False
 y <  x: False
 ```
 
+## Contributing to BumBag
+
+Your contribution is greatly appreciated!
+See the following links to help you get started:
+
+- [Contributing Guide](https://bumbag.readthedocs.io/en/latest/contributing.html)
+- [Developer Guide](https://bumbag.readthedocs.io/en/latest/developers.html)
+- [Contributor Code of Conduct](https://bumbag.readthedocs.io/en/latest/conduct.html)
+
 ## License
 
 `bumbag` was created by the BumBag Developers.
