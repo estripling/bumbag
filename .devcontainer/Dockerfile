@@ -20,7 +20,9 @@ ENV PYTHONUNBUFFERED=on \
 # install additional system packages
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    gcc \
     make \
+    python-dev \
     ## cleanup
     && apt-get clean -y \
     && apt-get autoclean -y \
