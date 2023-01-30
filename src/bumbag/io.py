@@ -40,7 +40,8 @@ def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
     Examples
     --------
     >>> # Archive all Python files and Notebooks in current working directory
-    >>> archive_files(["*.py", "*.ipynb"])  # doctest: +SKIP
+    >>> import bumbag
+    >>> bumbag.archive_files(["*.py", "*.ipynb"])  # doctest: +SKIP
     """
     wildcards = wildcards or ["**/*"]
     target_dir = target_dir or "."
@@ -89,14 +90,15 @@ def lazy_read_lines(path, encoding=None, errors=None, newline=None):
 
     Examples
     --------
+    >>> import bumbag
     >>> import inspect
-    >>> inspect.isgeneratorfunction(lazy_read_lines)
+    >>> inspect.isgeneratorfunction(bumbag.lazy_read_lines)
     True
 
-    >>> from toolz.curried import map, pipe
-    >>> text_lines = pipe(  # doctest: +SKIP
-    ...     lazy_read_lines("./my_text_file.txt"),
-    ...     map(str.rstrip),
+    >>> from toolz import curried
+    >>> text_lines = curried.pipe(  # doctest: +SKIP
+    ...     bumbag.lazy_read_lines("./my_text_file.txt"),
+    ...     curried.map(str.rstrip),
     ... )
     """
     with open(
@@ -135,15 +137,16 @@ def query_yes_no(question, default=None):
 
     Examples
     --------
-    >>> query_yes_no("Is all clear?")  # doctest: +SKIP
+    >>> import bumbag
+    >>> bumbag.query_yes_no("Is all clear?")  # doctest: +SKIP
     Is all clear? [y/n] y<enter>
     True
 
-    >>> query_yes_no("Do you like BumBag?", "yes")  # doctest: +SKIP
+    >>> bumbag.query_yes_no("Do you like BumBag?", "yes")  # doctest: +SKIP
     Do you like BumBag? [Y/n] <enter>
     True
 
-    >>> query_yes_no("Do you like BumBag?", "yes")  # doctest: +SKIP
+    >>> bumbag.query_yes_no("Do you like BumBag?", "yes")  # doctest: +SKIP
     Do you like BumBag? [Y/n] yay<enter>
     Do you like BumBag? Please respond with 'yes' [Y] or 'no' [n] <enter>
     True

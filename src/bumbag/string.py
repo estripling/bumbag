@@ -41,13 +41,14 @@ def filter_regex(pattern, strings, flags=re.IGNORECASE):
 
     Examples
     --------
+    >>> import bumbag
     >>> list_of_strings = [
     ...     "Guiding principles for Python's design: The Zen of Python",
     ...     "Beautiful is better than ugly.",
     ...     "Explicit is better than implicit.",
     ...     "Simple is better than complex.",
     ... ]
-    >>> filter_python_regex = filter_regex("python")
+    >>> filter_python_regex = bumbag.filter_regex("python")
     >>> list(filter_python_regex(list_of_strings))
     ["Guiding principles for Python's design: The Zen of Python"]
     """
@@ -86,13 +87,14 @@ def map_regex(pattern, strings, flags=re.IGNORECASE):
 
     Examples
     --------
+    >>> import bumbag
     >>> list_of_strings = [
     ...     "Guiding principles for Python's design: The Zen of Python",
     ...     "Beautiful is better than ugly.",
     ...     "Explicit is better than implicit.",
     ...     "Simple is better than complex.",
     ... ]
-    >>> map_python_regex = map_regex("python")
+    >>> map_python_regex = bumbag.map_regex("python")
     >>> list(map_python_regex(list_of_strings))
     [['Python', 'Python'], [], [], []]
     """
@@ -114,7 +116,8 @@ def remove_punctuation(string):
 
     Examples
     --------
-    >>> remove_punctuation("I think, therefore I am. --Descartes")
+    >>> import bumbag
+    >>> bumbag.remove_punctuation("I think, therefore I am. --Descartes")
     'I think therefore I am Descartes'
     """
     return string.translate(str.maketrans("", "", builtin_string_module.punctuation))
