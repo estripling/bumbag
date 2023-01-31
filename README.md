@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/estripling/bumbag/main/docs/source/_static/logo.png" width="240" alt="The BumBag logo.">
+<img src="https://raw.githubusercontent.com/estripling/bumbag/main/docs/source/_static/logo.png" width="180" alt="The BumBag logo.">
 </p>
 
 <p align="center">
