@@ -4,24 +4,26 @@ POETRY := poetry
 
 .PHONY: help \
 	check \
-	check_style \
-	run_tests \
+	check-style \
+	run-tests \
 	clean \
-	create_docs \
-	remove_docs \
-	build_package \
-	publish_to_test_pypi \
-	publish_to_pypi
+	create-docs \
+	remove-docs \
+	remove-local-branches \
+	build-package \
+	publish-to-test-pypi \
+	publish-to-pypi
 
-## help                                 :: print this help
+## commands
+##  - help                                 :: print this help
 help: Makefile
 	@sed -n 's/^##//p' $<
 
-## check                                :: check style, run tests, and clean up cache all at once
-check: clean check_style run_tests clean
+##  - check                                :: check style, run tests, and clean up cache all at once
+check: clean check-style run-tests clean
 
-## check_style                          :: check code style with isort, black, and flake8
-check_style:
+##  - check-style                          :: check code style with isort, black, and flake8
+check-style:
 	$(PYTHON) -m isort ./
 	@echo "\n"
 	$(PYTHON) -m black ./
@@ -29,33 +31,37 @@ check_style:
 	$(PYTHON) -m flake8 ./
 	@echo "\n"
 
-## run_tests                            :: run pytest with coverage report
-run_tests:
+##  - run-tests                            :: run pytest with coverage report
+run-tests:
 	$(PYTHON) -m pytest
 	@echo "\n"
 
-## clean                                :: remove Python cache files and directories
+##  - clean                                :: remove Python cache files and directories
 clean:
 	$(PYTHON) scripts/cleanup.py
 	@echo "\n"
 
-## create_docs                          :: create local documentation files
-create_docs:
+##  - create-docs                          :: create local documentation files
+create-docs:
 	cd docs; make html; cd ..;
 
-## remove_docs                          :: remove local documentation files
-remove_docs:
+##  - remove-docs                          :: remove local documentation files
+remove-docs:
 	@rm -rf docs/_build/
 
-## build_package                        :: build sdist and wheel distributions
-build_package:
+##  - remove-local-branches                :: git remove local branches, except main
+remove-local-branches:
+	git -P branch | grep -v "main" | grep -v \* | xargs git branch -D
+
+##  - build-package                        :: build sdist and wheel distributions
+build-package:
 	$(POETRY) build
 
-## publish_to_test_pypi                 :: publish to TestPyPI
-publish_to_test_pypi:
+##  - publish-to-test-pypi                 :: publish to TestPyPI
+publish-to-test-pypi:
 	$(POETRY) config repositories.test-pypi https://test.pypi.org/legacy/
 	$(POETRY) publish -r test-pypi
 
-## publish_to_pypi                      :: publish to PyPI
-publish_to_pypi:
+##  - publish-to-pypi                      :: publish to PyPI
+publish-to-pypi:
 	$(POETRY) publish
