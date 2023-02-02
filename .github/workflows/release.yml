@@ -24,26 +24,24 @@ jobs:
       uses: snok/install-poetry@v1
       with:
         version: 1.3.1
-        virtualenvs-create: false
-        installer-parallel: true
 
     - name: Install bumbag
       run: poetry install
 
     - name: Run isort
-      run: python -m isort --check-only --line-length 88 --profile black ./
+      run: poetry run isort --check-only --line-length 88 --profile black ./
 
     - name: Run Black
-      run: python -m black --check --line-length 88 ./
+      run: poetry run black --check --line-length 88 ./
 
     - name: Run Flake8
-      run: python -m flake8 --doctests --max-line-length 88 src/ tests/
+      run: poetry run flake8 --doctests --max-line-length 88 src/ tests/
 
     - name: Run pytest doctest
-      run: python -m pytest --doctest-modules
+      run: poetry run pytest --doctest-modules
 
     - name: Run pytest
-      run: python -m pytest tests/ --cov=bumbag --cov-report=xml
+      run: poetry run pytest tests/ --cov=bumbag --cov-report=xml
 
     - name: Use Codecov to track coverage
       uses: codecov/codecov-action@v2
@@ -51,7 +49,7 @@ jobs:
         files: ./coverage.xml
 
     - name: Build documentation
-      run: make html --directory docs/
+      run: poetry run make html --directory docs/
 
   cd:
     needs: ci
@@ -72,15 +70,10 @@ jobs:
       with:
         python-version: "3.8"
 
-    - name: Display Python version
-      run: python -c "import sys; print(sys.version)"
-
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
         version: 1.3.1
-        virtualenvs-create: false
-        installer-parallel: true
 
     - name: Install bumbag
       run: poetry install
@@ -91,4 +84,4 @@ jobs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        python -m semantic-release publish
+        poetry run semantic-release publish
