@@ -2,6 +2,24 @@
 
 <!--next-version-placeholder-->
 
+## v4.0.0 (2023-02-02)
+### Feature
+* **daycount:** Refactor drange to daycount ([`7434dfb`](https://github.com/estripling/bumbag/commit/7434dfbd5c1a181ce73bdf18fc58ba30b0d80a1c))
+* **irange:** Remove irange in favor of itertools.count ([`2ad5aa1`](https://github.com/estripling/bumbag/commit/2ad5aa10fbe120a46e318e2586e22daf48a84dcd))
+
+### Breaking
+* refactor drange to daycount to be consistent with itertools.count  ([`7434dfb`](https://github.com/estripling/bumbag/commit/7434dfbd5c1a181ce73bdf18fc58ba30b0d80a1c))
+* remove irange as it is redundant to itertools.count  ([`2ad5aa1`](https://github.com/estripling/bumbag/commit/2ad5aa10fbe120a46e318e2586e22daf48a84dcd))
+
+### Documentation
+* ***:** Import modules in docstring example ([`f003c74`](https://github.com/estripling/bumbag/commit/f003c740848be4b0695f9aa197ad3ded36a0abad))
+* **README.md:** Add contributing section ([`ac2a965`](https://github.com/estripling/bumbag/commit/ac2a9656a5392349d8f3e6101734f29f8cb01d0a))
+* **DEVELOPERS.md:** Add instructions for dev container setup ([`beb6d1a`](https://github.com/estripling/bumbag/commit/beb6d1aade10547ce632a1f515bd2d152e301483))
+* **README.md:** Refine text ([`a375c88`](https://github.com/estripling/bumbag/commit/a375c8895572f661bc51a1ced7a21cca63146c5c))
+* **DEVELOPERS.md:** Remove outdated development setup instructions ([`420d83e`](https://github.com/estripling/bumbag/commit/420d83ee08bc47b1cc0498c3e2f753f6f5cde035))
+* **docs/source/conf.py:** Update copyright to 2023 ([`57dc8c5`](https://github.com/estripling/bumbag/commit/57dc8c500403a4ace8005eb3137348b6cce1fa1d))
+* **LICENSE:** Update copyright to 2023 ([`02b9aa5`](https://github.com/estripling/bumbag/commit/02b9aa586fd926322b203afa74e0f4cecba183cd))
+
 ## v3.2.0 (2022-12-03)
 ### Feature
 * **io.py:** Add lazy_read_lines ([`185cf70`](https://github.com/estripling/bumbag/commit/185cf70dbc36f1273e892259718548f2b62eb849))
