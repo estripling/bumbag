@@ -9,4 +9,12 @@ from .random import *
 from .string import *
 from .time import *
 
-del core, io, math, random, string, time, metadata
+del (
+    core,
+    io,
+    math,
+    random,
+    string,
+    time,
+    metadata,
+)
