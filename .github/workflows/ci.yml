@@ -18,7 +18,7 @@ jobs:
     - name: Set up Python 3.8
       uses: actions/setup-python@v4
       with:
-        python-version: "3.8"
+        python-version: 3.8
 
     - name: Install Poetry
       uses: snok/install-poetry@v1
@@ -41,7 +41,7 @@ jobs:
       run: poetry run pytest --doctest-modules
 
     - name: Run pytest
-      run: poetry run pytest tests/ --cov=bumbag --cov-report=xml
+      run: poetry run pytest tests/ --cov=src/ --cov-report=xml
 
     - name: Use Codecov to track coverage
       uses: codecov/codecov-action@v2
