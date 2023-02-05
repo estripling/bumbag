@@ -41,7 +41,7 @@ jobs:
       run: poetry run pytest --doctest-modules src/ --cov=src/ --cov-report=xml tests/
 
     - name: Use Codecov to track coverage
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         files: ./coverage.xml
 
