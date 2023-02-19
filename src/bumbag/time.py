@@ -341,55 +341,47 @@ def humantime(seconds):
     --------
     >>> import bumbag
     >>> bumbag.humantime(1)
-    '1 second'
+    '1s'
 
     >>> bumbag.humantime(2)
-    '2 seconds'
+    '2s'
 
     >>> bumbag.humantime(60)
-    '1 minute'
+    '1m'
 
     >>> bumbag.humantime(120)
-    '2 minutes'
+    '2m'
 
     >>> bumbag.humantime(60 * 60 * 24 + 123456)
-    '2 days, 10 hours, 17 minutes'
+    '2d 10h 17m 36s'
     """
     if seconds < 0:
         raise ValueError(f"{seconds=} - must be a non-negative number")
 
     if math.isclose(seconds, 0):
-        return "0 seconds"
+        return "0s"
 
-    minutes, seconds = divmod(seconds, 60)
+    if 0 < seconds < 60:
+        return f"{seconds:g}s"
+
+    minutes, seconds = divmod(int(round(seconds, 0)), 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
 
-    def multiplier(time_with_unit: str) -> str:
-        time_without_unit = float(time_with_unit.split(" ")[0])
-        return (
-            time_with_unit
-            if math.isclose(time_without_unit, 1)
-            else f"{time_with_unit}s"
-        )
-
-    result = []
+    output = []
     if days:
-        result.append(multiplier(f"{int(days)} day"))
+        output.append(f"{days}d")
 
     if hours:
-        result.append(multiplier(f"{int(hours)} hour"))
+        output.append(f"{hours}h")
 
     if minutes:
-        result.append(multiplier(f"{int(minutes)} minute"))
+        output.append(f"{minutes}m")
 
-    if seconds and minutes < 2:
-        if math.isclose(seconds, int(seconds)):
-            result.append(multiplier(f"{int(seconds)} second"))
-        else:
-            result.append(f"{seconds:0.6f} seconds")
+    if seconds:
+        output.append(f"{seconds}s")
 
-    return ", ".join(result)
+    return " ".join(output)
 
 
 def last_date_of_month(year, month):
