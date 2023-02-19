@@ -340,20 +340,27 @@ def humantime(seconds):
     Examples
     --------
     >>> import bumbag
+    >>> # 1 second
     >>> bumbag.humantime(1)
     '1s'
 
-    >>> bumbag.humantime(2)
-    '2s'
-
+    >>> # 1 minute
     >>> bumbag.humantime(60)
     '1m'
 
-    >>> bumbag.humantime(120)
-    '2m'
+    >>> # 1 hour
+    >>> bumbag.humantime(60 * 60)
+    '1h'
 
-    >>> bumbag.humantime(60 * 60 * 24 + 123456)
-    '2d 10h 17m 36s'
+    >>> # 1 day
+    >>> bumbag.humantime(60 * 60 * 24)
+    '1d'
+
+    >>> bumbag.humantime(60 * 60 * 24 + 60 * 60 + 60 + 1)
+    '1d 1h 1m 1s'
+
+    >>> bumbag.humantime(3 * 60 * 60 * 24 + 2 * 60)
+    '3d 2m'
     """
     if seconds < 0:
         raise ValueError(f"{seconds=} - must be a non-negative number")
