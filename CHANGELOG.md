@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v4.0.1 (2023-02-19)
+### Documentation
+* **humantime:** Update docstring examples ([`99ebc12`](https://github.com/estripling/bumbag/commit/99ebc128e46681f8bb2ebbf9e77b51b3a355d632))
+
 ## v4.0.0 (2023-02-02)
 ### Feature
 * **daycount:** Refactor drange to daycount ([`7434dfb`](https://github.com/estripling/bumbag/commit/7434dfbd5c1a181ce73bdf18fc58ba30b0d80a1c))
