@@ -25,6 +25,23 @@ def test_filter_regex(zen_of_python):
     assert actual == expected, "filter_better_regex fails"
 
 
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (("hello", "hello"), "hello\n     \nhello"),
+        (("hello", "hallo"), "hello\n |   \nhallo"),
+        (("hello", "hell"), "hello\n    |\nhell"),
+        (("hello", "hall"), "hello\n |  |\nhall"),
+        (("hall", "hello"), "hall\n |  |\nhello"),
+        (("1234", "11342"), "1234\n |  |\n11342"),
+        (("1234.56", "1234,56"), "1234.56\n    |  \n1234,56"),
+    ],
+)
+def test_highlight_string_differences(arg, expected):
+    actual = bumbag.highlight_string_differences(*arg)
+    assert actual == expected
+
+
 def test_map_regex(zen_of_python):
     map_python_regex = bumbag.map_regex("python")
     map_better_regex = bumbag.map_regex("better")
