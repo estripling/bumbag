@@ -44,6 +44,16 @@ Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.
 ['one', 2, 3, 4, 'five', 'six', 'seven', 8, 9, 'ten']
 ```
 
+Use [`highlight_string_differences`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.html#bumbag.highlight_string_differences) to see differences between two strings easily:
+
+```python
+>>> import bumbag
+>>> print(bumbag.highlight_string_differences(lft_str="hello", rgt_str="hall"))
+hello
+ |  |
+hall
+```
+
 Quickly compare two Python sets with [`two_set_summary`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.html#bumbag.two_set_summary):
 
 ```python
