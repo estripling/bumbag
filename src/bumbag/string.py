@@ -1,4 +1,5 @@
 import functools
+import itertools
 import re
 import string as builtin_string_module
 
@@ -6,6 +7,7 @@ import toolz
 
 __all__ = (
     "filter_regex",
+    "highlight_string_differences",
     "map_regex",
     "remove_punctuation",
 )
@@ -53,6 +55,50 @@ def filter_regex(pattern, strings, flags=re.IGNORECASE):
     ["Guiding principles for Python's design: The Zen of Python"]
     """
     return filter(functools.partial(re.findall, pattern, flags=flags), strings)
+
+
+def highlight_string_differences(lft_str, rgt_str):
+    """Highlight differences between two strings.
+
+    Parameters
+    ----------
+    lft_str : str
+        Left string.
+    rgt_str : str
+        Right string.
+
+    Returns
+    -------
+    str
+        A string containing both input strings, where differences in characters are
+        highlighted with the `|` symbol.
+
+    Notes
+    -----
+    In case of uneven string lengths, the comparison is done up until the longer string.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> print(bumbag.highlight_string_differences(lft_str="hello", rgt_str="hello"))
+    hello
+    <BLANKLINE>
+    hello
+
+    >>> print(bumbag.highlight_string_differences(lft_str="hello", rgt_str="hall"))
+    hello
+     |  |
+    hall
+    """
+    lines = (
+        lft_str,
+        "".join(
+            " " if x == y else "|"
+            for x, y in itertools.zip_longest(lft_str, rgt_str, fillvalue="")
+        ),
+        rgt_str,
+    )
+    return "\n".join(lines)
 
 
 @toolz.curry
