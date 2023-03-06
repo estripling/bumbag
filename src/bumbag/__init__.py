@@ -10,11 +10,11 @@ from .string import *
 from .time import *
 
 del (
+    metadata,
     core,
     io,
     math,
     random,
     string,
     time,
-    metadata,
 )
