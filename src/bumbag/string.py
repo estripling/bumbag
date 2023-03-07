@@ -158,7 +158,7 @@ def remove_punctuation(string):
     Returns
     -------
     str
-        String with punctuation removed.
+        A string with punctuation removed.
 
     Examples
     --------
