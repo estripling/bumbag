@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v4.1.0 (2023-03-07)
+### Feature
+* **string.py:** Add highlight_string_differences ([`75473b0`](https://github.com/estripling/bumbag/commit/75473b0cb8d9315af1eea630eac4f98380c277aa))
+
+### Documentation
+* **example.ipynb:** Improve example usage of highlight_string_differences ([`521ff20`](https://github.com/estripling/bumbag/commit/521ff20bf0ba86b7f954a49b1035588e682a8050))
+* **README.md:** Add highlight_string_differences as example ([`c611cb6`](https://github.com/estripling/bumbag/commit/c611cb645d8e0a90d374117badd55647156c22ed))
+
 ## v4.0.1 (2023-02-19)
 ### Documentation
 * **humantime:** Update docstring examples ([`99ebc12`](https://github.com/estripling/bumbag/commit/99ebc128e46681f8bb2ebbf9e77b51b3a355d632))
