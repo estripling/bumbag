@@ -9,7 +9,7 @@ __all__ = (
 )
 
 
-def coinflip(bias=0.5, seed=None):
+def coinflip(*, bias=0.5, seed=None):
     """Flip a coin.
 
     Parameters
@@ -43,11 +43,11 @@ def coinflip(bias=0.5, seed=None):
     """
     if not (0 <= bias <= 1):
         raise ValueError(f"{bias=} - must be a float in [0, 1]")
-    rng = get_random_instance(seed)
+    rng = get_random_instance(seed=seed)
     return rng.random() < bias
 
 
-def get_random_character(alphabet=None, seed=None):
+def get_random_character(alphabet=None, /, *, seed=None):
     """Get a random character from a given alphabet.
 
     Parameters
@@ -75,12 +75,12 @@ def get_random_character(alphabet=None, seed=None):
     >>> rnd_char in "bumbag"
     True
     """
-    rng = get_random_instance(seed)
+    rng = get_random_instance(seed=seed)
     alphabet = alphabet or string.ascii_letters + string.digits
     return rng.sample(population=alphabet, k=len(alphabet))[0]
 
 
-def get_random_instance(seed=None):
+def get_random_instance(*, seed=None):
     """Turn seed into a random.Random instance.
 
     Parameters
@@ -127,7 +127,7 @@ def get_random_instance(seed=None):
         raise ValueError(f"{seed=} cannot be used to seed a Random instance")
 
 
-def get_random_integer(a=0, b=2147483647, seed=None):
+def get_random_integer(a=0, b=2147483647, /, *, seed=None):
     """Get a random integer from interval [a, b].
 
     Setting default values for the arguments of ``random.randint``.
@@ -158,5 +158,5 @@ def get_random_integer(a=0, b=2147483647, seed=None):
     >>> 0 <= rnd_int <= 2147483647
     True
     """
-    rng = get_random_instance(seed)
+    rng = get_random_instance(seed=seed)
     return rng.randint(a, b)

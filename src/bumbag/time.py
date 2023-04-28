@@ -7,12 +7,11 @@ from datetime import date, datetime, timedelta
 import toolz
 from dateutil.relativedelta import relativedelta
 
-from bumbag.core import op
+from bumbag import core
 
 __all__ = (
     "datedelta",
     "daterange",
-    "day_of_week",
     "days_between_dates",
     "daycount",
     "humantime",
@@ -20,10 +19,11 @@ __all__ = (
     "months_between_dates",
     "to_date",
     "to_str",
+    "weekday",
 )
 
 
-def datedelta(reference, days):
+def datedelta(reference_date, /, *, days):
     """Compute date relative to reference date.
 
     The reference date and relative date are the inclusive endpoints of the
@@ -33,8 +33,8 @@ def datedelta(reference, days):
 
     Parameters
     ----------
-    reference : datetime.date
-        The reference date.
+    reference_date : datetime.date
+        Specify reference date.
     days : int
         Size of the delta expressed in number of days:
          - If ``days == 0``, returns the reference date.
@@ -52,16 +52,17 @@ def datedelta(reference, days):
     --------
     >>> import bumbag
     >>> from datetime import date
-    >>> bumbag.datedelta(date(2022, 1, 1), 0)
+    >>> reference_date = date(2022, 1, 1)
+    >>> bumbag.datedelta(reference_date, days=0)
     datetime.date(2022, 1, 1)
 
-    >>> bumbag.datedelta(date(2022, 1, 1), 3)
+    >>> bumbag.datedelta(reference_date, days=3)
     datetime.date(2022, 1, 3)
 
-    >>> bumbag.datedelta(date(2022, 1, 1), -3)
+    >>> bumbag.datedelta(reference_date, days=-3)
     datetime.date(2021, 12, 30)
     """
-    relative_date = reference + timedelta(days=days)
+    relative_date = reference_date + timedelta(days=days)
     return (
         relative_date
         if days == 0
@@ -71,7 +72,7 @@ def datedelta(reference, days):
     )
 
 
-def daterange(start, end, include_start=True, include_end=True):
+def daterange(start, end, /, *, include_start=True, include_end=True):
     """Generate a sequence of consecutive days between two dates.
 
     Parameters
@@ -107,24 +108,33 @@ def daterange(start, end, include_start=True, include_end=True):
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
     >>> curried.pipe(
-    ...     bumbag.daterange(d1, d2, False, True), curried.map(bumbag.to_str), list
+    ...     bumbag.daterange(d1, d2, include_start=False, include_end=True),
+    ...     curried.map(bumbag.to_str),
+    ...     list,
     ... )
     ['2022-01-02', '2022-01-03']
 
     >>> curried.pipe(
-    ...     bumbag.daterange(d1, d2, True, False), curried.map(bumbag.to_str), list
+    ...     bumbag.daterange(d1, d2, include_start=True, include_end=False),
+    ...     curried.map(bumbag.to_str),
+    ...     list,
     ... )
     ['2022-01-01', '2022-01-02']
 
     >>> curried.pipe(
-    ...     bumbag.daterange(d1, d2, False, False), curried.map(bumbag.to_str), list
+    ...     bumbag.daterange(d1, d2, include_start=False, include_end=False),
+    ...     curried.map(bumbag.to_str),
+    ...     list,
     ... )
     ['2022-01-02']
 
     >>> curried.pipe(bumbag.daterange(date(2022, 1, 1), date(2022, 1, 1)), list)
     [datetime.date(2022, 1, 1)]
 
-    >>> curried.pipe(bumbag.daterange(date(2022, 1, 1), date(2022, 1, 1), False), list)
+    >>> curried.pipe(
+    ...     bumbag.daterange(date(2022, 1, 1), date(2022, 1, 1), include_start=False),
+    ...     list,
+    ... )
     []
 
     >>> curried.pipe(bumbag.daterange(d2, d1), curried.map(bumbag.to_str), list)
@@ -155,38 +165,7 @@ def daterange(start, end, include_start=True, include_end=True):
     return itertools.takewhile(lambda d: d <= end, daycount(start))
 
 
-def day_of_week(date_to_name):
-    """Get the day of the week.
-
-    Parameters
-    ----------
-    date_to_name : datetime.date
-        Date object to extract day name from.
-
-    Returns
-    -------
-    str
-        Day name of the week.
-
-    Examples
-    --------
-    >>> import bumbag
-    >>> from datetime import date
-    >>> d1 = date(2022, 8, 1)
-    >>> d2 = date(2022, 8, 5)
-    >>> list(map(bumbag.day_of_week, bumbag.daterange(d1, d2)))
-    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-
-    >>> bumbag.day_of_week(date(2022, 8, 6))
-    'Saturday'
-
-    >>> bumbag.day_of_week(date(2022, 8, 7))
-    'Sunday'
-    """
-    return date_to_name.strftime("%A")
-
-
-def days_between_dates(date1, date2, include_last_date=False):
+def days_between_dates(date1, date2, /, *, include_last_date=False):
     """Compute the number of days between two dates.
 
     Parameters
@@ -215,25 +194,29 @@ def days_between_dates(date1, date2, include_last_date=False):
     >>> from datetime import date
     >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 1))
     0
-    >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 1), True)
+    >>> bumbag.days_between_dates(
+    ...     date(2022, 8, 1), date(2022, 8, 1), include_last_date=True
+    ... )
     1
 
     >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 7))
     6
-    >>> bumbag.days_between_dates(date(2022, 8, 1), date(2022, 8, 7), True)
+    >>> bumbag.days_between_dates(
+    ...     date(2022, 8, 1), date(2022, 8, 7), include_last_date=True
+    ... )
     7
     """
     start, end = sorted([date1, date2])
     return (end - start).days + 1 if include_last_date else (end - start).days
 
 
-def daycount(start, forward=True):
+def daycount(start_date, /, *, forward=True):
     """Generate an in principle infinite sequence of consecutive dates.
 
     Parameters
     ----------
-    start : datetime.date
-        Start of the sequence.
+    start_date : datetime.date
+        Specify the start date of the sequence.
     forward : bool, default=True
         Specify if dates should be generated in a forward or backward manner.
 
@@ -259,7 +242,7 @@ def daycount(start, forward=True):
     ['2022-01-01', '2022-01-02', '2022-01-03']
 
     >>> curried.pipe(
-    ...     bumbag.daycount(d1, False),
+    ...     bumbag.daycount(d1, forward=False),
     ...     curried.map(bumbag.to_str),
     ...     curried.take(3),
     ...     list,
@@ -267,7 +250,7 @@ def daycount(start, forward=True):
     ['2022-01-01', '2021-12-31', '2021-12-30']
 
     >>> curried.pipe(
-    ...     bumbag.daycount(d1, False),
+    ...     bumbag.daycount(d1, forward=False),
     ...     curried.map(bumbag.to_str),
     ...     curried.take(3),
     ...     list,
@@ -298,7 +281,7 @@ def daycount(start, forward=True):
     >>> # Monday sequence
     >>> curried.pipe(
     ...     bumbag.daycount(d1),
-    ...     curried.filter(lambda d: day_of_week(d) == "Monday"),
+    ...     curried.filter(lambda d: weekday(d) == "Mon"),
     ...     curried.map(bumbag.to_str),
     ...     curried.take(5),
     ...     list,
@@ -315,11 +298,11 @@ def daycount(start, forward=True):
     ... )
     ['2022-01-01', '2022-01-08', '2022-01-15', '2022-01-22', '2022-01-29']
     """
-    successor = op(operator.add if forward else operator.sub, y=timedelta(1))
-    return toolz.iterate(successor, start)
+    successor = core.op(operator.add if forward else operator.sub, y=timedelta(1))
+    return toolz.iterate(successor, start_date)
 
 
-def humantime(seconds):
+def humantime(seconds, /):
     """Convert seconds to human-readable time.
 
     Parameters
@@ -391,7 +374,7 @@ def humantime(seconds):
     return " ".join(output)
 
 
-def last_date_of_month(year, month):
+def last_date_of_month(year, month, /):
     """Get last date of month.
 
     Parameters
@@ -416,15 +399,15 @@ def last_date_of_month(year, month):
     return date(year, month, number_days_in_month)
 
 
-def months_between_dates(date1, date2, include_last_date=False):
+def months_between_dates(date1, date2, /, *, include_last_date=False):
     """Compute the number of months between two dates.
 
     Parameters
     ----------
     date1 : datetime.date
-        First reference date.
+        Specify the first reference date.
     date2 : datetime.date
-        Second reference date.
+        Specify the second reference date.
     include_last_date : bool, default=False
         Specify if the larger date should be included in the computation:
          - If ``False``, number of days based on date interval [date1, date2).
@@ -445,12 +428,16 @@ def months_between_dates(date1, date2, include_last_date=False):
     >>> from datetime import date
     >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 1, 1))
     0
-    >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 1, 1), True)
+    >>> bumbag.months_between_dates(
+    ...     date(2022, 1, 1), date(2022, 1, 1), include_last_date=True
+    ... )
     1
 
     >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 8, 31))
     7
-    >>> bumbag.months_between_dates(date(2022, 1, 1), date(2022, 8, 1), True)
+    >>> bumbag.months_between_dates(
+    ...     date(2022, 1, 1), date(2022, 8, 1), include_last_date=True
+    ... )
     8
     """
     start, end = sorted([date1, date2])
@@ -459,7 +446,7 @@ def months_between_dates(date1, date2, include_last_date=False):
     return n_months + 1 if include_last_date else n_months
 
 
-def to_date(string_to_cast):
+def to_date(string_to_cast, /):
     """Cast an ISO date string to a date object.
 
     Parameters
@@ -481,7 +468,7 @@ def to_date(string_to_cast):
     return datetime.strptime(string_to_cast, "%Y-%m-%d").date()
 
 
-def to_str(date_to_cast):
+def to_str(date_to_cast, /):
     """Cast a date object to an ISO date string.
 
     Parameters
@@ -502,3 +489,34 @@ def to_str(date_to_cast):
     '2022-01-01'
     """
     return date_to_cast.isoformat()
+
+
+def weekday(a_date, /):
+    """Get name of the weekday.
+
+    Parameters
+    ----------
+    a_date : datetime.date
+        Specify date to extract weekday name from.
+
+    Returns
+    -------
+    str
+        Name of the weekday.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> from datetime import date
+    >>> d1 = date(2022, 8, 1)
+    >>> d2 = date(2022, 8, 5)
+    >>> list(map(bumbag.weekday, bumbag.daterange(d1, d2)))
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+
+    >>> bumbag.weekday(date(2022, 8, 6))
+    'Sat'
+
+    >>> bumbag.weekday(date(2022, 8, 7))
+    'Sun'
+    """
+    return a_date.strftime("%a")

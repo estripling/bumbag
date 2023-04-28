@@ -26,7 +26,7 @@ import bumbag
 def test_datedelta(args, expected):
     reference_date, days = args
 
-    relative_date = bumbag.datedelta(reference_date, days)
+    relative_date = bumbag.datedelta(reference_date, days=days)
     assert relative_date == expected, "relative date does not match expected"
 
     n_days = curried.count(bumbag.daterange(reference_date, relative_date))
@@ -72,26 +72,8 @@ def test_daterange(args, expected):
     actual = tuple(bumbag.daterange(start, end, include_end=False))
     assert actual == expected[:-1], "excluding end date fails"
 
-    actual = tuple(bumbag.daterange(start, end, False, False))
+    actual = tuple(bumbag.daterange(start, end, include_start=False, include_end=False))
     assert actual == expected[1:-1], "excluding start and end dates fails"
-
-
-@pytest.mark.parametrize(
-    "arg, expected",
-    [
-        (date(2022, 8, 1), "Monday"),
-        (date(2022, 8, 2), "Tuesday"),
-        (date(2022, 8, 3), "Wednesday"),
-        (date(2022, 8, 4), "Thursday"),
-        (date(2022, 8, 5), "Friday"),
-        (date(2022, 8, 6), "Saturday"),
-        (date(2022, 8, 7), "Sunday"),
-    ],
-)
-def test_day_of_week(arg, expected):
-    date_to_name = arg
-    actual = bumbag.day_of_week(date_to_name)
-    assert actual == expected
 
 
 @pytest.mark.parametrize(
@@ -107,19 +89,19 @@ def test_day_of_week(arg, expected):
     ],
 )
 def test_days_between_dates(args, expected):
-    date1, date2, include_last_date = args
-    actual = bumbag.days_between_dates(date1, date2, include_last_date)
+    d1, d2, with_last_date = args
+    actual = bumbag.days_between_dates(d1, d2, include_last_date=with_last_date)
     assert actual == expected
 
 
 def test_daycount():
     d1 = date(2022, 1, 1)
 
-    actual = curried.pipe(bumbag.daycount(d1, True), curried.take(3), list)
+    actual = curried.pipe(bumbag.daycount(d1, forward=True), curried.take(3), list)
     expected = [date(2022, 1, 1), date(2022, 1, 2), date(2022, 1, 3)]
     assert actual == expected, "forward generation fails"
 
-    actual = curried.pipe(bumbag.daycount(d1, False), curried.take(3), list)
+    actual = curried.pipe(bumbag.daycount(d1, forward=False), curried.take(3), list)
     expected = [date(2022, 1, 1), date(2021, 12, 31), date(2021, 12, 30)]
     assert actual == expected, "backward generation fails"
 
@@ -245,8 +227,8 @@ def test_last_date_of_month(arg, expected):
     ],
 )
 def test_months_between_dates(args, expected):
-    date1, date2, include_last_date = args
-    actual = bumbag.months_between_dates(date1, date2, include_last_date)
+    d1, d2, with_last_date = args
+    actual = bumbag.months_between_dates(d1, d2, include_last_date=with_last_date)
     assert actual == expected
 
 
@@ -271,4 +253,22 @@ def test_to_date(arg, expected):
 )
 def test_to_str(arg, expected):
     actual = bumbag.to_str(arg)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (date(2022, 8, 1), "Mon"),
+        (date(2022, 8, 2), "Tue"),
+        (date(2022, 8, 3), "Wed"),
+        (date(2022, 8, 4), "Thu"),
+        (date(2022, 8, 5), "Fri"),
+        (date(2022, 8, 6), "Sat"),
+        (date(2022, 8, 7), "Sun"),
+    ],
+)
+def test_weekday(arg, expected):
+    date_to_name = arg
+    actual = bumbag.weekday(date_to_name)
     assert actual == expected

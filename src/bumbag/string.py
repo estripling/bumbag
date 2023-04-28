@@ -14,7 +14,7 @@ __all__ = (
 
 
 @toolz.curry
-def filter_regex(pattern, strings, flags=re.IGNORECASE):
+def filter_regex(pattern, strings, /, *, flags=re.IGNORECASE):
     """Filter an iterable of strings with a regex pattern.
 
     Parameters
@@ -57,7 +57,7 @@ def filter_regex(pattern, strings, flags=re.IGNORECASE):
     return filter(functools.partial(re.findall, pattern, flags=flags), strings)
 
 
-def highlight_string_differences(lft_str, rgt_str):
+def highlight_string_differences(lft_str, rgt_str, /):
     """Highlight differences between two strings.
 
     Parameters
@@ -80,12 +80,12 @@ def highlight_string_differences(lft_str, rgt_str):
     Examples
     --------
     >>> import bumbag
-    >>> print(bumbag.highlight_string_differences(lft_str="hello", rgt_str="hello"))
+    >>> print(bumbag.highlight_string_differences("hello", "hello"))
     hello
     <BLANKLINE>
     hello
 
-    >>> print(bumbag.highlight_string_differences(lft_str="hello", rgt_str="hall"))
+    >>> print(bumbag.highlight_string_differences("hello", "hall"))
     hello
      |  |
     hall
@@ -102,7 +102,7 @@ def highlight_string_differences(lft_str, rgt_str):
 
 
 @toolz.curry
-def map_regex(pattern, strings, flags=re.IGNORECASE):
+def map_regex(pattern, strings, /, *, flags=re.IGNORECASE):
     """Map regex pattern to an iterable of strings.
 
     Parameters
@@ -147,7 +147,7 @@ def map_regex(pattern, strings, flags=re.IGNORECASE):
     return map(functools.partial(re.findall, pattern, flags=flags), strings)
 
 
-def remove_punctuation(string):
+def remove_punctuation(string, /):
     """Remove punctuation from a string.
 
     Parameters

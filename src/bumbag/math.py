@@ -8,7 +8,7 @@ __all__ = (
 )
 
 
-def collatz(number):
+def collatz(number, /):
     """Generate the Collatz sequence for a positive integer.
 
     The famous 3n + 1 conjecture. Given a positive integer :math:`n > 0`,
@@ -104,7 +104,7 @@ def fibonacci():
         lag1, lag2 = lag0, lag1
 
 
-def iseven(number):
+def iseven(number, /):
     """Check if number is even.
 
     Parameters
@@ -129,7 +129,7 @@ def iseven(number):
     return number % 2 == 0
 
 
-def isodd(number):
+def isodd(number, /):
     """Check if number is odd.
 
     Parameters

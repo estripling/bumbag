@@ -15,7 +15,7 @@ def test_coinflip(arg):
         assert actual == expected
     else:
         with pytest.raises(ValueError):
-            bumbag.coinflip(bias)
+            bumbag.coinflip(bias=bias)
 
 
 def test_get_random_character():
@@ -29,11 +29,11 @@ def test_get_random_character():
 def test_get_random_instance(arg):
     seed = arg
     if seed is None or isinstance(seed, (int, Random)):
-        assert isinstance(bumbag.get_random_instance(seed), Random)
+        assert isinstance(bumbag.get_random_instance(seed=seed), Random)
     else:
         with pytest.raises(ValueError):
             # noinspection PyTypeChecker
-            bumbag.get_random_instance(seed)
+            bumbag.get_random_instance(seed=seed)
 
 
 def test_get_random_integer():
