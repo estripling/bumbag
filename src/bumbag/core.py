@@ -19,7 +19,7 @@ __all__ = (
 
 
 @curried.curry
-def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
+def extend_range(min_value, max_value, /, *, min_factor=0.05, max_factor=0.05):
     """Extend value range by a factor.
 
     The value range is defined as ``max_value - min_value``.
@@ -51,7 +51,7 @@ def extend_range(min_value, max_value, min_factor=0.05, max_factor=0.05):
     >>> bumbag.extend_range(0, 1)
     (-0.05, 1.05)
 
-    >>> bumbag.extend_range(0, 1, 0.1, 0.2)
+    >>> bumbag.extend_range(0, 1, min_factor=0.1, max_factor=0.2)
     (-0.1, 1.2)
     """
     if not isinstance(min_factor, float) or min_factor < 0:
@@ -219,7 +219,7 @@ def get_function_name():
     return inspect.stack()[1].function
 
 
-def get_source_code(obj):
+def get_source_code(obj, /):
     """Get source code of an object.
 
     Parameters
@@ -284,7 +284,7 @@ def op(func, x, y):
 
 
 @curried.curry
-def sig(number, digits=3):
+def sig(number, /, *, digits=3):
     """Round number to its significant digits.
 
     Parameters
@@ -314,10 +314,10 @@ def sig(number, digits=3):
     >>> bumbag.sig(987654321)
     988000000
 
-    >>> bumbag.sig(14393237.76, 2)
+    >>> bumbag.sig(14393237.76, digits=2)
     14000000.0
 
-    >>> bumbag.sig(14393237.76, 3)
+    >>> bumbag.sig(14393237.76, digits=3)
     14400000.0
     """
     if not isinstance(digits, int) or digits < 1:
@@ -330,7 +330,7 @@ def sig(number, digits=3):
     return round(number, digits)
 
 
-def two_set_summary(x, y, show=3):
+def two_set_summary(x, y, /, *, show=3):
     """Compute two set summary.
 
     Given two sets, calculate multiple key set operations like union,

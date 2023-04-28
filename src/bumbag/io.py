@@ -12,7 +12,7 @@ __all__ = (
 )
 
 
-def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
+def archive_files(*, wildcards=None, target_dir=None, name=None, kind="zip"):
     """Archive files in target directory.
 
     Parameters
@@ -41,7 +41,7 @@ def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
     --------
     >>> # Archive all Python files and Notebooks in current working directory
     >>> import bumbag
-    >>> bumbag.archive_files(["*.py", "*.ipynb"])  # doctest: +SKIP
+    >>> bumbag.archive_files(wildcards=["*.py", "*.ipynb"])  # doctest: +SKIP
     """
     wildcards = wildcards or ["**/*"]
     target_dir = target_dir or "."
@@ -64,7 +64,7 @@ def archive_files(wildcards=None, target_dir=None, name=None, kind="zip"):
         shutil.make_archive(name, kind, tmpdir)
 
 
-def lazy_read_lines(path, encoding=None, errors=None, newline=None):
+def lazy_read_lines(path, /, *, encoding=None, errors=None, newline=None):
     """Lazily read text file line by line.
 
     Parameters
@@ -112,7 +112,7 @@ def lazy_read_lines(path, encoding=None, errors=None, newline=None):
             yield line
 
 
-def query_yes_no(question, default=None):
+def query_yes_no(question, /, *, default=None):
     """Prompt user a yes/no question.
 
     Parameters
@@ -123,7 +123,7 @@ def query_yes_no(question, default=None):
         Define default answer:
          - If ``default`` is None, an explicit answer is needed from the user.
          - If ``default`` is "yes" or "no", the presumed answer, indicated by
-           a capitial letter, is accepted when pressing <enter>.
+           a capital letter, is accepted when pressing <enter>.
 
     Returns
     -------
@@ -142,11 +142,11 @@ def query_yes_no(question, default=None):
     Is all clear? [y/n] y<enter>
     True
 
-    >>> bumbag.query_yes_no("Do you like BumBag?", "yes")  # doctest: +SKIP
+    >>> bumbag.query_yes_no("Do you like BumBag?", default="yes")  # doctest: +SKIP
     Do you like BumBag? [Y/n] <enter>
     True
 
-    >>> bumbag.query_yes_no("Do you like BumBag?", "yes")  # doctest: +SKIP
+    >>> bumbag.query_yes_no("Do you like BumBag?", default="yes")  # doctest: +SKIP
     Do you like BumBag? [Y/n] yay<enter>
     Do you like BumBag? Please respond with 'yes' [Y] or 'no' [n] <enter>
     True

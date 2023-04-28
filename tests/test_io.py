@@ -68,16 +68,16 @@ class TestQueryYesNo:
     def test_normal_usage(self, monkeypatch, arg, answer, expected):
         default = arg
         monkeypatch.setattr("sys.stdin", StringIO(answer))
-        actual = bumbag.query_yes_no("Do you like BumBag?", default)
+        actual = bumbag.query_yes_no("Do you like BumBag?", default=default)
         assert actual == expected
 
     @pytest.mark.parametrize("arg", [1, "noo", "yeah"])
     def test_invalid_default_value(self, arg):
         default = arg
         with pytest.raises(ValueError):
-            bumbag.query_yes_no("Do you like BumBag?", default)
+            bumbag.query_yes_no("Do you like BumBag?", default=default)
 
     def test_subsequent_query(self, monkeypatch):
         monkeypatch.setattr("sys.stdin", StringIO("yay"))
         with pytest.raises(EOFError):
-            bumbag.query_yes_no("Do you like BumBag?", "yes")
+            bumbag.query_yes_no("Do you like BumBag?", default="yes")

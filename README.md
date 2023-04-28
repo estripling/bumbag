@@ -48,7 +48,7 @@ Use [`highlight_string_differences`](https://bumbag.readthedocs.io/en/stable/aut
 
 ```python
 >>> import bumbag
->>> print(bumbag.highlight_string_differences(lft_str="hello", rgt_str="hall"))
+>>> print(bumbag.highlight_string_differences("hello", "hall"))
 hello
  |  |
 hall
