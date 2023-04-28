@@ -7,12 +7,11 @@ from datetime import date, datetime, timedelta
 import toolz
 from dateutil.relativedelta import relativedelta
 
-from bumbag.core import op
+from bumbag import core
 
 __all__ = (
     "datedelta",
     "daterange",
-    "day_of_week",
     "days_between_dates",
     "daycount",
     "humantime",
@@ -20,6 +19,7 @@ __all__ = (
     "months_between_dates",
     "to_date",
     "to_str",
+    "weekday",
 )
 
 
@@ -165,37 +165,6 @@ def daterange(start, end, /, *, include_start=True, include_end=True):
     return itertools.takewhile(lambda d: d <= end, daycount(start))
 
 
-def day_of_week(date_to_name, /):
-    """Get the day of the week.
-
-    Parameters
-    ----------
-    date_to_name : datetime.date
-        Date object to extract day name from.
-
-    Returns
-    -------
-    str
-        Day name of the week.
-
-    Examples
-    --------
-    >>> import bumbag
-    >>> from datetime import date
-    >>> d1 = date(2022, 8, 1)
-    >>> d2 = date(2022, 8, 5)
-    >>> list(map(bumbag.day_of_week, bumbag.daterange(d1, d2)))
-    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-
-    >>> bumbag.day_of_week(date(2022, 8, 6))
-    'Saturday'
-
-    >>> bumbag.day_of_week(date(2022, 8, 7))
-    'Sunday'
-    """
-    return date_to_name.strftime("%A")
-
-
 def days_between_dates(date1, date2, /, *, include_last_date=False):
     """Compute the number of days between two dates.
 
@@ -312,7 +281,7 @@ def daycount(start_date, /, *, forward=True):
     >>> # Monday sequence
     >>> curried.pipe(
     ...     bumbag.daycount(d1),
-    ...     curried.filter(lambda d: day_of_week(d) == "Monday"),
+    ...     curried.filter(lambda d: weekday(d) == "Mon"),
     ...     curried.map(bumbag.to_str),
     ...     curried.take(5),
     ...     list,
@@ -329,7 +298,7 @@ def daycount(start_date, /, *, forward=True):
     ... )
     ['2022-01-01', '2022-01-08', '2022-01-15', '2022-01-22', '2022-01-29']
     """
-    successor = op(operator.add if forward else operator.sub, y=timedelta(1))
+    successor = core.op(operator.add if forward else operator.sub, y=timedelta(1))
     return toolz.iterate(successor, start_date)
 
 
@@ -520,3 +489,34 @@ def to_str(date_to_cast, /):
     '2022-01-01'
     """
     return date_to_cast.isoformat()
+
+
+def weekday(a_date, /):
+    """Get name of the weekday.
+
+    Parameters
+    ----------
+    a_date : datetime.date
+        Specify date to extract weekday name from.
+
+    Returns
+    -------
+    str
+        Name of the weekday.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> from datetime import date
+    >>> d1 = date(2022, 8, 1)
+    >>> d2 = date(2022, 8, 5)
+    >>> list(map(bumbag.weekday, bumbag.daterange(d1, d2)))
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+
+    >>> bumbag.weekday(date(2022, 8, 6))
+    'Sat'
+
+    >>> bumbag.weekday(date(2022, 8, 7))
+    'Sun'
+    """
+    return a_date.strftime("%a")

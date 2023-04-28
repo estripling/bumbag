@@ -77,24 +77,6 @@ def test_daterange(args, expected):
 
 
 @pytest.mark.parametrize(
-    "arg, expected",
-    [
-        (date(2022, 8, 1), "Monday"),
-        (date(2022, 8, 2), "Tuesday"),
-        (date(2022, 8, 3), "Wednesday"),
-        (date(2022, 8, 4), "Thursday"),
-        (date(2022, 8, 5), "Friday"),
-        (date(2022, 8, 6), "Saturday"),
-        (date(2022, 8, 7), "Sunday"),
-    ],
-)
-def test_day_of_week(arg, expected):
-    date_to_name = arg
-    actual = bumbag.day_of_week(date_to_name)
-    assert actual == expected
-
-
-@pytest.mark.parametrize(
     "args, expected",
     [
         ((date(2022, 8, 1), date(2022, 8, 1), False), 0),
@@ -271,4 +253,22 @@ def test_to_date(arg, expected):
 )
 def test_to_str(arg, expected):
     actual = bumbag.to_str(arg)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (date(2022, 8, 1), "Mon"),
+        (date(2022, 8, 2), "Tue"),
+        (date(2022, 8, 3), "Wed"),
+        (date(2022, 8, 4), "Thu"),
+        (date(2022, 8, 5), "Fri"),
+        (date(2022, 8, 6), "Sat"),
+        (date(2022, 8, 7), "Sun"),
+    ],
+)
+def test_weekday(arg, expected):
+    date_to_name = arg
+    actual = bumbag.weekday(date_to_name)
     assert actual == expected
