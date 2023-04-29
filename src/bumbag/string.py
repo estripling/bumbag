@@ -6,11 +6,48 @@ import string as builtin_string_module
 import toolz
 
 __all__ = (
+    "concat_strings",
     "filter_regex",
     "highlight_string_differences",
     "map_regex",
     "remove_punctuation",
 )
+
+
+@toolz.curry
+def concat_strings(strings, /, *, sep=" "):
+    """Concatenate strings.
+
+    Parameters
+    ----------
+    strings : Iterable of str
+        Strings to concatenate.
+    sep : str, default=" "
+        Specify the separator.
+
+    Returns
+    -------
+    str
+        A concatenated string.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.concat_strings(["Hello", "World"])
+    'Hello World'
+
+    >>> hyphen_concat = bumbag.concat_strings(sep="-")
+    >>> hyphen_concat(["Hello", "World"])
+    'Hello-World'
+
+    >>> list(map(bumbag.concat_strings, [["Hello", "World"]]))
+    ['Hello World']
+    """
+    return sep.join(strings)
 
 
 @toolz.curry

@@ -3,6 +3,18 @@ import pytest
 import bumbag
 
 
+def test_concat_strings():
+    strings = ["Hello", "World"]
+    actual = bumbag.concat_strings(strings)
+    expected = " ".join(strings)
+    assert actual == expected
+
+    hyphen_concat = bumbag.concat_strings(sep="-")
+    actual = hyphen_concat(strings)
+    expected = "-".join(strings)
+    assert actual == expected
+
+
 def test_filter_regex(zen_of_python):
     filter_python_regex = bumbag.filter_regex("python")
     filter_better_regex = bumbag.filter_regex("better")
@@ -74,7 +86,7 @@ def test_map_regex(zen_of_python):
         ("percentage%", "percentage"),
         ("ampersand&", "ampersand"),
         ("apostrophe'", "apostrophe"),
-        ("asterix*", "asterix"),
+        ("asterisk*", "asterisk"),
         ("plus+", "plus"),
         ("comma,", "comma"),
         ("dash-", "dash"),
