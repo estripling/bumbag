@@ -6,11 +6,49 @@ import string as builtin_string_module
 import toolz
 
 __all__ = (
+    "concat_strings",
     "filter_regex",
+    "headline",
     "highlight_string_differences",
     "map_regex",
     "remove_punctuation",
 )
+
+
+@toolz.curry
+def concat_strings(strings, /, *, sep=" "):
+    """Concatenate strings.
+
+    Parameters
+    ----------
+    strings : Iterable of str
+        Strings to concatenate.
+    sep : str, default=" "
+        Specify the separator.
+
+    Returns
+    -------
+    str
+        A concatenated string.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.concat_strings(["Hello", "World"])
+    'Hello World'
+
+    >>> hyphen_concat = bumbag.concat_strings(sep="-")
+    >>> hyphen_concat(["Hello", "World"])
+    'Hello-World'
+
+    >>> list(map(bumbag.concat_strings, [["Hello", "World"]]))
+    ['Hello World']
+    """
+    return sep.join(strings)
 
 
 @toolz.curry
@@ -55,6 +93,37 @@ def filter_regex(pattern, strings, /, *, flags=re.IGNORECASE):
     ["Guiding principles for Python's design: The Zen of Python"]
     """
     return filter(functools.partial(re.findall, pattern, flags=flags), strings)
+
+
+@toolz.curry
+def headline(string, /, *, length=88, character="-"):
+    """Generate a headline string.
+
+    Parameters
+    ----------
+    string : str
+        Specify headline text.
+    length : int, default=88
+        Specify the length of the headline string.
+    character : str, default="-"
+        Specify the character to fill the missing space on each side.
+
+    Returns
+    -------
+    str
+        A headline string.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.headline("Hello, World!", length=30)
+    '------- Hello, World! --------'
+    """
+    return f" {string} ".center(length, character)
 
 
 def highlight_string_differences(lft_str, rgt_str, /):
