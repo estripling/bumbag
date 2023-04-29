@@ -37,6 +37,12 @@ def test_filter_regex(zen_of_python):
     assert actual == expected, "filter_better_regex fails"
 
 
+def test_headline():
+    actual = bumbag.headline("Hello, World!", length=30)
+    expected = "------- Hello, World! --------"
+    assert actual == expected
+
+
 @pytest.mark.parametrize(
     "arg, expected",
     [

@@ -8,6 +8,7 @@ import toolz
 __all__ = (
     "concat_strings",
     "filter_regex",
+    "headline",
     "highlight_string_differences",
     "map_regex",
     "remove_punctuation",
@@ -92,6 +93,37 @@ def filter_regex(pattern, strings, /, *, flags=re.IGNORECASE):
     ["Guiding principles for Python's design: The Zen of Python"]
     """
     return filter(functools.partial(re.findall, pattern, flags=flags), strings)
+
+
+@toolz.curry
+def headline(string, /, *, length=88, character="-"):
+    """Generate a headline string.
+
+    Parameters
+    ----------
+    string : str
+        Specify headline text.
+    length : int, default=88
+        Specify the length of the headline string.
+    character : str, default="-"
+        Specify the character to fill the missing space on each side.
+
+    Returns
+    -------
+    str
+        A headline string.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.headline("Hello, World!", length=30)
+    '------- Hello, World! --------'
+    """
+    return f" {string} ".center(length, character)
 
 
 def highlight_string_differences(lft_str, rgt_str, /):
