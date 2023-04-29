@@ -7,6 +7,21 @@ import bumbag
 
 
 @pytest.mark.parametrize(
+    "x, expected",
+    [
+        (60, True),
+        (9, False),
+    ],
+)
+def test_all_predicate_true(x, expected):
+    is_divisible_by_3_and_5 = bumbag.all_predicate_true(
+        [lambda n: n % 3 == 0, lambda n: n % 5 == 0]
+    )
+    actual = is_divisible_by_3_and_5(x)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
     "args, expected",
     [
         ((0, 1, -0.1, 0.1), None),

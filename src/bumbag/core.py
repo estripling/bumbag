@@ -7,6 +7,7 @@ from typing import Iterator, Sequence
 from toolz import curried
 
 __all__ = (
+    "all_predicate_true",
     "extend_range",
     "flatten",
     "freq",
@@ -16,6 +17,40 @@ __all__ = (
     "sig",
     "two_set_summary",
 )
+
+
+@curried.curry
+def all_predicate_true(predicates, x, /):
+    """Check if all predicates are true.
+
+    Parameters
+    ----------
+    predicates : Iterable of Callable[[Any], bool]]
+        Collection of predicates to check.
+    x : Any
+        Specify the value to evaluate the predicates on.
+
+    Returns
+    -------
+    bool
+        ``True`` if all predicates evaluate to ``True`` else ``False``.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> is_divisible_by_3_and_5 = bumbag.all_predicate_true(
+    ...     [lambda n: n % 3 == 0, lambda n: n % 5 == 0]
+    ... )
+    >>> is_divisible_by_3_and_5(60)
+    True
+    >>> is_divisible_by_3_and_5(9)
+    False
+    """
+    return all(predicate(x) for predicate in predicates)
 
 
 @curried.curry
