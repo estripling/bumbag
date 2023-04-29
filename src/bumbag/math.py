@@ -163,7 +163,7 @@ def iseven(number, /):
     >>> bumbag.iseven(3)
     False
     """
-    return number % 2 == 0
+    return isdivisibleby(2)(number)
 
 
 def isodd(number, /):
