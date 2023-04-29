@@ -2,6 +2,15 @@
 
 <!--next-version-placeholder-->
 
+## v5.0.0 (2023-04-29)
+### Feature
+* Add math-related functions ([#38](https://github.com/estripling/bumbag/issues/38)) ([`848b33e`](https://github.com/estripling/bumbag/commit/848b33ee62b719afd7384342175b5e10e1846fd2))
+* Add string functions ([#37](https://github.com/estripling/bumbag/issues/37)) ([`6506805`](https://github.com/estripling/bumbag/commit/6506805b0e2f22efd9e08dc2134dcb8a99b1d827))
+* Use positional- and keyword-only parameters ([#36](https://github.com/estripling/bumbag/issues/36)) ([`efeb091`](https://github.com/estripling/bumbag/commit/efeb091f1fa6f670521306d08660a0c237e9588d))
+
+### Breaking
+* New function signatures and renamed function  ([`efeb091`](https://github.com/estripling/bumbag/commit/efeb091f1fa6f670521306d08660a0c237e9588d))
+
 ## v4.1.0 (2023-03-07)
 ### Feature
 * **string.py:** Add highlight_string_differences ([`75473b0`](https://github.com/estripling/bumbag/commit/75473b0cb8d9315af1eea630eac4f98380c277aa))
