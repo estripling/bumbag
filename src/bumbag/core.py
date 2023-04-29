@@ -14,6 +14,7 @@ __all__ = (
     "freq",
     "get_function_name",
     "get_source_code",
+    "numberformat",
     "op",
     "sig",
     "two_set_summary",
@@ -316,6 +317,31 @@ def get_source_code(obj, /):
     <BLANKLINE>
     """
     return inspect.getsource(obj)
+
+
+def numberformat(number, /):
+    """Format numeric literals with underscores.
+
+    Parameters
+    ----------
+    number : int or float
+        Number to format.
+
+    Returns
+    -------
+    str
+        A string representation with underscores of a numeric literal.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.numberformat(1000000)
+    '1_000_000'
+
+    >>> bumbag.numberformat(100000.0)
+    '100_000.0'
+    """
+    return f"{number:,}".replace(",", "_")
 
 
 @curried.curry

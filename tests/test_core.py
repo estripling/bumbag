@@ -158,6 +158,22 @@ def test_get_source_code():
     assert actual == expected
 
 
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (1, "1"),
+        (10, "10"),
+        (100, "100"),
+        (1000, "1_000"),
+        (1000000, "1_000_000"),
+        (100000.0, "100_000.0"),
+    ],
+)
+def test_numberformat(arg, expected):
+    actual = bumbag.numberformat(arg)
+    assert actual == expected
+
+
 @pytest.mark.parametrize("arg, expected", [(0, 1), (1, 2), (10, 11), (21, 22)])
 def test_op(arg, expected):
     inc = bumbag.op(operator.add, 1)
