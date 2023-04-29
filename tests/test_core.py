@@ -7,6 +7,37 @@ import bumbag
 
 
 @pytest.mark.parametrize(
+    "x, expected",
+    [
+        (60, True),
+        (9, False),
+    ],
+)
+def test_all_predicate_true(x, expected):
+    is_divisible_by_3_and_5 = bumbag.all_predicate_true(
+        [lambda n: n % 3 == 0, lambda n: n % 5 == 0]
+    )
+    actual = is_divisible_by_3_and_5(x)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "x, expected",
+    [
+        (60, True),
+        (9, True),
+        (13, False),
+    ],
+)
+def test_any_predicate_true(x, expected):
+    is_divisible_by_3_or_5 = bumbag.any_predicate_true(
+        [lambda n: n % 3 == 0, lambda n: n % 5 == 0]
+    )
+    actual = is_divisible_by_3_or_5(x)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
     "args, expected",
     [
         ((0, 1, -0.1, 0.1), None),
@@ -127,10 +158,44 @@ def test_get_source_code():
     assert actual == expected
 
 
+@pytest.mark.parametrize(
+    "arg, expected",
+    [
+        (1, "1"),
+        (10, "10"),
+        (100, "100"),
+        (1000, "1_000"),
+        (1000000, "1_000_000"),
+        (100000.0, "100_000.0"),
+    ],
+)
+def test_numberformat(arg, expected):
+    actual = bumbag.numberformat(arg)
+    assert actual == expected
+
+
 @pytest.mark.parametrize("arg, expected", [(0, 1), (1, 2), (10, 11), (21, 22)])
 def test_op(arg, expected):
     inc = bumbag.op(operator.add, 1)
     actual = inc(arg)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "func, expected",
+    [
+        (set.intersection, {2}),
+        (set.union, {0, 1, 2, 3, 4, 6, 8}),
+        (set.difference, {0, 1, 3}),
+        (set.symmetric_difference, {0, 1, 2, 3, 4, 8}),
+    ],
+)
+def test_setred(func, expected):
+    x = {0, 1, 2, 3}
+    y = {2, 4, 6}
+    z = {2, 6, 8}
+
+    actual = bumbag.setred(func, x, y, z)
     assert actual == expected
 
 

@@ -34,6 +34,13 @@ def test_fibonacci():
 
 
 @pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+def test_isdivisibleby(arg):
+    actual = bumbag.isdivisibleby(2, arg)
+    expected = arg % 2 == 0
+    assert actual == expected
+
+
+@pytest.mark.parametrize("arg", [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 def test_iseven(arg):
     actual = bumbag.iseven(arg)
     expected = arg % 2 == 0

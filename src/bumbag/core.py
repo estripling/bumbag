@@ -1,3 +1,4 @@
+import functools
 import inspect
 import math
 import operator
@@ -7,15 +8,89 @@ from typing import Iterator, Sequence
 from toolz import curried
 
 __all__ = (
+    "all_predicate_true",
+    "any_predicate_true",
     "extend_range",
     "flatten",
     "freq",
     "get_function_name",
     "get_source_code",
+    "numberformat",
     "op",
+    "setred",
     "sig",
     "two_set_summary",
 )
+
+
+@curried.curry
+def all_predicate_true(predicates, x, /):
+    """Check if all predicates are true.
+
+    Parameters
+    ----------
+    predicates : Iterable of Callable[[Any], bool]]
+        Collection of predicates to check.
+    x : Any
+        Specify the value to evaluate the predicates on.
+
+    Returns
+    -------
+    bool
+        ``True`` if all predicates evaluate to ``True`` else ``False``.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> is_divisible_by_3_and_5 = bumbag.all_predicate_true(
+    ...     [lambda n: n % 3 == 0, lambda n: n % 5 == 0]
+    ... )
+    >>> is_divisible_by_3_and_5(60)
+    True
+    >>> is_divisible_by_3_and_5(9)
+    False
+    """
+    return all(predicate(x) for predicate in predicates)
+
+
+@curried.curry
+def any_predicate_true(predicates, x, /):
+    """Check if any predicate is true.
+
+    Parameters
+    ----------
+    predicates : Iterable of Callable[[Any], bool]]
+        Collection of predicates to check.
+    x : Any
+        Specify the value to evaluate the predicates on.
+
+    Returns
+    -------
+    bool
+        ``True`` if any predicate evaluates to ``True`` else ``False``.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> is_divisible_by_3_or_5 = bumbag.any_predicate_true(
+    ...     [lambda n: n % 3 == 0, lambda n: n % 5 == 0]
+    ... )
+    >>> is_divisible_by_3_or_5(60)
+    True
+    >>> is_divisible_by_3_or_5(9)
+    True
+    >>> is_divisible_by_3_or_5(13)
+    False
+    """
+    return any(predicate(x) for predicate in predicates)
 
 
 @curried.curry
@@ -246,6 +321,31 @@ def get_source_code(obj, /):
     return inspect.getsource(obj)
 
 
+def numberformat(number, /):
+    """Format numeric literals with underscores.
+
+    Parameters
+    ----------
+    number : int or float
+        Number to format.
+
+    Returns
+    -------
+    str
+        A string representation with underscores of a numeric literal.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.numberformat(1000000)
+    '1_000_000'
+
+    >>> bumbag.numberformat(100000.0)
+    '100_000.0'
+    """
+    return f"{number:,}".replace(",", "_")
+
+
 @curried.curry
 def op(func, x, y):
     """Apply an operator function that takes two inputs.
@@ -281,6 +381,48 @@ def op(func, x, y):
     11
     """
     return func(x, y)
+
+
+@curried.curry
+def setred(func, *sets):
+    """Apply a set function to reduce a sequence of sets.
+
+    Parameters
+    ----------
+    func : function
+        Specify the set function.
+    sets : set
+        A sequence of Python set objects to reduce.
+
+    Returns
+    -------
+    set
+        A reduced set according to the set function.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> x = {0, 1, 2, 3}
+    >>> y = {2, 4, 6}
+    >>> z = {2, 6, 8}
+    >>> bumbag.setred(set.intersection, x, y, z)
+    {2}
+
+    >>> bumbag.setred(set.union, x, y, z)
+    {0, 1, 2, 3, 4, 6, 8}
+
+    >>> bumbag.setred(set.difference, x, y, z)
+    {0, 1, 3}
+
+    >>> sym_diff = bumbag.setred(set.symmetric_difference)
+    >>> sym_diff(x, y, z)
+    {0, 1, 2, 3, 4, 8}
+    """
+    return functools.reduce(func, map(set, sets))
 
 
 @curried.curry

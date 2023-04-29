@@ -3,6 +3,7 @@ import toolz
 __all__ = (
     "collatz",
     "fibonacci",
+    "isdivisibleby",
     "iseven",
     "isodd",
 )
@@ -104,6 +105,42 @@ def fibonacci():
         lag1, lag2 = lag0, lag1
 
 
+@toolz.curry
+def isdivisibleby(x, number, /):
+    """Is number evenly divisible by x.
+
+    Parameters
+    ----------
+    x : int
+        Specify the divisor.
+    number : int
+        Specify the number to check.
+
+    Returns
+    -------
+    bool
+        ``True`` if number is evenly divisible by x else ``False``.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> bumbag.isdivisibleby(2, 10)
+    True
+
+    >>> bumbag.isdivisibleby(2, 9)
+    False
+
+    >>> iseven = bumbag.isdivisibleby(2)
+    >>> iseven(10)
+    True
+    """
+    return number % x == 0
+
+
 def iseven(number, /):
     """Check if number is even.
 
@@ -126,7 +163,7 @@ def iseven(number, /):
     >>> bumbag.iseven(3)
     False
     """
-    return number % 2 == 0
+    return isdivisibleby(2)(number)
 
 
 def isodd(number, /):
