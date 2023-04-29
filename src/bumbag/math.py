@@ -107,7 +107,7 @@ def fibonacci():
 
 @toolz.curry
 def isdivisibleby(x, number, /):
-    """Is number evenly divisible by x.
+    """Check if number is evenly divisible by x.
 
     Parameters
     ----------
