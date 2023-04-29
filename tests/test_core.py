@@ -182,6 +182,24 @@ def test_op(arg, expected):
 
 
 @pytest.mark.parametrize(
+    "func, expected",
+    [
+        (set.intersection, {2}),
+        (set.union, {0, 1, 2, 3, 4, 6, 8}),
+        (set.difference, {0, 1, 3}),
+        (set.symmetric_difference, {0, 1, 2, 3, 4, 8}),
+    ],
+)
+def test_setred(func, expected):
+    x = {0, 1, 2, 3}
+    y = {2, 4, 6}
+    z = {2, 6, 8}
+
+    actual = bumbag.setred(func, x, y, z)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
     "args, expected",
     [
         ((math.inf, 3), math.inf),

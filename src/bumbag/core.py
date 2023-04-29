@@ -1,3 +1,4 @@
+import functools
 import inspect
 import math
 import operator
@@ -16,6 +17,7 @@ __all__ = (
     "get_source_code",
     "numberformat",
     "op",
+    "setred",
     "sig",
     "two_set_summary",
 )
@@ -379,6 +381,48 @@ def op(func, x, y):
     11
     """
     return func(x, y)
+
+
+@curried.curry
+def setred(func, *sets):
+    """Apply a set function to reduce a sequence of sets.
+
+    Parameters
+    ----------
+    func : function
+        Specify the set function.
+    sets : set
+        A sequence of Python set objects to reduce.
+
+    Returns
+    -------
+    set
+        A reduced set according to the set function.
+
+    Notes
+    -----
+    Function is curried.
+
+    Examples
+    --------
+    >>> import bumbag
+    >>> x = {0, 1, 2, 3}
+    >>> y = {2, 4, 6}
+    >>> z = {2, 6, 8}
+    >>> bumbag.setred(set.intersection, x, y, z)
+    {2}
+
+    >>> bumbag.setred(set.union, x, y, z)
+    {0, 1, 2, 3, 4, 6, 8}
+
+    >>> bumbag.setred(set.difference, x, y, z)
+    {0, 1, 3}
+
+    >>> sym_diff = bumbag.setred(set.symmetric_difference)
+    >>> sym_diff(x, y, z)
+    {0, 1, 2, 3, 4, 8}
+    """
+    return functools.reduce(func, map(set, sets))
 
 
 @curried.curry
