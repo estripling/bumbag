@@ -2,6 +2,7 @@ import calendar
 import itertools
 import math
 import operator
+from contextlib import contextmanager
 from datetime import date, datetime, timedelta
 
 import toolz
@@ -17,6 +18,7 @@ __all__ = (
     "humantime",
     "last_date_of_month",
     "months_between_dates",
+    "stopwatch",
     "to_date",
     "to_str",
     "weekday",
@@ -444,6 +446,45 @@ def months_between_dates(date1, date2, /, *, include_last_date=False):
     difference = relativedelta(end, start)
     n_months = difference.months + 12 * difference.years
     return n_months + 1 if include_last_date else n_months
+
+
+@contextmanager
+def stopwatch():
+    """Measure elapsed wall-clock time.
+
+    Returns
+    -------
+    NoneType
+        Function has no return value.
+        Measurement is printed to standard output.
+
+    Examples
+    --------
+    >>> # as context manager
+    >>> import bumbag
+    >>> import time
+    >>> with bumbag.stopwatch():  # doctest: +SKIP
+    ...     time.sleep(0.1)
+    ...
+    2023-09-17 14:50:32 -> 2023-09-17 14:50:32 = 0.100691s
+
+    >>> # as decorator
+    >>> import bumbag
+    >>> import time
+    >>> @bumbag.stopwatch()
+    ... def my_function():
+    ...     time.sleep(0.1)
+    ...
+    >>> my_function()  # doctest: +SKIP
+    2023-09-17 14:57:00 -> 2023-09-17 14:57:00 = 0.100709s
+    """
+    t0 = datetime.now()
+    yield
+    t1 = datetime.now()
+    elapsed = t1 - t0
+    fmt = "%Y-%m-%d %H:%M:%S"
+    timestamps = f"{t0.strftime(fmt)} -> {t1.strftime(fmt)}"
+    print(f"{timestamps} = {humantime(elapsed.total_seconds())}")
 
 
 def to_date(string_to_cast, /):
