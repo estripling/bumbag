@@ -1,3 +1,4 @@
+import time
 from datetime import date
 
 import pytest
@@ -230,6 +231,36 @@ def test_months_between_dates(args, expected):
     d1, d2, with_last_date = args
     actual = bumbag.months_between_dates(d1, d2, include_last_date=with_last_date)
     assert actual == expected
+
+
+def test_stopwatch(capsys):
+    # context manager
+    with bumbag.stopwatch():
+        time.sleep(0.1)
+
+    captured = capsys.readouterr()
+    actual = captured.out
+    expected_substrings = [" -> ", " = "]
+
+    assert isinstance(actual, str)
+    assert all(substring in actual for substring in expected_substrings)
+
+    actual_runtime = actual.split(" = ")[-1]
+    assert actual_runtime.startswith("0.1")
+
+    # decorator
+    @bumbag.stopwatch()
+    def my_function():
+        time.sleep(0.1)
+
+    my_function()
+    actual = captured.out
+
+    assert isinstance(actual, str)
+    assert all(substring in actual for substring in expected_substrings)
+
+    actual_runtime = actual.split(" = ")[-1]
+    assert actual_runtime.startswith("0.1")
 
 
 @pytest.mark.parametrize(
