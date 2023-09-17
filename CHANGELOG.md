@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v5.1.0 (2023-09-17)
+### Feature
+* Add stopwatch ([#39](https://github.com/estripling/bumbag/issues/39)) ([`04599e6`](https://github.com/estripling/bumbag/commit/04599e6216a5db6474ad6b5d0074542c320047c3))
+
 ## v5.0.0 (2023-04-29)
 ### Feature
 * Add math-related functions ([#38](https://github.com/estripling/bumbag/issues/38)) ([`848b33e`](https://github.com/estripling/bumbag/commit/848b33ee62b719afd7384342175b5e10e1846fd2))
