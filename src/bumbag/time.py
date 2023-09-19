@@ -449,8 +449,20 @@ def months_between_dates(date1, date2, /, *, include_last_date=False):
 
 
 @contextmanager
-def stopwatch():
+def stopwatch(name=None, /, *, fmt=None, flush=True):
     """Measure elapsed wall-clock time.
+
+    Parameters
+    ----------
+    name : None, str, default=None
+        Optionally specify a name for easy identification.
+    fmt : None, str, default=None
+        Optionally specify a timestamp format. If ``fmt`` is None,
+        the following format is used: ``%Y-%m-%d %H:%M:%S``.
+    flush : bool, default=True
+        Passed to built-in print function:
+         - If ``True``, prints the start timestamp before the end timestamp.
+         - If ``False``, start and end timestamp are printed at the same time.
 
     Returns
     -------
@@ -478,13 +490,27 @@ def stopwatch():
     >>> my_function()  # doctest: +SKIP
     2023-09-17 14:57:00 -> 2023-09-17 14:57:00 = 0.100709s
     """
-    t0 = datetime.now()
-    yield
-    t1 = datetime.now()
-    elapsed = t1 - t0
-    fmt = "%Y-%m-%d %H:%M:%S"
-    timestamps = f"{t0.strftime(fmt)} -> {t1.strftime(fmt)}"
-    print(f"{timestamps} = {humantime(elapsed.total_seconds())}")
+    suffix = "" if name is None else f" - {name}"
+    fmt = "%Y-%m-%d %H:%M:%S" if fmt is None else fmt
+
+    def fmt_dt(t):
+        return t.strftime(fmt)
+
+    def elapsed_time(t0, t1):
+        return humantime((t1 - t0).total_seconds())
+
+    if flush:
+        t0 = datetime.now()
+        print(f"{fmt_dt(t0)} -> ", end="", flush=True)
+        yield
+        t1 = datetime.now()
+        print(f"{fmt_dt(t1)} = {elapsed_time(t0, t1)}{suffix}")
+
+    else:
+        t0 = datetime.now()
+        yield
+        t1 = datetime.now()
+        print(f"{fmt_dt(t0)} -> {fmt_dt(t1)} = {elapsed_time(t0, t1)}{suffix}")
 
 
 def to_date(string_to_cast, /):

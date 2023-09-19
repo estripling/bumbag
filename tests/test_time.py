@@ -1,3 +1,4 @@
+import os
 import time
 from datetime import date
 
@@ -244,6 +245,7 @@ def test_stopwatch(capsys):
 
     assert isinstance(actual, str)
     assert all(substring in actual for substring in expected_substrings)
+    assert actual.endswith(f"s{os.linesep}")
 
     actual_runtime = actual.split(" = ")[-1]
     assert actual_runtime.startswith("0.1")
@@ -258,6 +260,22 @@ def test_stopwatch(capsys):
 
     assert isinstance(actual, str)
     assert all(substring in actual for substring in expected_substrings)
+    assert actual.endswith(f"s{os.linesep}")
+
+    actual_runtime = actual.split(" = ")[-1]
+    assert actual_runtime.startswith("0.1")
+
+    # named context manager
+    with bumbag.stopwatch("test", flush=False):
+        time.sleep(0.1)
+
+    captured = capsys.readouterr()
+    actual = captured.out
+    expected_substrings = [" -> ", " = ", "s", " - "]
+
+    assert isinstance(actual, str)
+    assert all(substring in actual for substring in expected_substrings)
+    assert actual.endswith(f" - test{os.linesep}")
 
     actual_runtime = actual.split(" = ")[-1]
     assert actual_runtime.startswith("0.1")
