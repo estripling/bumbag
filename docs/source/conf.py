@@ -52,6 +52,15 @@ def skip_util_classes(app, what, name, obj, skip, options):
     # https://sphinx-autoapi.readthedocs.io/en/latest/reference/config.html#event-autoapi-skip-member
     if what == "module":
         skip = True
+
+    modules_to_show = []
+    if what == "module" and any(n in name for n in modules_to_show):
+        skip = False
+
+    if what in ("attribute", "method") and name.split(".")[-1].startswith("_"):
+        # skip private attributes and methods
+        skip = True
+
     return skip
 
 
