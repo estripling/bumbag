@@ -1,11 +1,373 @@
-import os
+import re
 import time
-from datetime import date
+from datetime import date, datetime, timedelta
 
 import pytest
 from toolz import curried
 
 import bumbag
+
+
+class TestStopwatch:
+    def test_context_manager__default_call(
+        self,
+        slumber,
+        regex_default_message,
+        capsys,
+    ):
+        with bumbag.stopwatch():
+            slumber()
+
+        actual = capsys.readouterr().out
+        expected = regex_default_message
+        assert re.search(expected, actual) is not None
+
+    def test_context_manager__instance(self, slumber, regex_default_message):
+        with bumbag.stopwatch() as sw:
+            slumber()
+
+        actual = str(sw)
+        expected = regex_default_message
+        assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize("label", [None, "lbl", 1])
+    def test_context_manager__label(
+        self,
+        slumber,
+        regex_default_message,
+        label,
+    ):
+        with bumbag.stopwatch(label) as sw:
+            slumber()
+
+        actual = str(sw)
+        expected = (
+            regex_default_message
+            if label is None
+            else regex_default_message.replace("$", f" - {label}$")
+        )
+        assert re.search(expected, actual) is not None
+        assert sw.label is None if label is None else sw.label == label
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.label = label
+
+        with pytest.raises(
+            TypeError,
+            match=r"got some positional-only arguments passed as keyword arguments",
+        ):
+            with bumbag.stopwatch(label=label) as sw:
+                slumber()
+
+    @pytest.mark.parametrize("flush", [True, False])
+    def test_context_manager__flush(self, slumber, regex_default_message, flush):
+        with bumbag.stopwatch(flush=flush) as sw:
+            slumber()
+
+        actual = str(sw)
+        expected = regex_default_message
+        assert re.search(expected, actual) is not None
+        assert sw.flush == flush
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.flush = flush
+
+    @pytest.mark.parametrize(
+        "case,fmt",
+        [
+            (1, None),
+            (2, "%Y-%m-%d %H:%M:%S"),
+            (3, "%H:%M:%S"),
+            (4, "%A, %d %B %Y %H:%M:%S"),
+        ],
+    )
+    def test_context_manager__fmt(
+        self,
+        slumber,
+        regex_default_message,
+        case,
+        fmt,
+        default_fmt="%Y-%m-%d %H:%M:%S",
+    ):
+        with bumbag.stopwatch(fmt=fmt) as sw:
+            slumber()
+
+        actual = str(sw)
+        expected = (
+            regex_default_message
+            if case in (1, 2)
+            else self.create_regex_for_message(r"\d{2}:\d{2}:\d{2}")
+            if case == 3
+            else self.create_regex_for_message(
+                r"\w+, \d{2} \w+ \d{4} \d{2}:\d{2}:\d{2}"
+            )
+            if case == 4
+            else None
+        )
+        assert re.search(expected, actual) is not None
+        assert sw.fmt == default_fmt if fmt is None else sw.fmt == fmt
+
+        # change timestamp format but not data
+        sw.fmt = default_fmt
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.start_time = datetime.now()
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.stop_time = datetime.now()
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.elapsed_time = timedelta(days=42)
+
+        actual = str(sw)
+        expected = regex_default_message
+        assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize("label", [None, "lbl"])
+    @pytest.mark.parametrize("flush", [True, False])
+    @pytest.mark.parametrize(
+        "case,fmt", [(1, None), (2, "%Y-%m-%d %H:%M:%S"), (3, "%H:%M:%S")]
+    )
+    def test_context_manager__many_param(
+        self,
+        slumber,
+        regex_default_message,
+        label,
+        flush,
+        case,
+        fmt,
+        default_fmt="%Y-%m-%d %H:%M:%S",
+    ):
+        with bumbag.stopwatch(label, flush=flush, fmt=fmt) as sw:
+            slumber()
+
+        actual = str(sw)
+        expected_message = (
+            regex_default_message
+            if case in (1, 2)
+            else self.create_regex_for_message(r"\d{2}:\d{2}:\d{2}")
+            if case == 3
+            else None
+        )
+        expected = (
+            expected_message
+            if label is None
+            else expected_message.replace("$", f" - {label}$")
+        )
+        assert re.search(expected, actual) is not None
+        assert sw.label == label
+        assert sw.flush == flush
+        assert sw.fmt == default_fmt if fmt is None else sw.fmt == fmt
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.label = label
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.flush = flush
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.start_time = datetime.now()
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.stop_time = datetime.now()
+
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.elapsed_time = timedelta(days=42)
+
+    def test_context_manager__total_elapsed_time(self, slumber, regex_default_message):
+        with bumbag.stopwatch(1) as sw1:
+            slumber()
+
+        with bumbag.stopwatch(2) as sw2:
+            slumber()
+
+        with bumbag.stopwatch(3) as sw3:
+            slumber()
+
+        for i, sw in enumerate([sw1, sw2, sw3]):
+            label = str(i + 1)
+            actual = str(sw)
+            expected = regex_default_message.replace("$", f" - {label}$")
+            assert re.search(expected, actual) is not None
+
+        additions = [
+            (1, sum([sw1])),
+            (2, sw1 + sw2),
+            (3, sum([sw2], start=sw1)),
+            (4, sum([sw1, sw2])),
+            (5, sw1 + sw2 + sw3),
+            (6, sum([sw2, sw3], start=sw1)),
+            (7, sum([sw1, sw2, sw3])),
+        ]
+        for case, total in additions:
+            actual = str(total)
+            num_stopwatches = 1 if case == 1 else 2 if 2 <= case <= 4 else 3
+            expected = rf"^0\.0{num_stopwatches}(\d*)?s - total elapsed time$"
+            assert re.search(expected, actual) is not None
+
+    def test_decorator__default_call(self, slumber, regex_default_message, capsys):
+        @bumbag.stopwatch()
+        def func():
+            slumber()
+
+        func()
+
+        actual = capsys.readouterr().out
+        expected = regex_default_message.replace("$", f" - {func.__name__}$")
+        assert re.search(expected, actual) is not None
+
+    def test_decorator__label(
+        self,
+        slumber,
+        regex_default_message,
+        capsys,
+        label="lbl",
+    ):
+        @bumbag.stopwatch(label)
+        def func():
+            slumber()
+
+        func()
+
+        actual = capsys.readouterr().out
+        expected = regex_default_message.replace("$", f" - {label}$")
+        assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize("flush", [True, False])
+    def test_decorator__flush(self, slumber, regex_default_message, flush, capsys):
+        @bumbag.stopwatch(flush=flush)
+        def func():
+            slumber()
+
+        func()
+
+        actual = capsys.readouterr().out
+        expected = regex_default_message.replace("$", f" - {func.__name__}$")
+        assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize(
+        "case,fmt",
+        [
+            (1, None),
+            (2, "%Y-%m-%d %H:%M:%S"),
+            (3, "%H:%M:%S"),
+            (4, "%A, %d %B %Y %H:%M:%S"),
+        ],
+    )
+    def test_decorator__fmt(
+        self,
+        slumber,
+        regex_default_message,
+        case,
+        fmt,
+        capsys,
+    ):
+        @bumbag.stopwatch(fmt=fmt)
+        def func():
+            slumber()
+
+        func()
+
+        actual = capsys.readouterr().out
+        expected_message = (
+            regex_default_message
+            if case in [1, 2]
+            else self.create_regex_for_message(r"\d{2}:\d{2}:\d{2}")
+            if case == 3
+            else self.create_regex_for_message(
+                r"\w+, \d{2} \w+ \d{4} \d{2}:\d{2}:\d{2}"
+            )
+            if case == 4
+            else None
+        )
+        expected = expected_message.replace("$", f" - {func.__name__}$")
+        assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize("label", [None, "lbl"])
+    @pytest.mark.parametrize("flush", [True, False])
+    @pytest.mark.parametrize(
+        "case,fmt", [(1, None), (2, "%Y-%m-%d %H:%M:%S"), (3, "%H:%M:%S")]
+    )
+    def test_decorator__many_param(
+        self,
+        slumber,
+        regex_default_message,
+        label,
+        flush,
+        case,
+        fmt,
+        capsys,
+    ):
+        @bumbag.stopwatch(label, fmt=fmt, flush=flush)
+        def func():
+            slumber()
+
+        func()
+
+        actual = capsys.readouterr().out
+        expected_message = (
+            regex_default_message
+            if case in (1, 2)
+            else self.create_regex_for_message(r"\d{2}:\d{2}:\d{2}")
+            if case == 3
+            else None
+        )
+        expected = (
+            expected_message.replace("$", f" - {func.__name__}$")
+            if label is None
+            else expected_message.replace("$", f" - {label}$")
+        )
+        assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize("label", [True, 0.0, set(), [2]])
+    def test_raises_type_error__label(self, slumber, label):
+        with pytest.raises(
+            TypeError,
+            match=r"label=.* - must be str, int, or NoneType",
+        ):
+            with bumbag.stopwatch(label):
+                slumber()
+
+    @pytest.mark.parametrize("flush", [None, 0, 1.0, set(), [2]])
+    def test_raises_type_error__flush(self, slumber, flush):
+        with pytest.raises(TypeError, match=r"flush=.* - must be bool"):
+            with bumbag.stopwatch(flush=flush):
+                slumber()
+
+    @pytest.mark.parametrize("fmt", [True, 0, 1.0, set(), [2]])
+    def test_raises_type_error__fmt(self, slumber, fmt):
+        with pytest.raises(TypeError, match=r"fmt=.* - must be str or NoneType"):
+            with bumbag.stopwatch(fmt=fmt):
+                slumber()
+
+    @pytest.mark.parametrize("fmt", [True, 0, 1.0, set(), [2]])
+    def test_raises_type_error__fmt_setter(self, slumber, fmt):
+        with bumbag.stopwatch() as sw:
+            slumber()
+
+        with pytest.raises(TypeError, match=r"value=.* - `fmt` must be str"):
+            sw.fmt = fmt
+
+    @pytest.fixture(scope="class")
+    def slumber(self):
+        def _():
+            time.sleep(0.01)
+
+        return _
+
+    @pytest.fixture(scope="class")
+    def regex_default_message(self, regex_default_fmt):
+        """Regex: default output message."""
+        return self.create_regex_for_message(regex_default_fmt)
+
+    @pytest.fixture(scope="class")
+    def regex_default_fmt(self):
+        """Regex: default timestamp format."""
+        return r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
+
+    @staticmethod
+    def create_regex_for_message(regex_fmt):
+        return rf"^{regex_fmt} -> {regex_fmt} = 0\.01(\d*)?s$"
 
 
 @pytest.mark.parametrize(
@@ -232,53 +594,6 @@ def test_months_between_dates(args, expected):
     d1, d2, with_last_date = args
     actual = bumbag.months_between_dates(d1, d2, include_last_date=with_last_date)
     assert actual == expected
-
-
-def test_stopwatch(capsys):
-    # context manager
-    with bumbag.stopwatch():
-        time.sleep(0.1)
-
-    captured = capsys.readouterr()
-    actual = captured.out
-    expected_substrings = [" -> ", " = "]
-
-    assert isinstance(actual, str)
-    assert all(substring in actual for substring in expected_substrings)
-    assert actual.endswith(f"s{os.linesep}")
-
-    actual_runtime = actual.split(" = ")[-1]
-    assert actual_runtime.startswith("0.1")
-
-    # decorator
-    @bumbag.stopwatch()
-    def my_function():
-        time.sleep(0.1)
-
-    my_function()
-    actual = captured.out
-
-    assert isinstance(actual, str)
-    assert all(substring in actual for substring in expected_substrings)
-    assert actual.endswith(f"s{os.linesep}")
-
-    actual_runtime = actual.split(" = ")[-1]
-    assert actual_runtime.startswith("0.1")
-
-    # named context manager
-    with bumbag.stopwatch("test", flush=False):
-        time.sleep(0.1)
-
-    captured = capsys.readouterr()
-    actual = captured.out
-    expected_substrings = [" -> ", " = ", "s", " - "]
-
-    assert isinstance(actual, str)
-    assert all(substring in actual for substring in expected_substrings)
-    assert actual.endswith(f" - test{os.linesep}")
-
-    actual_runtime = actual.split(" = ")[-1]
-    assert actual_runtime.startswith("0.1")
 
 
 @pytest.mark.parametrize(
