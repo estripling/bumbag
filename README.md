@@ -28,6 +28,23 @@ pip install bumbag
 
 ## Examples
 
+Measure elapsed wall-clock time and compute total elapsed time with [`stopwatch`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.html#bumbag.stopwatch):
+
+```python
+>>> import bumbag
+>>> import time
+>>> with bumbag.stopwatch(1) as sw1:
+...     time.sleep(1)
+...
+2023-01-01 12:00:00 -> 2023-01-01 12:00:01 = 1.00124s - 1
+>>> with bumbag.stopwatch(2) as sw2:
+...     time.sleep(1)
+...
+2023-01-01 12:01:00 -> 2023-01-01 12:01:01 = 1.00168s - 2
+>>> sw1 + sw2
+2.00291s - total elapsed time
+```
+
 Easily [`flatten`](https://bumbag.readthedocs.io/en/stable/autoapi/bumbag/index.html#bumbag.flatten) an irregular list:
 
 ```python
