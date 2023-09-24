@@ -174,6 +174,37 @@ class TestStopwatch:
         with pytest.raises(AttributeError, match=r"can't set attribute"):
             sw.elapsed_time = timedelta(days=42)
 
+    def test_context_manager__total_elapsed_time(self, slumber, regex_default_message):
+        with bumbag.stopwatch(1) as sw1:
+            slumber()
+
+        with bumbag.stopwatch(2) as sw2:
+            slumber()
+
+        with bumbag.stopwatch(3) as sw3:
+            slumber()
+
+        for i, sw in enumerate([sw1, sw2, sw3]):
+            label = str(i + 1)
+            actual = str(sw)
+            expected = regex_default_message.replace("$", f" - {label}$")
+            assert re.search(expected, actual) is not None
+
+        additions = [
+            (1, sum([sw1])),
+            (2, sw1 + sw2),
+            (3, sum([sw2], start=sw1)),
+            (4, sum([sw1, sw2])),
+            (5, sw1 + sw2 + sw3),
+            (6, sum([sw2, sw3], start=sw1)),
+            (7, sum([sw1, sw2, sw3])),
+        ]
+        for case, total in additions:
+            actual = str(total)
+            num_stopwatches = 1 if case == 1 else 2 if 2 <= case <= 4 else 3
+            expected = rf"^0\.0{num_stopwatches}(\d*)?s - total elapsed time$"
+            assert re.search(expected, actual) is not None
+
     def test_decorator__default_call(self, slumber, regex_default_message, capsys):
         @bumbag.stopwatch()
         def func():

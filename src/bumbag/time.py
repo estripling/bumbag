@@ -32,6 +32,8 @@ class stopwatch(ContextDecorator):
     ----------
     label : None, str, int, default=None
         Optionally specify a label for easy identification.
+        When used as a decorator and label is not specified,
+        label is the name of the function.
     flush : bool, default=True
         Passed to built-in print function:
          - If ``True``, prints start time before stop time.
@@ -42,8 +44,10 @@ class stopwatch(ContextDecorator):
 
     Notes
     -----
-    Object creation and use of an object's properties is only possible
-    when ``stopwatch`` is used as a context manager (see examples).
+    - Instantiation and use of an instance's properties is only possible
+      when ``stopwatch`` is used as a context manager (see examples).
+    - The total elapsed time is computed when multiple ``stopwatch`` instances
+      are added (see examples).
 
     Examples
     --------
@@ -86,6 +90,26 @@ class stopwatch(ContextDecorator):
     datetime.timedelta(microseconds=100647)
     >>> sw  # doctest: +SKIP
     2023-01-01 12:00:00 -> 2023-01-01 12:00:00 = 0.100647s - instance-example
+
+    >>> # compute total elapsed time
+    >>> import bumbag
+    >>> import time
+    >>> with bumbag.stopwatch(1) as sw1:  # doctest: +SKIP
+    ...     time.sleep(1)
+    ...
+    2023-01-01 12:00:00 -> 2023-01-01 12:00:01 = 1.00122s - 1
+    >>> with bumbag.stopwatch(2) as sw2:  # doctest: +SKIP
+    ...     time.sleep(1)
+    ...
+    2023-01-01 12:01:00 -> 2023-01-01 12:01:01 = 1.00121s - 2
+    >>> with bumbag.stopwatch(3) as sw3:  # doctest: +SKIP
+    ...     time.sleep(1)
+    ...
+    2023-01-01 12:02:00 -> 2023-01-01 12:02:01 = 1.00119s - 3
+    >>> sw1 + sw2 + sw3  # doctest: +SKIP
+    3.00362s - total elapsed time
+    >>> sum([sw1, sw2, sw3])  # doctest: +SKIP
+    3.00362s - total elapsed time
     """
 
     def __init__(self, label=None, /, *, flush=True, fmt=None):
@@ -106,6 +130,7 @@ class stopwatch(ContextDecorator):
         self._start_time = None
         self._stop_time = None
         self._elapsed_time = None
+        self._is_total = False
 
     def __repr__(self):
         return (
@@ -119,9 +144,8 @@ class stopwatch(ContextDecorator):
         Returns
         -------
         NoneType or str
-            Label if specified in the call else None.
-            When used as a decorator and label is not specified in the call,
-            label is the name of the decorated function.
+            Label if specified in the call else None when used as context manager.
+            When used as decorator, label is the name of the decorated function.
         """
         return self._label
 
@@ -207,7 +231,11 @@ class stopwatch(ContextDecorator):
         return False
 
     def _output_message(self):
-        return self._message_part_1() + self._message_part_2()
+        return (
+            f"{self._human_readable_elapsed_time()} - {self.label}"
+            if self._is_total
+            else self._message_part_1() + self._message_part_2()
+        )
 
     def _message_part_1(self):
         return self._datetime_to_str(self.start_time) + " -> "
@@ -227,6 +255,26 @@ class stopwatch(ContextDecorator):
 
     def _datetime_to_str(self, date_time):
         return date_time.strftime(self.fmt)
+
+    def __add__(self, other):
+        total = self._create_total_instance()
+        total._elapsed_time = self.elapsed_time + other.elapsed_time
+        return total
+
+    def __radd__(self, other):
+        other_elapsed_time = (
+            other.elapsed_time if isinstance(other, stopwatch) else timedelta()
+        )
+        total = self._create_total_instance()
+        total._elapsed_time = other_elapsed_time + self.elapsed_time
+        return total
+
+    @staticmethod
+    def _create_total_instance():
+        total = stopwatch("total elapsed time", fmt=None, flush=False)
+        total._fmt = None
+        total._is_total = True
+        return total
 
 
 def datedelta(reference_date, /, *, days):
