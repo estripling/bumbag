@@ -30,64 +30,47 @@ class TestStopwatch:
         expected = regex_default_message
         assert re.search(expected, actual) is not None
 
-    @pytest.mark.parametrize("label", [None, "lbl", 1, True, 0.0, set(), [2]])
+    @pytest.mark.parametrize("label", [None, "lbl", 1])
     def test_context_manager__label(
         self,
         slumber,
         regex_default_message,
         label,
     ):
-        if label is not None and not isinstance(label, (str, int)):
-            with pytest.raises(
-                TypeError,
-                match=r"label=.* - must be a string, integer, or NoneType",
-            ):
-                with bumbag.stopwatch(label):
-                    slumber()
+        with bumbag.stopwatch(label) as sw:
+            slumber()
 
-        else:
+        actual = str(sw)
+        expected = (
+            regex_default_message
+            if label is None
+            else regex_default_message.replace("$", f" - {label}$")
+        )
+        assert re.search(expected, actual) is not None
+        assert sw.label is None if label is None else sw.label == label
 
-            with bumbag.stopwatch(label) as sw:
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.label = label
+
+        with pytest.raises(
+            TypeError,
+            match=r"got some positional-only arguments passed as keyword arguments",
+        ):
+            with bumbag.stopwatch(label=label) as sw:
                 slumber()
 
-            actual = str(sw)
-            expected = (
-                regex_default_message
-                if label is None
-                else regex_default_message.replace("$", f" - {label}$")
-            )
-            assert re.search(expected, actual) is not None
-            assert sw.label is None if label is None else sw.label == label
-
-            with pytest.raises(AttributeError, match=r"can't set attribute"):
-                sw.label = label
-
-            with pytest.raises(
-                TypeError,
-                match=r"got some positional-only arguments passed as keyword arguments",
-            ):
-                with bumbag.stopwatch(label=label) as sw:
-                    slumber()
-
-    @pytest.mark.parametrize("flush", [True, False, None, 0, 1.0, set(), [2]])
+    @pytest.mark.parametrize("flush", [True, False])
     def test_context_manager__flush(self, slumber, regex_default_message, flush):
-        if not isinstance(flush, bool):
-            with pytest.raises(TypeError, match=r"flush=.* - must be bool"):
-                with bumbag.stopwatch(flush=flush):
-                    slumber()
+        with bumbag.stopwatch(flush=flush) as sw:
+            slumber()
 
-        else:
+        actual = str(sw)
+        expected = regex_default_message
+        assert re.search(expected, actual) is not None
+        assert sw.flush == flush
 
-            with bumbag.stopwatch(flush=flush) as sw:
-                slumber()
-
-            actual = str(sw)
-            expected = regex_default_message
-            assert re.search(expected, actual) is not None
-            assert sw.flush == flush
-
-            with pytest.raises(AttributeError, match=r"can't set attribute"):
-                sw.flush = flush
+        with pytest.raises(AttributeError, match=r"can't set attribute"):
+            sw.flush = flush
 
     @pytest.mark.parametrize(
         "case,fmt",
@@ -304,6 +287,21 @@ class TestStopwatch:
             else expected_message.replace("$", f" - {label}$")
         )
         assert re.search(expected, actual) is not None
+
+    @pytest.mark.parametrize("label", [True, 0.0, set(), [2]])
+    def test_raises_type_error__label(self, slumber, label):
+        with pytest.raises(
+            TypeError,
+            match=r"label=.* - must be str, int, or NoneType",
+        ):
+            with bumbag.stopwatch(label):
+                slumber()
+
+    @pytest.mark.parametrize("flush", [None, 0, 1.0, set(), [2]])
+    def test_raises_type_error__flush(self, slumber, flush):
+        with pytest.raises(TypeError, match=r"flush=.* - must be bool"):
+            with bumbag.stopwatch(flush=flush):
+                slumber()
 
     @pytest.fixture(scope="class")
     def slumber(self):
