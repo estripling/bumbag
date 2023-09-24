@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v5.2.0 (2023-09-24)
+### Feature
+* Stopwatch as a class ([#41](https://github.com/estripling/bumbag/issues/41)) ([`1b33d27`](https://github.com/estripling/bumbag/commit/1b33d27f7bf05554122fa7d2ddef6d4acf019120))
+
 ## v5.1.0 (2023-09-17)
 ### Feature
 * Add stopwatch ([#39](https://github.com/estripling/bumbag/issues/39)) ([`04599e6`](https://github.com/estripling/bumbag/commit/04599e6216a5db6474ad6b5d0074542c320047c3))
