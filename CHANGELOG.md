@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v5.2.1 (2023-09-24)
+### Fix
+* Missing requirement for docs ([`ec490a3`](https://github.com/estripling/bumbag/commit/ec490a3edeae13cb731ccbcb6eb8bdced9d6e037))
+
 ## v5.2.0 (2023-09-24)
 ### Feature
 * Stopwatch as a class ([#41](https://github.com/estripling/bumbag/issues/41)) ([`1b33d27`](https://github.com/estripling/bumbag/commit/1b33d27f7bf05554122fa7d2ddef6d4acf019120))
