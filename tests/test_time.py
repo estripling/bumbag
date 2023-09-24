@@ -303,6 +303,20 @@ class TestStopwatch:
             with bumbag.stopwatch(flush=flush):
                 slumber()
 
+    @pytest.mark.parametrize("fmt", [True, 0, 1.0, set(), [2]])
+    def test_raises_type_error__fmt(self, slumber, fmt):
+        with pytest.raises(TypeError, match=r"fmt=.* - must be str or NoneType"):
+            with bumbag.stopwatch(fmt=fmt):
+                slumber()
+
+    @pytest.mark.parametrize("fmt", [True, 0, 1.0, set(), [2]])
+    def test_raises_type_error__fmt_setter(self, slumber, fmt):
+        with bumbag.stopwatch() as sw:
+            slumber()
+
+        with pytest.raises(TypeError, match=r"value=.* - `fmt` must be str"):
+            sw.fmt = fmt
+
     @pytest.fixture(scope="class")
     def slumber(self):
         def _():

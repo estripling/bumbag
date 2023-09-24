@@ -97,6 +97,9 @@ class stopwatch(ContextDecorator):
         if not isinstance(flush, bool):
             raise TypeError(f"{flush=} - must be bool")
 
+        if fmt is not None and not isinstance(fmt, str):
+            raise TypeError(f"{fmt=} - must be str or NoneType")
+
         self._label = label
         self._flush = flush
         self._fmt = "%Y-%m-%d %H:%M:%S" if fmt is None else fmt
@@ -149,6 +152,8 @@ class stopwatch(ContextDecorator):
 
     @fmt.setter
     def fmt(self, value):
+        if not isinstance(value, str):
+            raise TypeError(f"{value=} - `fmt` must be str")
         self._fmt = value
 
     @property
