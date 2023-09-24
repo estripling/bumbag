@@ -44,6 +44,7 @@ class TestStopwatch:
             ):
                 with bumbag.stopwatch(label):
                     slumber()
+
         else:
 
             with bumbag.stopwatch(label) as sw:
@@ -68,18 +69,25 @@ class TestStopwatch:
                 with bumbag.stopwatch(label=label) as sw:
                     slumber()
 
-    @pytest.mark.parametrize("flush", [True, False])
+    @pytest.mark.parametrize("flush", [True, False, None, 0, 1.0, set(), [2]])
     def test_context_manager__flush(self, slumber, regex_default_message, flush):
-        with bumbag.stopwatch(flush=flush) as sw:
-            slumber()
+        if not isinstance(flush, bool):
+            with pytest.raises(TypeError, match=r"flush=.* - must be bool"):
+                with bumbag.stopwatch(flush=flush):
+                    slumber()
 
-        actual = str(sw)
-        expected = regex_default_message
-        assert re.search(expected, actual) is not None
-        assert sw.flush == flush
+        else:
 
-        with pytest.raises(AttributeError, match=r"can't set attribute"):
-            sw.flush = flush
+            with bumbag.stopwatch(flush=flush) as sw:
+                slumber()
+
+            actual = str(sw)
+            expected = regex_default_message
+            assert re.search(expected, actual) is not None
+            assert sw.flush == flush
+
+            with pytest.raises(AttributeError, match=r"can't set attribute"):
+                sw.flush = flush
 
     @pytest.mark.parametrize(
         "case,fmt",

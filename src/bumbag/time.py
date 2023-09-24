@@ -92,6 +92,9 @@ class stopwatch(ContextDecorator):
         if label is not None and not isinstance(label, (str, int)):
             raise TypeError(f"{label=} - must be a string, integer, or NoneType")
 
+        if not isinstance(flush, bool):
+            raise TypeError(f"{flush=} - must be bool")
+
         self._label = label
         self._flush = flush
         self._fmt = "%Y-%m-%d %H:%M:%S" if fmt is None else fmt
